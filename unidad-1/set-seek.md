@@ -4,13 +4,13 @@
 
 ### Actividad 1: 🌀
 
-La aleatoriedad en el arte generativo permite crear resultados únicos en cada obra, los cuales tienden a ser más orgánicos y naturales, aportando una expresividad visual que evita lo repetitivo.
+Permite crear resultados únicos en cada obra, que tienden a ser más orgánicos y naturales, generando una expresividad visual que evita lo repetitivo.
 
 ### Actividad 2 – Análisis del trabajo de Sofía ✨
 
-En el caso de Sofía, la aleatoriedad permite que la obra no sea predecible ni siempre igual, dándole un efecto más orgánico y haciendo que quien la observa e interactúa con ella la perciba como única en cada ocasión.
+En el caso de Sofía, ella usa la aleatoriedad en colores velocidad para generar las lienas, lo que permite que la obra no sea predecible ni siempre igual, dándole un efecto más orgánico y haciendo que quien la observa e interactúa con ella la perciba como única en cada ocasión.
 
-Al mismo tiempo, esta aleatoriedad controlada asegura que, sin salirse de ciertos parámetros, se pueda definir el tipo de sensación que genera la obra en cada momento. Así, aunque cada ejecución sea distinta, produce una experiencia similar, sincronizada con la música.
+Al mismo tiempo, esta aleatoriedad controlada asegura que, sin salirse de ciertos parámetros, se pueda definir el tipo de sensación que genera la obra en cada momento. Entonces, aunque cada ejecución sea distinta y única, produce una experiencia similar, sincronizada con la música.  
 
 ### Aplicación profesional – Artista 3D 🎨
 
