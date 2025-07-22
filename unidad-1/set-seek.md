@@ -104,7 +104,7 @@ https://editor.p5js.org/LCami-Villanueva/sketches/fN5sRFIDK
 
   <img width="759" height="543" alt="image" src="https://github.com/user-attachments/assets/4accabf9-fc4f-49ef-89e8-1a9b359d63ed" />
 
- ### Actividad 5
+ ### Actividad 6
 **Lévy flight**   
 - Crea un nuevo sketch en p5.js donde modifiques uno de los ejemplos anteriores y adiciones de Lévy flight.
 - Explica por qué usaste esta técnica y qué resultados esberabas obtener.
@@ -171,6 +171,48 @@ https://editor.p5js.org/LCami-Villanueva/sketches/1MQHB68oS
 
 
   <img width="639" height="724" alt="image" src="https://github.com/user-attachments/assets/65e6b7d1-7987-4c13-9fdd-46c2590b645d" />
+
+   ### Actividad 7
+
+- Crea un nuevo sketch en p5.js donde los visualices.
+- Explica el concepto qué resultados esberabas obtener.
+
+  El Perlin Noise es una función matemática que genera una secuencia de números con transiciones suaves, es decir, no cambia abruptamente como random(). Esto lo hace ideal para representar movimientos o patrones naturales como el viento, las olas, el fuego o el crecimiento orgánico. A diferencia del ruido aleatorio tradicional, el ruido Perlin mantiene cierta continuidad, lo que permite crear animaciones más fluidas y realistas.
+
+  Con este experimento, esperaba lograr un movimiento suave y natural en el lienzo. A diferencia de random(), que hace que los puntos salten de forma impredecible, el ruido Perlin permite que las figuras (como el círculo del sketch) se desplacen suavemente por la pantalla, casi como si fueran impulsadas por el viento. El resultado es una animación más armoniosa y menos caótica, ideal para representar comportamientos orgánicos o naturales.
+     
+- Copia el código en tu bitácora.
+
+``` let t = 0; // Tiempo para controlar el ruido
+
+function setup() {
+  createCanvas(600, 400);
+  background(255);
+  noFill();
+}
+
+function draw() {
+  stroke(100, 100, 250, 100);
+  strokeWeight(2);
+  
+  let x = noise(t) * width;
+  let y = noise(t + 1000) * height; // +1000 para que X y Y sean diferentes
+
+  ellipse(x, y, 20, 20);
+  
+  t += 0.01; // Incremento lento para mantener suavidad
+}
+```
+- Coloca en enlace a tu sketch en p5.js en tu bitácora.
+  https://editor.p5js.org/LCami-Villanueva/sketches/eIBMRL1kG
+
+  
+- Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+
+  <img width="609" height="331" alt="image" src="https://github.com/user-attachments/assets/3b47a575-b674-4ca5-ba66-cd7d63f3dbe6" />
+
+
+  
 
 
 
