@@ -50,6 +50,67 @@ Un sistema de distribución no uniforme tiende hacia un número definido, es dec
   Así se favorece el moviemiento hacia la derecha ya que al sumar 1  esto dezplaza la media hacia la derecha.
 
   
+ ### Actividad 5
+**Distribución Normal**      
+- Crea un nuevo sketch en p5.js que represente una distribución normal.
+- Copia el código en tu bitácora.
+
+```let total = 1000; // Total de muestras que queremos generar
+let bins = new Array(50).fill(0); // 50 "cajones" para agrupar los valores
+let media = 250;
+let desviacion = 40;
+
+function setup() {
+  createCanvas(600, 400);
+  background(255);
+
+  // Generar mil valores distribuidos normalmente
+  for (let i = 0; i < total; i++) {
+    let num = randomGaussian() * desviacion + media;
+
+    // Mapear valor a un índice del histograma
+    let index = floor(map(num, 150, 350, 0, bins.length));
+    if (index >= 0 && index < bins.length) {
+      bins[index]++;
+    }
+  }
+}
+
+function draw() {
+  background(255);
+  stroke(0);
+  fill(100, 150, 255);
+
+  let w = width / bins.length;
+
+  // Dibujar cada barra del histograma
+  for (let i = 0; i < bins.length; i++) {
+    let h = bins[i] * 4; // escalar altura para que se vea mejor
+    rect(i * w, height - h, w, h);
+  }
+
+  noLoop(); // Solo dibujar una vez
+}
+```
+- Coloca en enlace a tu sketch en p5.js en tu bitácora.
+https://editor.p5js.org/LCami-Villanueva/sketches/fN5sRFIDK
+  
+- Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+
+  
+
+  <img width="807" height="689" alt="image" src="https://github.com/user-attachments/assets/500583b9-95d2-4c3e-aa98-003a6c580608" />
+
+
+  <img width="759" height="543" alt="image" src="https://github.com/user-attachments/assets/4accabf9-fc4f-49ef-89e8-1a9b359d63ed" />
+
+
+
+ 
+
+  
+
+  
   
 
 
