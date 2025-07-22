@@ -104,6 +104,75 @@ https://editor.p5js.org/LCami-Villanueva/sketches/fN5sRFIDK
 
   <img width="759" height="543" alt="image" src="https://github.com/user-attachments/assets/4accabf9-fc4f-49ef-89e8-1a9b359d63ed" />
 
+ ### Actividad 5
+**Lévy flight**   
+- Crea un nuevo sketch en p5.js donde modifiques uno de los ejemplos anteriores y adiciones de Lévy flight.
+- Explica por qué usaste esta técnica y qué resultados esberabas obtener.
+
+
+Usé la técnica de Lévy flight para simular un movimiento más natural e impredecible. Esta técnica mezcla pasos pequeños y frecuentes (generados con distribución normal) con saltos largos y poco frecuentes (Lévy flights), lo que produce trayectorias realistas y complejas.
+
+  
+- Copia el código en tu bitácora.
+
+```let walker;
+
+function setup() {
+  createCanvas(400, 400);
+  walker = new Walker();
+  background(240);
+}
+
+function draw() {
+  walker.step();
+  walker.display();
+}
+
+class Walker {
+  constructor() {
+    this.x = width / 2;
+    this.y = height / 2;
+  }
+
+  step() {
+    let stepX, stepY;
+    
+    // 5% de las veces: paso largo (Lévy flight)
+    if (random(1) < 0.05) {
+      stepX = random(-100, 100);
+      stepY = random(-100, 100);
+    } else {
+      // 95% de las veces: paso normal (distribución gaussiana)
+      stepX = randomGaussian() * 10;
+      stepY = randomGaussian() * 10;
+    }
+
+    this.x += stepX;
+    this.y += stepY;
+
+    // Limitar dentro del canvas
+    this.x = constrain(this.x, 0, width);
+    this.y = constrain(this.y, 0, height);
+  }
+
+  display() {
+    stroke(0);
+    point(this.x, this.y);
+  }
+}
+```
+
+- Coloca en enlace a tu sketch en p5.js en tu bitácora.
+https://editor.p5js.org/LCami-Villanueva/sketches/1MQHB68oS
+
+
+  
+- Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+
+
+  <img width="639" height="724" alt="image" src="https://github.com/user-attachments/assets/65e6b7d1-7987-4c13-9fdd-46c2590b645d" />
+
+
 
 
  
