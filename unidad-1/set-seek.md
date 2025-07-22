@@ -228,6 +228,8 @@ https://editor.p5js.org/LCami-Villanueva/sketches/eIBMRL1kG
 - Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
 <img width="625" height="612" alt="image" src="https://github.com/user-attachments/assets/1351b213-3fad-45ac-9bf7-30f4cd222e6d" />
 
+
+
 <img width="311" height="267" alt="image" src="https://github.com/user-attachments/assets/507c1678-572a-4ea3-ac19-76b0e78e0566" />
 
 
