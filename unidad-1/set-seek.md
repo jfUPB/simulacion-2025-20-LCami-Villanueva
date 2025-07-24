@@ -49,207 +49,213 @@ Un sistema de distribución no uniforme tiende hacia un número definido, es dec
 
   Así se favorece el moviemiento hacia la derecha ya que al sumar 1  esto dezplaza la media hacia la derecha.
 
-  
- ### Actividad 5
-**Distribución Normal**      
-- Crea un nuevo sketch en p5.js que represente una distribución normal.
-- Copia el código en tu bitácora.
-
-```let total = 1000; // Total de muestras que queremos generar
-let bins = new Array(50).fill(0); // 50 "cajones" para agrupar los valores
-let media = 250;
-let desviacion = 40;
+  ### Actividad 5
+  - Crea un nuevo sketch en p5.js que represente una distribución normal.
+ 
+    
+     Decidí hacer mi sketch sobre la edad de las personas universitarias. Si bien puedes encontrar muchas edades, el rango casi siempre va de los 17 a los 25 años aproximadamente. Por eso, la media sería 21 con una           desviación de 2, para que la mayoría esté entre los 19 y los 23 años, que sería lo más común. Igual, un 2 es razonable porque no queremos que se disperse tanto, y así la mayoría queda entre los 17 y 25.
+    
+  - Copia el código en tu bitácora.
+```
+let edades = []; // Guardamos las edades generadas
+let media = 21;
+let desviacion = 2;
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(640, 240);
   background(255);
-
-  // Generar mil valores distribuidos normalmente
-  for (let i = 0; i < total; i++) {
-    let num = randomGaussian() * desviacion + media;
-
-    // Mapear valor a un índice del histograma
-    let index = floor(map(num, 150, 350, 0, bins.length));
-    if (index >= 0 && index < bins.length) {
-      bins[index]++;
-    }
-  }
+  textSize(12);
+  fill(0);
+  text('Distribución de Edades universitarios de Pregrado ', 180, 20);
+  frameRate(60); // Controlar la velocidad de generación
 }
 
 function draw() {
-  background(255);
-  stroke(0);
-  fill(100, 150, 255);
+  // Simulamos una edad según distribución normal
+  let edad = randomGaussian(media, desviacion);
+  edades.push(edad);
 
-  let w = width / bins.length;
+  // Convertimos edad a posición x en pantalla
+  let x = map(edad, 14, 28, 50, width - 50, true); // 16 a 26 años como rango visible
+  let y = random(height / 2, height);
 
-  // Dibujar cada barra del histograma
-  for (let i = 0; i < bins.length; i++) {
-    let h = bins[i] * 4; // escalar altura para que se vea mejor
-    rect(i * w, height - h, w, h);
+  noStroke();
+  fill(100, 150, 255, 30); // azul claro, con transparencia
+  circle(x, y, 10);
+
+  // Dibujamos escala de edad abajo
+  for (let i = 14; i <= 28; i++) {
+    let xi = map(i, 14, 28, 50, width - 50);
+    fill(0);
+    text(i, xi - 5, height - 10);
   }
 
-  noLoop(); // Solo dibujar una vez
+  // Detener cuando hay muchas
+  if (edades.length > 2000) noLoop();
 }
 ```
-- Coloca en enlace a tu sketch en p5.js en tu bitácora.
-https://editor.p5js.org/LCami-Villanueva/sketches/fN5sRFIDK
-  
-- Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+  - Coloca en enlace a tu sketch en p5.js en tu bitácora.
+    https://editor.p5js.org/LCami-Villanueva/sketches/E-B4HfObl
+    
+  - Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+    
 
-  
+<img width="869" height="326" alt="image" src="https://github.com/user-attachments/assets/03c7e96b-4eeb-4433-bf44-328c0492c37d" />
 
-  <img width="807" height="689" alt="image" src="https://github.com/user-attachments/assets/500583b9-95d2-4c3e-aa98-003a6c580608" />
-
-
-  <img width="759" height="543" alt="image" src="https://github.com/user-attachments/assets/4accabf9-fc4f-49ef-89e8-1a9b359d63ed" />
-
- ### Actividad 6
-**Lévy flight**   
+ ### Actividad 6   
+ 
 - Crea un nuevo sketch en p5.js donde modifiques uno de los ejemplos anteriores y adiciones de Lévy flight.
+
+  Decidí escoger el ejemplo de la distribución de edades de los estudiantes universitarios de pregrado, simulando una población donde la mayoría de personas se concentran entre los 17 y 25 años. Con una distribución normal con una media de 21 y una desviación estandar de 2, y agregar el Lévy flight.
+  
 - Explica por qué usaste esta técnica y qué resultados esberabas obtener.
 
+  Use esta técnica para mostrar casos poco frecuentes con edades muy distintas al promedio, como por ejemplo niños prodigio (entre 10 y 14 años) o adultos mayores que regresan a estudiar (entre 30 y 80 años). La elegí  porque, aunque son raros, estos casos existen en la realidad y pueden tener un impacto significativo en la diversidad y en la dinámica de una comunidad académica.
 
-Usé la técnica de Lévy flight para simular un movimiento más natural e impredecible. Esta técnica mezcla pasos pequeños y frecuentes (generados con distribución normal) con saltos largos y poco frecuentes (Lévy flights), lo que produce trayectorias realistas y complejas.
-
-  
+  Esperaba que, al incluir Lévy flights, el gráfico no solo muestre la forma típica de una distribución normal, sino que también haga visibles esas excepciones que no suelen considerarse. Visualmente, buscaba que se destacaran estos puntos fuera de lo común.
 - Copia el código en tu bitácora.
 
-```let walker;
+```
+let edades = [];
+let media = 21;
+let desviacion = 2;
 
 function setup() {
-  createCanvas(400, 400);
-  walker = new Walker();
+  createCanvas(800, 300);
   background(240);
+  textSize(12);
+  fill(0);
+  textAlign(CENTER);
+  text('Distribución de Edades Universitarias + Lévy Flight', width / 2, 20);
+  frameRate(60);
 }
 
 function draw() {
-  walker.step();
-  walker.display();
-}
-
-class Walker {
-  constructor() {
-    this.x = width / 2;
-    this.y = height / 2;
-  }
-
-  step() {
-    let stepX, stepY;
-    
-    // 5% de las veces: paso largo (Lévy flight)
-    if (random(1) < 0.05) {
-      stepX = random(-100, 100);
-      stepY = random(-100, 100);
+  let edad;
+  
+  // Con 97% de probabilidad generamos edad normal
+  if (random(1) < 0.97) {
+    edad = randomGaussian(media, desviacion);
+  } else {
+    // 3% de probabilidad de un Lévy flight (niños o adultos mayores)
+    if (random(1) < 0.5) {
+      edad = random(10, 14); // niños prodigio
     } else {
-      // 95% de las veces: paso normal (distribución gaussiana)
-      stepX = randomGaussian() * 10;
-      stepY = randomGaussian() * 10;
+      edad = random(30, 80); // adultos mayores
     }
-
-    this.x += stepX;
-    this.y += stepY;
-
-    // Limitar dentro del canvas
-    this.x = constrain(this.x, 0, width);
-    this.y = constrain(this.y, 0, height);
   }
 
-  display() {
-    stroke(0);
-    point(this.x, this.y);
+  edades.push(edad);
+
+  // Expandimos el mapeo en X para ver edades de 10 a 80
+  let x = map(edad, 10, 80, 50, width - 50, true);
+  let y = random(height / 2, height - 20);
+
+  noStroke();
+  if (edad < 17 || edad > 25) {
+    fill(255, 100, 100, 60); // rojo para destacar Lévy flight
+  } else {
+    fill(100, 150, 255, 30); // azul normal
+  }
+  circle(x, y, 10);
+
+  // Escala de edades en la parte inferior
+  for (let i = 10; i <= 80; i += 5) {
+    let xi = map(i, 10, 80, 50, width - 50);
+    fill(0);
+    text(i, xi, height - 5);
+  }
+
+  if (edades.length > 2000) {
+    noLoop();
   }
 }
 ```
 
-- Coloca en enlace a tu sketch en p5.js en tu bitácora.
-https://editor.p5js.org/LCami-Villanueva/sketches/1MQHB68oS
+- Coloca en enlace a tu sketch en p5.js en tu bitácora.  https://editor.p5js.org/LCami-Villanueva/sketches/jOEaQhc8g
 
-
-  
 - Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
 
+  <img width="823" height="409" alt="image" src="https://github.com/user-attachments/assets/8cd62c56-6585-4e77-914a-ee2529004785" />
 
-  <img width="639" height="724" alt="image" src="https://github.com/user-attachments/assets/65e6b7d1-7987-4c13-9fdd-46c2590b645d" />
-
-   ### Actividad 7
-
+ ### Actividad 7
+ 
 - Crea un nuevo sketch en p5.js donde los visualices.
+
+  
+   Me imagino que el  Perlin noise puede representar el movimiento de una llamita de fuego que es  sueva y con variaciones orgánicas.
+  
 - Explica el concepto qué resultados esberabas obtener.
 
-  El Perlin Noise es una función matemática que genera una secuencia de números con transiciones suaves, es decir, no cambia abruptamente como random(). Esto lo hace ideal para representar movimientos o patrones naturales como el viento, las olas, el fuego o el crecimiento orgánico. A diferencia del ruido aleatorio tradicional, el  Perlin Noise  mantiene cierta continuidad, lo que permite crear animaciones más fluidas y realistas.
-
-  Con est0, espero lograr un movimiento más suave y natural en el lienzo. El Perlin Noise permite que las figuras se desplacen suavemente por la pantalla, casi como si fueran impulsadas por el viento. Por lo que el resultado es una animación más armoniosa y menos caótica, que sirve para representar comportamientos mas orgánicos o naturales.
-     
+  
+  Busca simular el comportamiento orgánico de una llama mediante un sistema de partículas que se mueve por ruido Perlin. Lo que permite generar movimientos suaves y fluidos, imitando el temblor natural del fuego al ascender. La intención es crear una sensación de calor y vitalidad.
+  
 - Copia el código en tu bitácora.
-
-``` let walker;
-let tx = 0;  // tiempo para eje x
-let ty = 1000; // tiempo para eje y (separado para evitar duplicación de trayectoria)
+```
+  let particles = [];
 
 function setup() {
-  createCanvas(400, 400);
-  walker = new Walker();
-  background(255);
+  createCanvas(500, 300);
+  noStroke();
 }
 
 function draw() {
-  walker.step();
-  walker.display();
+  background(10, 10, 20, 50); // 
+
+  // Agrega nuevas partículas
+  for (let i = 0; i < 5; i++) {
+    particles.push(new FireParticle(width / 2, height - 20));
+  }
+
+  // Actualiza y muestra partículas
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].show();
+    if (particles[i].finished()) {
+      particles.splice(i, 1);
+    }
+  }
 }
 
-class Walker {
-  constructor() {
-    this.x = width / 2;
-    this.y = height / 2;
+class FireParticle {
+  constructor(x, y) {
+    this.x = x + random(-10, 10);
+    this.y = y;
+    this.lifespan = 255;
+    this.noiseOffset = random(1000); // punto de entrada diferente al ruido
   }
 
-  step() {
-    // En lugar de random, usamos Perlin noise
-    this.x = map(noise(tx), 0, 1, 0, width);
-    this.y = map(noise(ty), 0, 1, 0, height);
+  update() {
+    // Movimiento vertical hacia arriba
+    this.y -= 1.5;
 
-    // Incrementamos el tiempo lentamente para que el movimiento sea suave
-    tx += 0.01;
-    ty += 0.01;
+    // Movimiento horizontal suave (llama que baila)
+    let n = noise(this.noiseOffset);
+    this.x += map(n, 0, 1, -1.5, 1.5);
+    this.noiseOffset += 0.03;
+
+    // Se va desvaneciendo
+    this.lifespan -= 3;
   }
 
-  display() {
-    stroke(0);
-    strokeWeight(2);
-    point(this.x, this.y);
+  finished() {
+    return this.lifespan < 0;
+  }
+
+  show() {
+    fill(255, random(150, 180), 0, this.lifespan);
+    ellipse(this.x, this.y, 12);
   }
 }
 ```
 - Coloca en enlace a tu sketch en p5.js en tu bitácora.
-https://editor.p5js.org/LCami-Villanueva/sketches/eIBMRL1kG
-
+  https://editor.p5js.org/LCami-Villanueva/sketches/Z0Y2PAzWMv
   
 - Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
-<img width="625" height="612" alt="image" src="https://github.com/user-attachments/assets/1351b213-3fad-45ac-9bf7-30f4cd222e6d" />
+
+https://github.com/user-attachments/assets/33eb7692-3241-474b-9ac1-6062c1466de7
 
 
-
-<img width="311" height="267" alt="image" src="https://github.com/user-attachments/assets/507c1678-572a-4ea3-ac19-76b0e78e0566" />
-
-
-
-  
-
-
-
-
- 
-
-  
-
-  
-  
-
-
-
- 
-  
 
   
 
