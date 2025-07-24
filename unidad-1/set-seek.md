@@ -49,8 +49,134 @@ Un sistema de distribución no uniforme tiende hacia un número definido, es dec
 
   Así se favorece el moviemiento hacia la derecha ya que al sumar 1  esto dezplaza la media hacia la derecha.
 
-  ### Actividad 4
+  ### Actividad 5
   - Crea un nuevo sketch en p5.js que represente una distribución normal.
+ 
+    
+     Decidí hacer mi sketch sobre la edad de las personas universitarias. Si bien puedes encontrar muchas edades, el rango casi siempre va de los 17 a los 25 años aproximadamente. Por eso, la media sería 21 con una           desviación de 2, para que la mayoría esté entre los 19 y los 23 años, que sería lo más común. Igual, un 2 es razonable porque no queremos que se disperse tanto, y así la mayoría queda entre los 17 y 25.
+    
   - Copia el código en tu bitácora.
+```
+let edades = []; // Guardamos las edades generadas
+let media = 21;
+let desviacion = 2;
+
+function setup() {
+  createCanvas(640, 240);
+  background(255);
+  textSize(12);
+  fill(0);
+  text('Distribución de Edades universitarios de Pregrado ', 180, 20);
+  frameRate(60); // Controlar la velocidad de generación
+}
+
+function draw() {
+  // Simulamos una edad según distribución normal
+  let edad = randomGaussian(media, desviacion);
+  edades.push(edad);
+
+  // Convertimos edad a posición x en pantalla
+  let x = map(edad, 14, 28, 50, width - 50, true); // 16 a 26 años como rango visible
+  let y = random(height / 2, height);
+
+  noStroke();
+  fill(100, 150, 255, 30); // azul claro, con transparencia
+  circle(x, y, 10);
+
+  // Dibujamos escala de edad abajo
+  for (let i = 14; i <= 28; i++) {
+    let xi = map(i, 14, 28, 50, width - 50);
+    fill(0);
+    text(i, xi - 5, height - 10);
+  }
+
+  // Detener cuando hay muchas
+  if (edades.length > 2000) noLoop();
+}
+```
   - Coloca en enlace a tu sketch en p5.js en tu bitácora.
+    https://editor.p5js.org/LCami-Villanueva/sketches/E-B4HfObl
+    
   - Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+    
+
+<img width="869" height="326" alt="image" src="https://github.com/user-attachments/assets/03c7e96b-4eeb-4433-bf44-328c0492c37d" />
+
+ ### Actividad 6   
+ 
+- Crea un nuevo sketch en p5.js donde modifiques uno de los ejemplos anteriores y adiciones de Lévy flight.
+  Decidí escoger el ejemplo de la distribución de edades de los estudiantes universitarios de pregrado, simulando una población donde la mayoría de personas se concentran entre los 17 y 25 años. Con una distribución normal con una media de 21 y una desviación estandar de 2, y agregar el Lévy flight.
+  
+- Explica por qué usaste esta técnica y qué resultados esberabas obtener.
+
+  Use esta técnica para mostrar casos poco frecuentes con edades muy distintas al promedio, como por ejemplo niños prodigio (entre 10 y 14 años) o adultos mayores que regresan a estudiar (entre 30 y 80 años). La elegí  porque, aunque son raros, estos casos existen en la realidad y pueden tener un impacto significativo en la diversidad y en la dinámica de una comunidad académica.
+
+Esperaba que, al incluir Lévy flights, el gráfico no solo muestre la forma típica de una distribución normal, sino que también haga visibles esas excepciones que no suelen considerarse. Visualmente, buscaba que se destacaran estos puntos fuera de lo común, teniendo en cuenat que esto puede acercarse más a la realidad. 
+
+- Copia el código en tu bitácora.
+
+```
+let edades = [];
+let media = 21;
+let desviacion = 2;
+
+function setup() {
+  createCanvas(800, 300);
+  background(240);
+  textSize(12);
+  fill(0);
+  textAlign(CENTER);
+  text('Distribución de Edades Universitarias + Lévy Flight', width / 2, 20);
+  frameRate(60);
+}
+
+function draw() {
+  let edad;
+  
+  // Con 97% de probabilidad generamos edad normal
+  if (random(1) < 0.97) {
+    edad = randomGaussian(media, desviacion);
+  } else {
+    // 3% de probabilidad de un Lévy flight (niños o adultos mayores)
+    if (random(1) < 0.5) {
+      edad = random(10, 14); // niños prodigio
+    } else {
+      edad = random(30, 80); // adultos mayores
+    }
+  }
+
+  edades.push(edad);
+
+  // Expandimos el mapeo en X para ver edades de 10 a 80
+  let x = map(edad, 10, 80, 50, width - 50, true);
+  let y = random(height / 2, height - 20);
+
+  noStroke();
+  if (edad < 17 || edad > 25) {
+    fill(255, 100, 100, 60); // rojo para destacar Lévy flight
+  } else {
+    fill(100, 150, 255, 30); // azul normal
+  }
+  circle(x, y, 10);
+
+  // Escala de edades en la parte inferior
+  for (let i = 10; i <= 80; i += 5) {
+    let xi = map(i, 10, 80, 50, width - 50);
+    fill(0);
+    text(i, xi, height - 5);
+  }
+
+  if (edades.length > 2000) {
+    noLoop();
+  }
+}
+```
+
+- Coloca en enlace a tu sketch en p5.js en tu bitácora.  https://editor.p5js.org/LCami-Villanueva/sketches/jOEaQhc8g
+
+- Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+
+  <img width="823" height="409" alt="image" src="https://github.com/user-attachments/assets/8cd62c56-6585-4e77-914a-ee2529004785" />
+
+  
+
