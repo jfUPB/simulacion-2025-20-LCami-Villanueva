@@ -150,7 +150,7 @@ class Leaf {
 
   - **Ruido Perlin:** Se implementa para simular el movimiento orgánico del viento que afecta a las hojas. 
 
-  - **Distribución uniforme:** Se usa en varias partes del código para generar posiciones iniciales y colores de forma aleatoria uniforme, es decir, con igual probabilidad en todo el rango. Por ejemplo:
+  - **Distribución uniforme:** Se usa en varias partes del código para generar posiciones iniciales con igual probabilidad en todo el rango.
 
   - **Salto de Lévy** Se presente en la forma en que algunas hojas aparecen en lugares alejados del centro, rompiendo el patrón de expansión habitual. Aunque la mayoría de las hojas surgen cerca del origen, unas   pocas lo hacen en puntos lejanos, como si hubieran sido transportadas repentinamente por una ráfaga fuerte o un cambio inesperado.
     
