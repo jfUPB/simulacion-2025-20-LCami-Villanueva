@@ -52,3 +52,14 @@
 - Si tuvieras que empezar la Actividad 08 de nuevo, ¿Qué harías de manera diferente basándote en lo que sabes ahora?
   
   Creo que hubiera organizado todas mis ideas mejor desde el principio, para poder integrar todo desde el momento uno, ya que teniendo una concepción general de todo lo que quería no hubiera tenido el problema de dañar pasos anteriores por integrar otros.
+
+- Encuentra un compañero de trabajo.
+
+  Juan Sebastian Mieles
+
+- Intercambien las URLs de sus bitácoras de aprendizaje.
+
+  
+Dirígete a la entrada de la Actividad 08: creación de obra generativa de tu compañero. Lee su concepto, interactúa con su sketch y analiza su código.
+Basándote en la rúbrica para la actividad 08 evalúa el trabajo del compañero y escribe un comentario de retroalimentación constructiva. Esto lo harás en tu bitácora de aprendizaje.
+Conversa con tu compañero sobre su obra y tu feedback. Escucha sus reflexiones y comparte tus propias ideas.
