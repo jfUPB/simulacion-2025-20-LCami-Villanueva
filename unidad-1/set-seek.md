@@ -178,5 +178,80 @@ function draw() {
 
   <img width="823" height="409" alt="image" src="https://github.com/user-attachments/assets/8cd62c56-6585-4e77-914a-ee2529004785" />
 
+ ### Actividad 7
+ 
+- Crea un nuevo sketch en p5.js donde los visualices.
+   Me imagino que ese noise puede representar el movimiento de una llamita de fuego que es  sueva y con variaciones orghanicas.
+  
+- Explica el concepto qué resultados esberabas obtener.
+  Busca simular el comportamiento orgánico de una llama mediante un sistema de partículas que se mueve por ruido Perlin. Lo que permite generar movimientos suaves y fluidos, imitando el temblor natural del fuego al ascender. La intención es crear una sensación de calor y vitalidad.
+  
+- Copia el código en tu bitácora.
+```
+  let particles = [];
+
+function setup() {
+  createCanvas(500, 300);
+  noStroke();
+}
+
+function draw() {
+  background(10, 10, 20, 50); // 
+
+  // Agrega nuevas partículas
+  for (let i = 0; i < 5; i++) {
+    particles.push(new FireParticle(width / 2, height - 20));
+  }
+
+  // Actualiza y muestra partículas
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].show();
+    if (particles[i].finished()) {
+      particles.splice(i, 1);
+    }
+  }
+}
+
+class FireParticle {
+  constructor(x, y) {
+    this.x = x + random(-10, 10);
+    this.y = y;
+    this.lifespan = 255;
+    this.noiseOffset = random(1000); // punto de entrada diferente al ruido
+  }
+
+  update() {
+    // Movimiento vertical hacia arriba
+    this.y -= 1.5;
+
+    // Movimiento horizontal suave (llama que baila)
+    let n = noise(this.noiseOffset);
+    this.x += map(n, 0, 1, -1.5, 1.5);
+    this.noiseOffset += 0.03;
+
+    // Se va desvaneciendo
+    this.lifespan -= 3;
+  }
+
+  finished() {
+    return this.lifespan < 0;
+  }
+
+  show() {
+    fill(255, random(150, 180), 0, this.lifespan);
+    ellipse(this.x, this.y, 12);
+  }
+}
+```
+- Coloca en enlace a tu sketch en p5.js en tu bitácora.
+  https://editor.p5js.org/LCami-Villanueva/sketches/Z0Y2PAzWMv
+  
+- Selecciona una captura de pantalla de tu sketch y colócala en tu bitácora.
+
+https://github.com/user-attachments/assets/33eb7692-3241-474b-9ac1-6062c1466de7
+
+
+
   
 
