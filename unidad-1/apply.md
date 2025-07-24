@@ -14,7 +14,8 @@
   - Presiona la tecla "G" para nutrir el ecosistema: verás cómo las hojas crecen y se multiplican, como si recibieran un abono.
   - Haz clic en el lienzo para cambiar de estación: las hojas cambiarán de color, reflejando el paso del tiempo y las estaciones.
   - Mueve el cursor por la pantalla y observa cómo el viento dispersa las hojas, entre el caos y la armonía.
-```
+
+``` js
 let leaves = [];
 let maxLeaves = 100;
 let lifeTime = 180;
