@@ -105,14 +105,14 @@ function draw() {
  ### Actividad 6   
  
 - Crea un nuevo sketch en p5.js donde modifiques uno de los ejemplos anteriores y adiciones de Lévy flight.
+
   Decidí escoger el ejemplo de la distribución de edades de los estudiantes universitarios de pregrado, simulando una población donde la mayoría de personas se concentran entre los 17 y 25 años. Con una distribución normal con una media de 21 y una desviación estandar de 2, y agregar el Lévy flight.
   
 - Explica por qué usaste esta técnica y qué resultados esberabas obtener.
 
   Use esta técnica para mostrar casos poco frecuentes con edades muy distintas al promedio, como por ejemplo niños prodigio (entre 10 y 14 años) o adultos mayores que regresan a estudiar (entre 30 y 80 años). La elegí  porque, aunque son raros, estos casos existen en la realidad y pueden tener un impacto significativo en la diversidad y en la dinámica de una comunidad académica.
 
-Esperaba que, al incluir Lévy flights, el gráfico no solo muestre la forma típica de una distribución normal, sino que también haga visibles esas excepciones que no suelen considerarse. Visualmente, buscaba que se destacaran estos puntos fuera de lo común, teniendo en cuenat que esto puede acercarse más a la realidad. 
-
+  Esperaba que, al incluir Lévy flights, el gráfico no solo muestre la forma típica de una distribución normal, sino que también haga visibles esas excepciones que no suelen considerarse. Visualmente, buscaba que se destacaran estos puntos fuera de lo común.
 - Copia el código en tu bitácora.
 
 ```
@@ -181,9 +181,13 @@ function draw() {
  ### Actividad 7
  
 - Crea un nuevo sketch en p5.js donde los visualices.
-   Me imagino que ese noise puede representar el movimiento de una llamita de fuego que es  sueva y con variaciones orghanicas.
+
+  
+   Me imagino que el  Perlin noise puede representar el movimiento de una llamita de fuego que es  sueva y con variaciones orgánicas.
   
 - Explica el concepto qué resultados esberabas obtener.
+
+  
   Busca simular el comportamiento orgánico de una llama mediante un sistema de partículas que se mueve por ruido Perlin. Lo que permite generar movimientos suaves y fluidos, imitando el temblor natural del fuego al ascender. La intención es crear una sensación de calor y vitalidad.
   
 - Copia el código en tu bitácora.
