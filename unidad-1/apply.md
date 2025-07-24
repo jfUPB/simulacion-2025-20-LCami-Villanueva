@@ -146,13 +146,13 @@ class Leaf {
 ```
 
 - En el código se implemneta:
-  - **Distribución normal (gaussiana):** Se utiliza para generar variaciones realistas en los colores de las hojas, especialmente en el canal verde durante la primavera y naranjas en el otoño. Esto hace que la mayoría de valores estén cerca del promedio (Verde o naranjas), pero con leves desviaciones naturales:
+  - **Distribución normal (gaussiana):** Se utiliza para generar variaciones realistas en los colores de las hojas, especialmente en el canal verde durante la primavera y naranjas en el otoño. Esto hace que la mayoría de valores estén cerca del promedio (Verde o naranjas), pero con desviaciones naturales:
 
   - **Ruido Perlin:** Se implementa para simular el movimiento orgánico del viento que afecta a las hojas. 
 
   - **Distribución uniforme:** Se usa en varias partes del código para generar posiciones iniciales y colores de forma aleatoria uniforme, es decir, con igual probabilidad en todo el rango. Por ejemplo:
 
-  - **Salto de Lévy** Se presente en la forma en que algunas hojas aparecen en lugares alejados del centro, rompiendo el patrón de expansión habitual. Aunque la mayoría de las hojas emergen cerca del origen, unas   pocas lo hacen en puntos lejanos, como si hubieran sido transportadas repentinamente por una ráfaga fuerte o un cambio inesperado.
+  - **Salto de Lévy** Se presente en la forma en que algunas hojas aparecen en lugares alejados del centro, rompiendo el patrón de expansión habitual. Aunque la mayoría de las hojas surgen cerca del origen, unas   pocas lo hacen en puntos lejanos, como si hubieran sido transportadas repentinamente por una ráfaga fuerte o un cambio inesperado.
     
 - Enlace al sketch: https://editor.p5js.org/LCami-Villanueva/sketches/IKPo4EmKU
   
