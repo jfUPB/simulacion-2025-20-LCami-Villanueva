@@ -53,6 +53,8 @@
   
   Creo que hubiera organizado todas mis ideas mejor desde el principio, para poder integrar todo desde el momento uno, ya que teniendo una concepción general de todo lo que quería no hubiera tenido el problema de dañar pasos anteriores por integrar otros.
 
+### Actividad 10
+
 - Encuentra un compañero de trabajo.
 
   Juan Sebastian Mieles
@@ -60,6 +62,22 @@
 - Intercambien las URLs de sus bitácoras de aprendizaje.
 
   
-Dirígete a la entrada de la Actividad 08: creación de obra generativa de tu compañero. Lee su concepto, interactúa con su sketch y analiza su código.
-Basándote en la rúbrica para la actividad 08 evalúa el trabajo del compañero y escribe un comentario de retroalimentación constructiva. Esto lo harás en tu bitácora de aprendizaje.
-Conversa con tu compañero sobre su obra y tu feedback. Escucha sus reflexiones y comparte tus propias ideas.
+  https://github.com/jfUPB/simulacion-2025-20-Juan1022/blob/unidad1/apply/unidad-1/apply.md
+  
+
+  
+- Dirígete a la entrada de la Actividad 08: creación de obra generativa de tu compañero. Lee su concepto, interactúa con su sketch y analiza su código.
+- [x] Listo
+
+- Basándote en la rúbrica para la actividad 08 evalúa el trabajo del compañero y escribe un comentario de retroalimentación constructiva. Esto lo harás en tu bitácora de aprendizaje.
+    - [x] El sketch es una obra generativa, interactiva en tiempo real
+    - [x] Combina de manera funcional y coherente al menos tres conceptos de la unidad.
+    - [x] Explicación clara del concepto de la obra. (En la bitacora no era tan claro el concepto, pero su explicación fe prcisa y convicente.
+    - [x] El código completo
+    - [x] Enlace funcional al sketch
+    - [x] Captura de pantalla.
+       
+  **Feedback**: Su obra me pareció muy interesante, me gustó con exploró el concepto de el oceano, el hecho de que las algas y burbujas se muevan de manera organica gracias al perlin noise y que sean tan inesperado la cantidad de peces por atrapar le da un aura de  misterio que puede hacer que se sineta divertido atraparlo. En genral me parecio que aplico todos los conceptos de manera coherente y acertiva.
+
+- Conversa con tu compañero sobre su obra y tu feedback. Escucha sus reflexiones y comparte tus propias ideas.
+- [x] Listooo
