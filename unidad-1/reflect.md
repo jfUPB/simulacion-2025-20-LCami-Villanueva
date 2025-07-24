@@ -81,3 +81,28 @@
 
 - Conversa con tu compañero sobre su obra y tu feedback. Escucha sus reflexiones y comparte tus propias ideas.
 - [x] Listooo
+
+ ### Actividad 10
+
+- Continuar: ¿Qué actividad, ejemplo o explicación de esta unidad te resultó más reveladora o útil para tu aprendizaje? ¿Qué deberíamos mantener sí o sí?
+
+  Me realemente me gustan los que den ejemplos cotidianos para enseñar, de estos vi varios en la pagina guía y me parecieron, muy interesantes y me ayudaron mucho a entender los conceptos, de igual forma me pareció interesante los ejemplos de obra generativa que el profesor dio al principio ya que me motivaron y ayudaron adarme ideas para mi obra.
+- Dejar de hacer: ¿Hubo alguna actividad o concepto que te pareció redundante, confuso o menos útil? ¿Hay algo que eliminarías o cambiarías por completo?
+
+  La verdad no, para mí todo dentro de la unidad todo fue claro y teníamos buenos recursos para comprender, aunque si afine algunos conceptos con la ayuda de chat en general los recuros eran muy bueneo.
+
+  
+- Empezar a hacer: ¿Qué te faltó en esta unidad? ¿Quizás más ejemplos de artistas, más desafíos técnicos, más teoría? ¿Qué idea tienes para hacerla mejor?
+
+  Me hubiera gustado mas ejemplos de artistas que explicaran su obra, o tal vez ejemplos de aplicaciones mas concizas en mi área, aunque entiendo que esto es complicado ya que en el curso hay varias lineas pero se podría plantear una actividad extra de desafío tecnico dee aplicación en el area de estudio de cada uno.
+
+  
+- Balance Teoría-Práctica: ¿Cómo sentiste el equilibrio entre analizar los ejemplos del texto guía y ponerte a programar tus propios sketches? Explica tu respuesta.
+
+  
+  En lo personal me pareció muy adecuado, ya que me pemitió entender el concepto, practicarlo y comprenderlo a profundidad en la practica y luego aplicar todos los conceptos juntos, por lo que creo que esto aseguró un parendizaje más integral.
+
+  
+- Comentario Adicional: ¿Hay algo más que quieras compartir sobre tu experiencia en esta unidad?
+
+  En general siento que aprendí bastante en la unidad, y me gustó la metología
