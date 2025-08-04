@@ -118,10 +118,33 @@ console.log(posicion.toString()); // Vector with components (10, 20, 0)
 ### Actividad 04
 
 - ¿Para qué sirve el método mag()? Nota que hay otro método llamado magSq(). ¿Cuál es la diferencia entre ambos? ¿Cuál es más eficiente?
+  > - El método mag() sirve para obtener la magnitud (o longitud) de un vector. Es equivalente a calcular la distancia desde el origen (0, 0) hasta el punto definido por el vector usando el Teorema de Pitágoras, Con la formula Raiz(x^2 + y^2 + z^2).
+  > -  El método magSq() devuelve la magnitud al cuadrado del vector, es decir, evita calcular la raíz cuadrada:
+  > - Desde este punto de vista el magSq() es más eficiente que mag() porque no calcula la raíz cuadrada, lo que ahorra recursos en operaciones repetitivas o cuando solo necesitas comparar vectores.
+  
 - ¿Para qué sirve el método normalize()?
+  > Sirve para conviertir la magnitud de un vector en uno con la misma dirección, es decir, lo transforma en un vector unitario.
+     Esto para mantener la dirección del vector original, pero sin importar su magnitud. Es útil, cuando por ejemplo solo te interesa hacia dónde apunta un objeto, pero quieres controlar tú la velocidad o magnitud            aparte.
 - Te encuentras con un periodista en la calle y te pregunta ¿Para qué sirve el método dot()? ¿Qué le responderías en un frase?
+  > El método dot() calcula el producto punto entre dos vectores. Es como medir cuánta 'sombra' de un vector cae sobre el otro. Es muy útil para saber cómo se relacionan dos direcciones en el espacio.
+  
 - El método dot() tiene una versión estática y una de instancia. ¿Cuál es la diferencia entre ambas?
+  > La diferencia es que la versión de instancia v1.dot(v2) se llama desde un vector y usa otro como argumento, mientras que la versión estática p5.Vector.dot(v1, v2) se llama desde la clase y recibe ambos vectores   como parámetros.
+  > Por lo tanto  la versión normal se usa cuando ya tienes un vector y quieres compararlo con otro.
+y la versión estática (p5.Vector.dot(v1, v2)) se usa cuando quieres comparar dos vectores desde fuera, sin que uno “llame” al otro.
+
 - Ahora el mismo periodista curioso de antes te pregunta si le puedes dar una intuición geométrica acerca del producto cruz. Entonces te pregunta ¿Cuál es la interpretación geométrica del producto cruz de dos vectores? Tu respuesta debe incluir qué pasa con la orientación y la magnitud del vector resultante.
+  > El producto cruz entre dos vectores se puede imaginar como un nuevo vector que es perpendicular a los dos vectores originales. Si los dos vectores están en el plano, el producto cruz “apunta” hacia afuera del plano, como si saliera hacia ti o se alejara de ti, dependiendo del orden de los vectores. En cuanto a la magnitud, el producto cruz mide el área del paralelogramo formado por los dos vectores. Es decir, cuánto "espacio" en el plano abarcan juntos. Entonces, geométricamente, la dirección del vector cruzado indica una orientación perpendicular (hacia arriba o hacia abajo del plano). Y la magnitud te dice cuán separados o inclinados están los vectores entre sí. 
 - ¿Para que te puede servir el método dist()?
+  > El método dist() sirve para calcular la distancia entre dos puntos representados por sus coordenadas o vectores. Es decir, te dice qué tan lejos está un punto del otro.
+  
 - ¿Para qué sirven los métodos normalize() y limit()?
+  > - normalize(): Sirve para conviertir un vector en un vector unitario, es decir, con la misma dirección pero con magnitud 1.
+Es muy util cuando te interesa solo la dirección del vector, no su tamaño.
+
+  > - limit(): limita la magnitud del vector a un valor máximo.
+Es útil para evitar que algo se mueva demasiado rápido o con una fuerza excesiva en simulaciones o animaciones.
+
+
+
 
