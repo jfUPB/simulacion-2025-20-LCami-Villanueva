@@ -200,11 +200,13 @@ function drawArrow(base, vec, myColor) {
 - Cuál es el concepto del marco motion 101 y cómo se interpreta geométricamente.
 > El Motion 101 se basa en una lógica simple para animar objetos mediante vectores: sumar la velocidad a la posición en cada frame (position.add(velocity)) y luego dibujar el objeto en esa nueva posición. Esta      operación shace  continuamente, es decir se repite muchas veces, creando así un movimiento fluido. Geométricamente, puede imaginarse como una flecha (velocity) que se añade a otra (position), desplazando el objeto en la dirección y con la magnitud indicadas por el vector de la velocidad.
 - ¿Cómo se aplica motion 101 en el ejemplo?
-En este ejemplo, Motion 101 se aplica dentro del método update() de la clase Mover, donde la posición del objeto se actualiza sumándole su velocidad (this.position.add(this.velocity)). Luego, en draw(), se llama a show() para dibujar el objeto en su nueva posición. Este ciclo se repite en cada frame, genrando la ilusión de movimiento.
+> En este ejemplo, Motion 101 se aplica dentro del método update() de la clase Mover, donde la posición del objeto se actualiza sumándole su velocidad (this.position.add(this.velocity)). Luego, en draw(), se llama a show() para dibujar el objeto en su nueva posición. Este ciclo se repite en cada frame, genrando la ilusión de movimiento.
 
 ### Actividad 07
 ¿Qué observaste cuando usas cada una de las aceleraciones propuestas?
-- 
+> - **Aceleración constante:** Con esta aceleración la bola parece que atravieza la pantalla, pasa varias veces y cada vez va más y mas rapido. La velocidad se acumula, haciendo que parezca que atraviesa el canvas sin frenar.
+> - **Aceleración aleatoria:** Con esta aceleración el movimiento es caótico: a veces la bola se acelera tanto que parece estar en varios lugares al mismo tiempo, otras veces parece detenerse o incluso aparecer y desaparecer. El comportamiento es impredecible.
+> - **Aceleración hacia el mouse:** La bola se mueve buscando seguir al cursor. Cambia de dirección y velocidad queriendo irse tras el mouse, dependiendo de qué tan lejos esté del mouse. A medida que el cursor se mueve, la aceleración lo empuja en esa dirección, generando un movimiento reactivo que da la sensación de que la bola se frena un poco antes de cambiar la dirección hacia la nueva posición del mouse.
 
 
 
