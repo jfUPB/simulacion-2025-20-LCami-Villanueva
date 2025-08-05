@@ -140,11 +140,71 @@ y la versión estática (p5.Vector.dot(v1, v2)) se usa cuando quieres comparar d
   
 - ¿Para qué sirven los métodos normalize() y limit()?
   > - normalize(): Sirve para conviertir un vector en un vector unitario, es decir, con la misma dirección pero con magnitud 1.
-Es muy util cuando te interesa solo la dirección del vector, no su tamaño.
-
+      Es muy util cuando te interesa solo la dirección del vector, no su tamaño.
   > - limit(): limita la magnitud del vector a un valor máximo.
-Es útil para evitar que algo se mueva demasiado rápido o con una fuerza excesiva en simulaciones o animaciones.
+       Es útil para evitar que algo se mueva demasiado rápido o con una fuerza excesiva en simulaciones o animaciones.
 
+### Actividad 05
+
+- El código que genera el resultado que te pedí.
+  
+```javascript
+function setup() {
+    createCanvas(400, 400);
+}
+
+function draw() {
+    background(240);
+
+    let v0 = createVector(120, 110);
+    let v1 = createVector(200, 0);
+    let v2 = createVector(0, 200);
+    let t = (sin(frameCount * 0.02) + 1) / 2;
+    let v3 = p5.Vector.lerp(v1, v2, t);
+    let V4 = p5. Vector.add (v0, v1);
+    let V5 = p5. Vector.sub (v2, v1);
+    let c = lerpColor('red', 'blue', t); 
+    drawArrow(v0, v1, 'red');
+    drawArrow(v0, v2, 'blue');
+    drawArrow(v0, v3, c);
+    drawArrow(V4, V5, 'green');
+}
+
+function drawArrow(base, vec, myColor) {
+    push();
+    stroke(myColor);
+    strokeWeight(2);
+    fill(myColor);
+    translate(base.x, base.y);
+    line(0, 0, vec.x, vec.y);
+    rotate(vec.heading());
+    let arrowSize = 6;
+    translate(vec.mag() - arrowSize, 0);
+    triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+    pop();
+}
+  
+```
+- ¿Cómo funciona lerp() y lerpColor().
+
+  > - ***Función lerp():*** Esta función permite encontrar un valor intermedio entre dos números (a y b). En terminos de animación animación, actúa como una interpolación entre esos dos puntos clave (keyframes), generando los valores in-between. El tercer parámetro representa el porcentaje del recorrido entre a y b, siendo 0 el inicio (a) y 1 el final (b). Si este parámetro es por ejemplo 0.5, el resultado estará justo en la mitad. pero si definimos el parametro t, que puede variar con el tiempo, lo que obtendremos es una transiciones suave y constante del recorrido de a a b en el tiempo lo que da  una animación fluida.
+  > - ***Función LerpColor():*** Funciona de manera similar a lerp(), pero aplicada a colores. Interpola entre dos colores definidos (por ejemplo, colorA y colorB) y devuelve un color intermedio según el valor del tercer parámetro. Cuando este se usa como una variable dependiente del tiempo, se produce una transición gradual entre los dos colores.
+  
+- ¿Cómo se dibuja una flecha usando drawArrow()?
+
+  > Primero la función llama al punto de origen (base) en la dirección de un vector (vec). El vector indica hacia dónde apunta y qué tan larga es la flecha. Se traduce al punto base, se dibuja una línea, se rota según la dirección con rotatatación y se añade una punta. 
+
+### Actividad 06
+
+**Motion 101**
+- Cuál es el concepto del marco motion 101 y cómo se interpreta geométricamente.
+> El Motion 101 se basa en una lógica simple para animar objetos mediante vectores: sumar la velocidad a la posición en cada frame (position.add(velocity)) y luego dibujar el objeto en esa nueva posición. Esta      operación shace  continuamente, es decir se repite muchas veces, creando así un movimiento fluido. Geométricamente, puede imaginarse como una flecha (velocity) que se añade a otra (position), desplazando el objeto en la dirección y con la magnitud indicadas por el vector de la velocidad.
+- ¿Cómo se aplica motion 101 en el ejemplo?
+En este ejemplo, Motion 101 se aplica dentro del método update() de la clase Mover, donde la posición del objeto se actualiza sumándole su velocidad (this.position.add(this.velocity)). Luego, en draw(), se llama a show() para dibujar el objeto en su nueva posición. Este ciclo se repite en cada frame, genrando la ilusión de movimiento.
+
+### Actividad 07
+¿Qué observaste cuando usas cada una de las aceleraciones propuestas?
+- 
 
 
 
