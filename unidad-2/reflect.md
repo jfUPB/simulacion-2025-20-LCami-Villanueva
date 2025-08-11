@@ -23,5 +23,8 @@
 3. ¿Tu algoritmo de aceleración produjo el efecto que esperabas? Describe un momento “sorpresa” (esperado o inesperado) durante su desarrollo.
    > Antes de implementar ese algoritmo de que la aceleracion se diera natural con ruido perlín, intente con que fuera el base al salto de Lévy  y realmete tuve varios problemas porque no se notaba aceleración los saltos eran muy poco conssitentes y a pesar de probar con muchas probabilidades ninguna daba el resuktado que yo me imaginaba, alguna vez entre cambios los granitos mepezarona dar vueltas y no entendía ni entiendo como.
 5. ¿Cómo ha cambiado tu forma de pensar sobre el “movimiento” en una pantalla después de esta unidad?
-6. Si tuvieras una semana más, ¿qué mejorarías o qué otro algoritmo de aceleración te gustaría experimentar?
+   > Creo que lo empece a ver tal vez de forma más matematica y física, porque pues se que normalmente se usan fisicas de movimiento en animación y se pueden cambiar curvas de aceleración, pero no lo veía tan enfocado ala fisica, no lo había detallado así.
+7. Si tuvieras una semana más, ¿qué mejorarías o qué otro algoritmo de aceleración te gustaría experimentar?.
+   > Intenataría arrgelar lo del salto de lévy y lograr que se diera, como me lo imaginé sientoq ue sería interesante ese tipod eacelración tan inusual.
+
 
