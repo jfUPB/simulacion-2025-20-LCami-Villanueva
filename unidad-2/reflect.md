@@ -27,4 +27,42 @@
 7. Si tuvieras una semana más, ¿qué mejorarías o qué otro algoritmo de aceleración te gustaría experimentar?.
    > Intenataría arrgelar lo del salto de lévy y lograr que se diera, como me lo imaginé sientoq ue sería interesante ese tipod eacelración tan inusual.
 
+###Actividad 10
+
+- [x] Intercambia la URL de tu bitácora con un compañero.
+- [x] Analiza su Actividad 08. Ejecuta su sketch, lee su concepto y revisa su código.
+En tu propia bitácora, escribe una retroalimentación constructiva para tu compañero, evaluando:  
+
+- **Claridad del concepto:** ¿La obra visual refleja la intención descrita?  
+  > Sí. Él describe una luz y unos insectos que la persiguen, y eso es justamente lo que se percibe al ejecutar el código. El hecho de poder apagar la luz refuerza esta idea, y como los puntos la siguen, sí da la sensación buscada.  
+
+- **Implementación técnica:** ¿Se aplica correctamente el marco *MOTION 101*? ¿Es el código legible y está bien estructurado?  
+  > Sí, se aplica correctamente en los mosquitos. Es muy fácil evidenciar el cambio de velocidad y aceleración, y en el código es claro dónde y cómo se utiliza. Además, el código se entiende con facilidad si conoces el tema, y presenta una buena estructura.  
+
+- **Creatividad del algoritmo:** ¿El algoritmo de aceleración es interesante y genera un comportamiento único?  
+  > Sí, me parece interesante, único y muy creativo. El hecho de que la aceleración atraiga a los puntos hacia un punto específico es muy interesante y, la verdad, no se me habría ocurrido.  
+
+- **Calidad de la interactividad:** ¿La interacción es intuitiva y tiene un impacto significativo en la obra?  
+  > La interacción es clara y fácil de entender, y aporta un valor importante a la experiencia visual, ya que el usuario influye directamente en el comportamiento de los elementos.  
+     
+- [x] Conversa con tu compañero sobre tu feedback.
+
+### Acrividad 11
+- - **Continuar:** ¿Qué actividad o concepto de esta unidad te resultó más “iluminador” o útil?  
+  > Creo que el que más me llamó la atención fue *Motion 101*. Al inicio fue un poco complicado de entender, pero luego de tener los conceptos claros se me hizo muy interesante lo que se puede lograr con él.  
+
+- **Dejar de hacer:** ¿Hubo alguna actividad que te pareció redundante o menos efectiva?  
+  > No, la verdad no. Todas fueron útiles en el proceso.  
+
+- **Empezar a hacer:** ¿Qué te gustaría explorar a continuación? ¿Más fuerzas físicas (fricción, resortes), sistemas de partículas, o algo más?  
+  > Me gustaría explorar en este ámbito fuerzas como la normal, la fricción y cómo se simula la gravedad.  
+
+- **Método de aprendizaje:** ¿El paso de los experimentos guiados (*Seek*) a la aplicación libre (*Apply*) te pareció una transición natural y efectiva? ¿Por qué?  
+  > Sí, la verdad me pareció natural. El hecho de ver ejemplos y pensar cómo aplicarlos me ayudó a generar ideas para el *Apply*, y a tener mucho más claros los conceptos que me sirvieron después.  
+
+- **Comentario adicional:** ¿Algo más que quieras compartir sobre tu experiencia en esta unidad?  
+  > La unidad me pareció interesante y me gustó, aunque sigo pensando que la primera unidad fue mejor. Sin embargo, cada una tiene su propio encanto.  
+
+
+
 
