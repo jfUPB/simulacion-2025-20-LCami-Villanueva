@@ -2,6 +2,7 @@
 
 ## 🔎 Fase: Set + Seek
 
+### Actividad 09
 **Inventa tres obras generativas interactivas, uno para cada una de las siguientes fuerzas:**
 
 - Fricción.
@@ -22,3 +23,4 @@
     - Copia el enlace a tu ejemplo en p5.js.
     - Copia el código.
     - Captura una imagen representativa de tu ejemplo.
+
