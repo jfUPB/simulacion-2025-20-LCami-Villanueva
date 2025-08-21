@@ -33,11 +33,15 @@ Escribe una retroalimentación constructiva para tu compañero, evaluando:
 - Claridad del Concepto: ¿La obra visual refleja la inspiración en las esculturas cinéticas de Calder y el problema de los n-cuerpos?
   > Creo que si la refleja, me la recuerda las figuras geometricas de colores ya que siento que etso es algo muy caracteristico del arte de Clader. 
 - Implementación de Fuerzas: ¿Se aplican correctamente las leyes de Newton? ¿Las fuerzas se acumulan apropiadamente?
-  > 
+  > Las leyes de newton son aplicadas correctamente, si, acumua las fuerzas bien.
 - Creatividad en el Modelado: ¿El modelado de fuerzas es interesante y genera comportamientos únicos?
+  > Si, me parece bastante interesate como los objetos se meuven por la pantalla y como es afectado por el salto de levi
 - Calidad de la Interactividad: ¿La interacción permite explorar diferentes aspectos del sistema de fuerzas?
+  > Me gusta mucho y me parece muy creativo el como agregar letras mayusculosas, minusculas vocales yu cada uno de sos tipos genera un forma diferente. 
 - Conversa con tu compañero sobre las obras que cada uno creó. En tu bitácora, comenta:
 - ¿Qué fue lo que más te llamó la atención del trabajo de tu compañero?
+  > 
 - ¿Qué aprendiste de su enfoque para modelar fuerzas?
 - ¿Qué técnica o idea de su implementación te gustaría aplicar en tus futuros proyectos?
+
 
