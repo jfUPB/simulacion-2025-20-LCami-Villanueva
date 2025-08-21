@@ -38,10 +38,25 @@ Escribe una retroalimentación constructiva para tu compañero, evaluando:
   > Si, me parece bastante interesate como los objetos se meuven por la pantalla y como es afectado por el salto de levi
 - Calidad de la Interactividad: ¿La interacción permite explorar diferentes aspectos del sistema de fuerzas?
   > Me gusta mucho y me parece muy creativo el como agregar letras mayusculosas, minusculas vocales yu cada uno de sos tipos genera un forma diferente. 
-- Conversa con tu compañero sobre las obras que cada uno creó. En tu bitácora, comenta:
+Conversa con tu compañero sobre las obras que cada uno creó. En tu bitácora, comenta:
 - ¿Qué fue lo que más te llamó la atención del trabajo de tu compañero?
-  > 
+  > El como integró lo de la letras, ya que lo considero una manera diferente de interración.
 - ¿Qué aprendiste de su enfoque para modelar fuerzas?
+  > De su enfoque aprendí como que se puede calcular la atracción gravitacional de otra forma y tendrá el m ismo efecto. 
 - ¿Qué técnica o idea de su implementación te gustaría aplicar en tus futuros proyectos?
+  > EL poder integrar el teclado de formas difentes y poder hacer cosas con palabras.
+  
+### Actividad 12
+- Continuar: ¿Qué actividad o concepto de esta unidad te resultó más “revelador” para entender las fuerzas en el arte generativo?
+  >Yo creo que la actividad 9 que me permitió modelar las 3 fuerzas vistas e intentar hacer una obra con ellas, siento que en el omento de practicar se entienden mejor los conceptos.
+- Dejar de hacer: ¿Hubo alguna actividad que te pareció redundante o menos efectiva para comprender el modelado de fuerzas?
+  > No, todo me parecio coherente y necesario.
+- Progresión conceptual: ¿El paso de manipular aceleración directamente (unidad 2) a modelar fuerzas (unidad 3) te pareció una progresión natural y efectiva? ¿Por qué?
+  > Si, me pareció lo mas lógico y natural, siento que sigue bajo la misma lógica pero más avanzado.
+- Conexión arte-física: ¿Cómo te ha ayudado esta unidad a ver la conexión entre conceptos físicos y expresión artística? ¿Te sientes más cómodo “jugando” con las leyes de la física en tus creaciones?
+  >Siento que el hecho de que hayan integrado más cosas del mundo real, me hace pensar en que otras fuerzas sería interesante generar en obras generativas, para simular fenomenos que ocurren en la naturaleza.
+- Comentario adicional: ¿Algo más que quieras compartir sobre tu experiencia explorando fuerzas en el arte generativo?.
+  > Me pareció muy ineresante integrar estas fuerzas no solo en conceptos fisicos que ya se dan, si no tambien traspolarlo a otras cosas como en el caso de la atracción gravitacional, haciendo que la flor atrajera las abejas. 
+
 
 
