@@ -22,6 +22,22 @@
 - ¿Cómo ha cambiado tu forma de pensar sobre la “física” en el arte generativo después de esta unidad?
   > La verdad no había pensado en palicar fuerzas del mundo real al arte generativo, pensaba que pues con randoms y vectores de velocidad y movimeinto era suficiente, pero pues en realidad, creo que es muy interesante darle ese aire del mundo real porque eso hace que sxes mucho mas femiliar con lo que conocemos y por lo tanto lo sintamos mas cercano.
 - Si tuvieras una semana más, ¿Qué otras fuerzas te gustaría modelar o cómo mejorarías tu simulación del problema de los n-cuerpos?.
-- Creo que mejoraría el movimiento del viento porque a pesar de ser un perlin noise en algunos momentos lo siento muy brusco hacía la derecha, me gustraíá que fuera mas suave y que moviera los objetos en varias direcciones. 
+  >Creo que mejoraría el movimiento del viento porque a pesar de ser un perlin noise en algunos momentos lo siento muy brusco hacía la derecha, me gustraíá que fuera mas suave y que moviera los objetos en varias    direcciones. 
 
+### Actividad 12
+- [x] Intercambia la URL de tu bitácora con un compañero.
+- [x] Analiza su Actividad 10 (problema de los n-cuerpos). Ejecuta su simulación, lee su concepto y revisa su código.
+
+Escribe una retroalimentación constructiva para tu compañero, evaluando:
+
+- Claridad del Concepto: ¿La obra visual refleja la inspiración en las esculturas cinéticas de Calder y el problema de los n-cuerpos?
+  > Creo que si la refleja, me la recuerda las figuras geometricas de colores ya que siento que etso es algo muy caracteristico del arte de Clader. 
+- Implementación de Fuerzas: ¿Se aplican correctamente las leyes de Newton? ¿Las fuerzas se acumulan apropiadamente?
+  > 
+- Creatividad en el Modelado: ¿El modelado de fuerzas es interesante y genera comportamientos únicos?
+- Calidad de la Interactividad: ¿La interacción permite explorar diferentes aspectos del sistema de fuerzas?
+- Conversa con tu compañero sobre las obras que cada uno creó. En tu bitácora, comenta:
+- ¿Qué fue lo que más te llamó la atención del trabajo de tu compañero?
+- ¿Qué aprendiste de su enfoque para modelar fuerzas?
+- ¿Qué técnica o idea de su implementación te gustaría aplicar en tus futuros proyectos?
 
