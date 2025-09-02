@@ -22,7 +22,7 @@
 
 ## Enlace a la obra en el editor de p5.js
 
-[Aquí está mi obra]([URL](https://editor.p5js.org/LCami-Villanueva/sketches/xY2GllbPz))
+[Aquí está mi obra](https://editor.p5js.org/LCami-Villanueva/sketches/xY2GllbPz)
 
 ## Código de la obra 
 
@@ -32,6 +32,7 @@
 
 ## Captura de pantalla representativa
 <img width="874" height="795" alt="image" src="https://github.com/user-attachments/assets/900988ae-1b0b-4974-9c65-e4397264b118" />
+
 
 
 
