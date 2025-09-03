@@ -303,7 +303,9 @@ function crearCardumenes() {
 ```
 
 ## Captura de pantalla representativa
-<img width="874" height="795" alt="image" src="https://github.com/user-attachments/assets/900988ae-1b0b-4974-9c65-e4397264b118" />
+<img width="799" height="747" alt="image" src="https://github.com/user-attachments/assets/acb82934-f9e7-424b-9021-813b60915772" />
+
+
 
 
 
