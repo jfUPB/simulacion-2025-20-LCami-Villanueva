@@ -27,11 +27,11 @@
 
 ``` js
 // --- Variables Globales ---
-let peces = []; // Array para almacenar los objetos Pez
-let anzuelos = []; // Array para almacenar los objetos Anzuelo
-let numPeces = 200; // Número de peces en el cardumen
+let peces = []; // Array Pez
+let anzuelos = []; // Array  Anzuelo
+let numPeces = 200; // Número de peces 
 let perlinNoiseOffset = 0;
-let colorMode = 0; // 0: Cálidos, 1: Fríos, 2: Mixtos, 3: Blancos
+let colorMode = 0; //Cálidos, Fríos,  Mixtos, Blancos
 
 // --- Clases ---
 class Pez {
@@ -177,8 +177,6 @@ class Anzuelo {
   }
 }
 
-// --- Funciones P5.js ---
-
 function setup() {
   createCanvas(890, 830);
   background(0, 0, 50);
@@ -223,8 +221,6 @@ function draw() {
         fuerzaAtraccion.mult(fuerza);
         fuerzaAnzuelo = fuerzaAtraccion;
 
-        // --------- NUEVA LÓGICA DE ORBITA ---------
-        // Vector radial hacia el anzuelo
         let radial = p5.Vector.sub(anzuelo.pos, pez.pos);
         // Vector tangencial perpendicular
         let tangencial = createVector(-radial.y, radial.x);
@@ -236,7 +232,6 @@ function draw() {
           pez.vel.add(tangencial);
           pez.tieneTangencial = true;
         }
-        // ------------------------------------------
       }
 
       pez.applyForce(fuerzaAnzuelo);
@@ -248,7 +243,7 @@ function draw() {
 }
 
 
-// --- Interacción con el usuario ---
+// --- Interacción ---
 
 function keyPressed() {
   if (key === 'a' || key === 'A') {
@@ -322,6 +317,7 @@ function crearCardumenes() {
 
 ## Captura de pantalla representativa
 <img width="887" height="830" alt="image" src="https://github.com/user-attachments/assets/537f83fe-9cb0-4148-bb58-f439eefcd0e2" />
+
 
 
 
