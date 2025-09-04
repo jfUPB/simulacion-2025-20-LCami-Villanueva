@@ -1,7 +1,8 @@
 # Evidencias de la unidad 4
 ### [Set-Seek](https://www.notion.so/Simulaci-n-Para-Sistemas-Interactivos-25f42dfbaef680c4bd7ff48838e1f94c?source=copy_link)
 ## Explicación conceptual de la obra
-
+### Introducción:
+>Esta obra simula un cardumen de peces que interactúa dinámicamente con anzuelos en un entorno visual y reactivo. Cada pez se mueve de manera orgánica gracias a fuerzas naturales simuladas, como el Perlin noise y la aceleración basada en Motion 101. Los anzuelos actúan como elementos de interacción que modifican el comportamiento de los peces mediante fuerzas de atracción y efectos de péndulo o resorte, permitiendo al usuario explorar cómo los principios físicos y algorítmicos influyen en un sistema vivo simulado.
 * ¿Qué concepto de la unidad 4 y cómo lo aplicaste en la obra?
 > En mi simulación, el anzuelo inicialmente se mueve como un péndulo, usando ángulo, velocidad y aceleración angular. Cuando el usuario arrastra el anzuelo con el mouse, se activa el modo resorte, usando la Ley de Hooke para que se comporte como un hilo elástico. Esto hace que el anzuelo se mueva de manera fluida e interactiva, aunque en la vida real no se comporta exactamente así.
 * ¿Qué concepto de la unidad 3 y cómo lo aplicaste en la obra?
@@ -321,6 +322,7 @@ function crearCardumenes() {
 
 ## Captura de pantalla representativa
 <img width="887" height="830" alt="image" src="https://github.com/user-attachments/assets/537f83fe-9cb0-4148-bb58-f439eefcd0e2" />
+
 
 
 
