@@ -1,24 +1,22 @@
 # Evidencias de la unidad 4
-### set-Seek https://www.notion.so/Simulaci-n-Para-Sistemas-Interactivos-25f42dfbaef680c4bd7ff48838e1f94c?source=copy_link
+### [Set-Seek](https://www.notion.so/Simulaci-n-Para-Sistemas-Interactivos-25f42dfbaef680c4bd7ff48838e1f94c?source=copy_link)
 ## Explicación conceptual de la obra
 
 * ¿Qué concepto de la unidad 4 y cómo lo aplicaste en la obra?
-> Apliqué el concepto de pendulo, que es el movimiento original con el que se mueve el anzuelo al aparecer, además cuando lo mueves por el agua este la cuerda de este tiene comportamiento de resorte para hacerlo aun más interesante e intwractivo
-
+> En mi simulación, el anzuelo inicialmente se mueve como un péndulo, usando ángulo, velocidad y aceleración angular. Cuando el usuario arrastra el anzuelo con el mouse, se activa el modo resorte, usando la Ley de Hooke para que se comporte como un hilo elástico. Esto hace que el anzuelo se mueva de manera fluida e interactiva, aunque en la vida real no se comporta exactamente así.
 * ¿Qué concepto de la unidad 3 y cómo lo aplicaste en la obra?
-> De la unidad 3 aplique el concepto de atracción graviatcional, que el la fueza que ejerce el anzuelo sobre los peces haciendo que estos se sientan atraidos hacia el 
-
+> Cada pez calcula la fuerza de atracción hacia el anzuelo, usando la fórmula <img width="100" height="25" alt="image" src="https://github.com/user-attachments/assets/008c6afb-6b56-4c80-aba9-f4c2e181e589" />
+.Esta fuerza se aplica sobre la aceleración de cada pez, haciendo que sean atraídos de manera natural. Si se aplica velocidad tangencial, algunos peces incluso pueden orbitar alrededor del anzuelo, simulando un comportamiento más realista.
 * ¿Qué concepto de la unidad 2 y cómo lo aplicaste en la obra?
-> De la unidad 2 use el motion 101, aplicando velocidad y acdeleración ak movimeintod de los peces
-
+> Cada pez tiene aceleración, velocidad y posición. La aceleración se suma a la velocidad y esta a la posición (vel.add(acc) → pos.add(vel)), integrando las fuerzas y generando movimiento fluido. El Perlin noise también actúa como una fuerza adicional que hace que el nado se vea orgánico cuando no hay anzuelos.
 * ¿Qué concepto de la unidad 1 y cómo lo aplicaste en la obra?
-> De la unidad 1 apliqué el concepto de aleatoriedad gauseana en la manera en comos e crwean los grupos de peces, y ademas en colo se cambian los colores en
-
+> Para la generación inicial, los peces se crean en 4 grupos distintos usando random y sus posiciones alrededor del centro se calculan con random gaussiano, creando dispersión natural. También se usa random gaussiano para los colores de cada pez y Perlin noise para su movimiento natural, evitando que todos los peces se muevan igual.
 ## ¿Cómo resolviste la interacción?
-> La interacción se hace de varias maneras:
-> - Al presioanr la tecla a se crea un anzuelo nuevo (Varias vees varios anzuelos) además estos e crean el la posición en que este el  mouse en ese momento.
-> - Al presionar la tecla d el anzuelo desaparece y se esparcen lso ppeces que estaban a su alrededor
-> - Al presionar la tecla X, todos lso anzuelos desaprecen y por tanto todos los peces son liberados 
+> La interacción con el usuario se implementa así:
+> - Tecla A: crea un nuevo anzuelo en la posición actual del mouse; se pueden crear varios anzuelos.
+> - Tecla D: elimina el último anzuelo creado; los peces cercanos dejan de sentir su atracción y se alejan según su velocidad acumulada.
+> - Tecla X: elimina todos los anzuelos, liberando a todos los peces al instante.
+> - Mouse: si se arrastra un anzuelo, este se comporta como un resorte; al soltarlo vuelve a su movimiento de péndulo
 
 ## Enlace a la obra en el editor de p5.js
 
@@ -41,7 +39,8 @@ class Pez {
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
     this.size = random(2, 4);
-    this.updateColor();
+    this.colorModeInicial = floor(random(0, 4)); 
+    this.updateColor(this.colorModeInicial);
   }
 
   // Aplica una fuerza al pez
@@ -81,8 +80,10 @@ class Pez {
   }
 
   // Asigna un color al pez según el modo de color global
-  updateColor() {
-    switch (colorMode) {
+  
+   updateColor(modo = colorMode) { 
+      let cm = modo;
+      switch (cm) {
       case 0: // Cálidos
         this.color = color(
           constrain(randomGaussian(230, 15), 200, 255),
@@ -127,11 +128,11 @@ class Anzuelo {
   constructor(x, y) {
     this.pos = createVector(x, y);
     this.longitud = 150;
-    this.angulo = PI / 4;
+    this.angulo = PI / 3;
     this.velocidadAngular = 0;
     this.aceleracionAngular = 0;
     this.gravedad = 0.4;
-    this.arrastre = 0.99;
+    this.arrastre = 0.9;
     this.target = createVector(x, y);
     this.isSpring = false;
     this.k = 0.05; // Constante del resorte
@@ -212,23 +213,39 @@ function draw() {
         let distancia = fuerzaAtraccion.mag();
 
         distancia = constrain(distancia, 5, 100);
-
         fuerzaAtraccion.normalize();
 
         let G = 1;
         let m1 = 1;
         let m2 = 50;
         let fuerza = (G * m1 * m2) / (distancia * distancia);
-
         fuerzaAtraccion.mult(fuerza);
         fuerzaAnzuelo = fuerzaAtraccion;
+
+        // --------- NUEVA LÓGICA DE ORBITA ---------
+        // Vector radial hacia el anzuelo
+        let radial = p5.Vector.sub(anzuelo.pos, pez.pos);
+        // Vector tangencial perpendicular
+        let tangencial = createVector(-radial.y, radial.x);
+        tangencial.normalize();
+
+        // Aplicar velocidad tangencial solo una vez
+        if (!pez.tieneTangencial) {
+          tangencial.mult(2); // Ajusta intensidad de la órbita
+          pez.vel.add(tangencial);
+          pez.tieneTangencial = true;
+        }
+        // ------------------------------------------
       }
+
       pez.applyForce(fuerzaAnzuelo);
     }
+
     pez.update();
     pez.display();
   }
 }
+
 
 // --- Interacción con el usuario ---
 
@@ -303,7 +320,9 @@ function crearCardumenes() {
 ```
 
 ## Captura de pantalla representativa
-<img width="799" height="747" alt="image" src="https://github.com/user-attachments/assets/acb82934-f9e7-424b-9021-813b60915772" />
+<img width="887" height="830" alt="image" src="https://github.com/user-attachments/assets/537f83fe-9cb0-4148-bb58-f439eefcd0e2" />
+
+
 
 
 
