@@ -236,10 +236,116 @@ class Particle {
   }
 }
 ```
+<img width="622" height="294" alt="image" src="https://github.com/user-attachments/assets/cd78668f-b3b2-43c2-a0d6-a11cb0b4f6b9" />
+
 ### Ejemplo 4.6
-> La gestión funciona de la misma manera que en el ejemplo anterior: se crea un Emitter en el setup y, en cada frame, este va generando una nueva partícula. Luego, gracias a la revisión con isDead(), cada partícula se elimina en el momento adecuado, lo que evita que se acumulen infinitas partículas y asegura que la memoria se libere progresivamente.
+> 1. Para este ejmeplo me gustaría aplicar una fuerza tipo pendulo
+> 2. Aquí Cada vez que se llama a addParticle(), se agrega una nueva partícula al arreglo, mientras que en cada frame, durante la ejecución de run(), se recorre el arreglo de atrás hacia adelante para actualizar cada partícula y revisar si ha “muerto” mediante isDead(). Cuando la partícula cumple su vida útil, se elimina del arreglo usando splice(), liberando memoria de forma progresiva y evitando que el arreglo crezca indefinidamente. Esto es muy similar a los ejemplos anteriores, donde también se controlaba el ciclo de vida de las partículas para mantener la simulación eficiente y sin saturar la memoria.
+> 3. En este ejemplo apliqué el concepto de péndulo para las partículas. Lo implementé usando coordenadas polares, donde cada partícula tiene un ángulo y una longitud desde su origen, y su aceleración angular se calcula con la fórmula de oscilación armónica. Esto hace que la partícula se mueva de un lado a otro, y no en círculos completos, simulando un péndulo real que va y viene. Lo hice así para que el movimiento de las partículas fuera visualmente más interesante, mostrando oscilaciones suaves y controladas en lugar de trayectorias lineales o circulares.
+> 4.  [Link Ejemplo 4.6](https://editor.p5js.org/LCami-Villanueva/sketches/qhbJax5mo)
+> 5.  Cambios en Clase Particle
+``` JS
+class Particle {
+  constructor(x, y, isPendulum = false) {
+    this.position = createVector(x, y);
+    this.acceleration = createVector(0, 0.0);
+    this.velocity = createVector(random(-1, 1), random(-2, 0));
+    this.lifespan = 255.0;
+    this.mass = 1;
+
+    // Propiedades para péndulo
+    this.isPendulum = isPendulum;
+    if (this.isPendulum) {
+      this.r = random(50, 150);           // longitud del hilo
+      this.angle = random(-PI / 8, PI / 8); // menor amplitud para que no vaya tan lejos
+      this.aVelocity = random(0.05, 0.1); // velocidad inicial más rápida
+      this.aAcceleration = 0;
+      this.origin = createVector(x, y);
+    }
+  }
+
+  run() {
+    this.update();
+    this.show();
+  }
+
+  applyForce(force) {
+    if (!this.isPendulum) {
+      let f = force.copy();
+      f.div(this.mass);
+      this.acceleration.add(f);
+    } else {
+      // Fuerza de gravedad proyectada como aceleración angular
+      let g = force.y; // gravedad vertical
+      this.aAcceleration = (-g / this.r) * sin(this.angle);
+    }
+  }
+
+  update() {
+    if (!this.isPendulum) {
+      this.velocity.add(this.acceleration);
+      this.position.add(this.velocity);
+      this.acceleration.mult(0);
+    } else {
+      // Oscilación tipo péndulo (va y vuelve)
+      this.aVelocity += this.aAcceleration;
+      this.angle += this.aVelocity;
+      this.aVelocity *= 0.99; // amortiguación ligera
+      this.aAcceleration = 0;
+      this.position.x = this.origin.x + this.r * sin(this.angle);
+      this.position.y = this.origin.y + this.r * cos(this.angle);
+    }
+    this.lifespan -= 2.0;
+  }
+
+  show() {
+    stroke(0, this.lifespan);
+    strokeWeight(2);
+    fill(127, this.lifespan);
+    circle(this.position.x, this.position.y, 8);
+  }
+
+  isDead() {
+    return this.lifespan < 0.0;
+  }
+}
+```
+Cambios en clase Emmiter
+``` JS
+class Emitter {
+  constructor(x, y) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+  }
+
+  addParticle() {
+    // Aleatoriamente decidimos si la partícula será péndulo
+    let isPendulum = random(1) < 0.3; // 30% serán péndulo
+    this.particles.push(new Particle(this.origin.x, this.origin.y, isPendulum));
+  }
+
+  run() {
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      let p = this.particles[i];
+      p.run();
+      if (p.isDead()) {
+        this.particles.splice(i, 1);
+      }
+    }
+  }
+
+  applyForce(force) {
+    for (let particle of this.particles) {
+      particle.applyForce(force);
+    }
+  }
+}
+```
+<img width="556" height="605" alt="image" src="https://github.com/user-attachments/assets/d6dab517-6bc7-4a32-84d6-e56197ecd157" />
+
 ### Ejemplo 4.7
 > La gestión vuelve a ser la misma: se crea un Emitter y en cada frame este genera una nueva partícula. Después, con la función isDead(), se eliminan las que ya cumplieron su ciclo.
+
 
 
 
