@@ -344,7 +344,11 @@ class Emitter {
 <img width="556" height="605" alt="image" src="https://github.com/user-attachments/assets/d6dab517-6bc7-4a32-84d6-e56197ecd157" />
 
 ### Ejemplo 4.7
-> La gestión vuelve a ser la misma: se crea un Emitter y en cada frame este genera una nueva partícula. Después, con la función isDead(), se eliminan las que ya cumplieron su ciclo.
+> 1. Para este ejmeplo me gustaría aplicar una fuerza de atracción gravitacional.
+> 2. Aquí Cada vez que se llama a addParticle(), se agrega una nueva partícula al arreglo, mientras que en cada frame, durante la ejecución de run(), se recorre el arreglo de atrás hacia adelante para actualizar cada partícula y revisar si ha “muerto” mediante isDead(). Cuando la partícula cumple su vida útil, se elimina del arreglo usando splice(), liberando memoria de forma progresiva y evitando que el arreglo crezca indefinidamente. Esto es muy similar a los ejemplos anteriores, donde también se controlaba el ciclo de vida de las partículas para mantener la simulación eficiente y sin saturar la memoria.
+> 3. En este ejemplo apliqué el concepto de péndulo para las partículas. Lo implementé usando coordenadas polares, donde cada partícula tiene un ángulo y una longitud desde su origen, y su aceleración angular se calcula con la fórmula de oscilación armónica. Esto hace que la partícula se mueva de un lado a otro, y no en círculos completos, simulando un péndulo real que va y viene. Lo hice así para que el movimiento de las partículas fuera visualmente más interesante, mostrando oscilaciones suaves y controladas en lugar de trayectorias lineales o circulares.
+> 4.  [Link Ejemplo 4.6](https://editor.p5js.org/LCami-Villanueva/sketches/qhbJax5mo)
+> 5.  Cambios en Clase Particle
 
 
 
