@@ -25,7 +25,7 @@
 
 >2. En la simulación, la gestión de la creación y eliminación de partículas se hace de manera progresiva. En cada draw() se crea una nueva partícula y se almacena en un arreglo (particles). Luego, en cada frame, todas las partículas se actualizan y se dibujan con run(). Para evitar que se acumulen infinitamente, cada partícula tiene un atributo lifespan que va disminuyendo hasta llegar a cero. Cuando esto ocurre, el método isDead() devuelve true y, en ese momento, la partícula se elimina del arreglo con splice(). De esta forma, la memoria se mantiene controlada y no se satura, ya que las partículas “muertas” no siguen ocupando espacio.
 
->3. Cada partícula recibe un noiseOffset único en el constructor y, en cada frame, se utiliza noise(this.noiseOffset, frameCount * 0.01) para obtener un valor que varía suavemente con el tiempo. Ese valor se transforma en una pequeña fuerza vertical adicional aplicada con applyForce(). Con esto se logra que las partículas no caigan en línea recta, sino que, al estar influenciadas por esa fuerza, desciendan de manera más suave, como si pesaran menos y fueran movidas por una ligera brisa que las hace flotar.
+>3. Como dije anteriormente para este ejemplo quise agregar perlon noise así lo que hice fue que en cada partícula recibe un noiseOffset único en el constructor y, en cada frame, se utiliza noise(this.noiseOffset, frameCount * 0.01) para obtener un valor que varía suavemente con el tiempo. Ese valor se transforma en una pequeña fuerza vertical adicional aplicada con applyForce(). Con esto se logra que las partículas no caigan en línea recta, sino que, al estar influenciadas por esa fuerza, desciendan de manera más suave, como si pesaran menos y fueran movidas por una ligera brisa que las hace flotar.
 >4. [Link Ejemplo 4.2](https://editor.p5js.org/LCami-Villanueva/sketches/vyOgMlDp9 "Perlin Noise para ejmplo 4.2")
 >5. Código Fuente 4.2, como solo hice cambios en l clase Particle, solo cópiare ese código Fuente.
 ``` JS
@@ -91,5 +91,6 @@ class Particle {
 > La gestión funciona de la misma manera que en el ejemplo anterior: se crea un Emitter en el setup y, en cada frame, este va generando una nueva partícula. Luego, gracias a la revisión con isDead(), cada partícula se elimina en el momento adecuado, lo que evita que se acumulen infinitas partículas y asegura que la memoria se libere progresivamente.
 ### Ejemplo 4.7
 > La gestión vuelve a ser la misma: se crea un Emitter y en cada frame este genera una nueva partícula. Después, con la función isDead(), se eliminan las que ya cumplieron su ciclo.
+
 
 
