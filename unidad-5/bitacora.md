@@ -166,11 +166,81 @@ function mousePressed() {
 <img width="789" height="293" alt="image" src="https://github.com/user-attachments/assets/498792c2-0d95-4ef7-83fa-9dea3e7b7e3b" />
 
 ### Ejemplo 4.5
-> La forma de generar las partículas es parecida al ejemplo anterior, pero con una diferencia: después de crear el Emitter, al momento de generar cada partícula se usa un random para decidir si será un círculo o un cuadrito (que corresponde a la clase Confetti). La eliminación sigue siendo igual, usando splice para quitar las partículas cuando ya no sirven.
+> 1. Para este ejemplo quiero usar un random con distribucion gauseana para los colores paara que de la ilusión que el confetti es mas colorido 
+> 2. Este funciona de forma muy similar a los anteriores, aquí lo que se hace es que a través de la clase Emitter. Cada frame se genera una nueva partícula con addParticle(), que puede ser un círculo (Particle) o un cuadrado (Confetti). Luego, en el método run(), se recorre el arreglo de partículas y se llama a isDead() para verificar si su lifespan llegó a cero. Cuando esto ocurre, la partícula se elimina con splice(), lo que libera memoria y evita que el arreglo crezca indefinidamente. De esta manera, aunque la simulación genere partículas continuamente, se mantiene controlada la cantidad en memoria, asegurando que solo existan las necesarias en cada momento.
+> 3.En este caso, quise aplicar el concepto de random gaussiano para darle variabilidad natural al tamaño y al color de las partículas. Lo implementé usando randomGaussian() dentro de los constructores o del método show() de Particle y Confetti, generando así valores alrededor de una media con cierta desviación estándar. La idea fue que los círculos tengan colores fríos y tamaños variados y los cuadrados colores cálidos, lo que logra que la simulación se vea más orgánica y menos uniforme, imitando cómo en la vida real los objetos de un mismo tipo no son idénticos y crean un efecto visual más interesante y dinámico.
+>4. [Link Ejemplo 4.5](https://editor.p5js.org/LCami-Villanueva/sketches/8Xr7Q8xrs)
+>5. Modificaciones en la clase Confetti
+``` JS
+class Confetti extends Particle {
+  show() {
+    let warmHue = constrain(randomGaussian(30, 20), 0, 60); // color cálido
+
+    colorMode(HSB, 360, 100, 100, 255);
+    fill(warmHue, 90, 100, this.lifespan);
+    stroke(warmHue, 80, 60, this.lifespan);
+    strokeWeight(2);
+
+    rectMode(CENTER);
+    push();
+    translate(this.position.x, this.position.y);
+    let angle = map(this.position.x, 0, width, 0, TWO_PI * 2);
+    rotate(angle);
+    square(0, 0, 12);
+    pop();
+  }
+}
+```
+Modificaciones en la clase Particle
+``` JS
+class Particle {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.acceleration = createVector(0, 0);
+    this.velocity = createVector(random(-1, 1), random(-1, 0));
+    this.lifespan = 255.0;
+
+    // Tamaño y color con distribución gaussiana (círculos fríos)
+    this.size = abs(randomGaussian(8, 3));
+    let coldHue = constrain(randomGaussian(220, 30), 180, 260);
+    this.col = color(coldHue, 80, 100, this.lifespan);
+  }
+
+  run() {
+    let gravity = createVector(0, 0.05);
+    this.applyForce(gravity);
+    this.update();
+    this.show();
+  }
+
+  applyForce(force) {
+    this.acceleration.add(force);
+  }
+
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.lifespan -= 2;
+    this.acceleration.mult(0);
+  }
+
+  show() {
+    colorMode(HSB, 360, 100, 100, 255);
+    noStroke();
+    fill(this.col);
+    circle(this.position.x, this.position.y, this.size);
+  }
+
+  isDead() {
+    return this.lifespan < 0.0;
+  }
+}
+```
 ### Ejemplo 4.6
 > La gestión funciona de la misma manera que en el ejemplo anterior: se crea un Emitter en el setup y, en cada frame, este va generando una nueva partícula. Luego, gracias a la revisión con isDead(), cada partícula se elimina en el momento adecuado, lo que evita que se acumulen infinitas partículas y asegura que la memoria se libere progresivamente.
 ### Ejemplo 4.7
 > La gestión vuelve a ser la misma: se crea un Emitter y en cada frame este genera una nueva partícula. Después, con la función isDead(), se eliminan las que ya cumplieron su ciclo.
+
 
 
 
