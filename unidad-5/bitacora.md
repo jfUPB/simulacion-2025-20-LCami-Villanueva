@@ -81,16 +81,97 @@ class Particle {
   }
 }
 ```
-<img width="795" height="302" alt="image" src="https://github.com/user-attachments/assets/7b67ae96-e195-42dd-a64f-717ca55a68e3" />
+> . <img width="795" height="302" alt="image" src="https://github.com/user-attachments/assets/7b67ae96-e195-42dd-a64f-717ca55a68e3" />
 
 ### Ejemplo 4.4
-> Aquí funciona de forma parecida al ejemplo anterior, solo que ahora se hace mediante otra clase llamada Emitter(). Esta clase se encarga de controlar tanto la generación como la desaparición de las partículas. Además, cada vez que haces click se crea un nuevo Emitter, el cual se encarga de gestionarse por sí mismo.
+> 1. Para este ejemplo quiero aplicar algún concepto de fuerza.
+> 2. Funciona de forma similar al 4.2 pero esta vez mediante otra clase llamada Emitter() .Cada partícula empieza en la posición del emisor y se le asignan propiedades iniciales como velocidad y vida útil. La desaparición ocurre porque cada partícula tiene una variable de “tiempo de vida” (lifespan) que va disminuyendo en cada frame. Cuando ese valor llega a cero, la partícula se considera muerta y el sistema la elimina de la lista de partículas.
+> 3.En este ejemplo lo que apliqué es el concepto de la Aplicación de fuerzas. Lo que hice fue generar una fuerza de repulsión que proviene del mouse y actúa sobre las partículas. Esta fuerza externa se calcula en función de la distancia entre cada partícula y el cursor, y al aplicarse modifica directamente la aceleración, que luego afecta la velocidad y la posición según el Motion 101. De esta manera, logré que las partículas reaccionen dinámicamente al movimiento del mouse, mostrando cómo una interacción externa puede alterar el comportamiento del sistema y dándole un carácter más interactivo.
+>4. [Link Ejemplo 4.4](https://editor.p5js.org/LCami-Villanueva/sketches/C2F96WWTq)
+>5. Modificaciones en la clase Emitter
+ ``` JS
+// The Nature of Code
+// Daniel Shiffman
+// http://natureofcode.com
+
+class Emitter {
+  constructor(x, y) {
+    this.origin = createVector(x, y);
+    this.particles = [];
+  }
+
+  addParticle() {
+    this.particles.push(new Particle(this.origin.x, this.origin.y));
+  }
+
+  run() {
+    // Looping through backwards to delete
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      this.particles[i].run();
+      if (this.particles[i].isDead()) {
+        // Remove the particle
+        this.particles.splice(i, 1);
+      }
+    }
+  }
+
+  // Nuevo método: fuerza de repulsión desde el mouse
+  applyRepel(mouse) {
+    for (let p of this.particles) {
+      let dir = p.position.copy().sub(mouse); // vector desde el mouse a la partícula
+      let d = dir.mag(); // distancia al mouse
+      dir.normalize();
+
+      // fuerza inversa al cuadrado (más cerca = más fuerte)
+      let strength = constrain(100 / (d * d), 0, 5);
+      dir.mult(strength);
+
+      p.applyForce(dir);
+    }
+  }
+}
+````
+Modificaciones en el Sketch Principal 
+``` JS
+// The Nature of Code
+// Daniel Shiffman
+// http://natureofcode.com
+
+// Particles are generated each cycle through draw(),
+// fall with gravity and fade out over time
+// A ParticleSystem object manages a variable size
+// list of particles.
+
+// an array of ParticleSystems
+let emitters = [];
+
+function setup() {
+  createCanvas(640, 240);
+  let text = createP("click to add particle systems");
+}
+
+function draw() {
+  background(255);
+  for (let emitter of emitters) {
+    emitter.run();
+    emitter.addParticle();
+    emitter.applyRepel(createVector(mouseX, mouseY)); // fuerza de repulsión
+  }
+}
+
+function mousePressed() {
+  emitters.push(new Emitter(mouseX, mouseY));
+}
+```
+<img width="789" height="293" alt="image" src="https://github.com/user-attachments/assets/498792c2-0d95-4ef7-83fa-9dea3e7b7e3b" />
+
 ### Ejemplo 4.5
 > La forma de generar las partículas es parecida al ejemplo anterior, pero con una diferencia: después de crear el Emitter, al momento de generar cada partícula se usa un random para decidir si será un círculo o un cuadrito (que corresponde a la clase Confetti). La eliminación sigue siendo igual, usando splice para quitar las partículas cuando ya no sirven.
 ### Ejemplo 4.6
 > La gestión funciona de la misma manera que en el ejemplo anterior: se crea un Emitter en el setup y, en cada frame, este va generando una nueva partícula. Luego, gracias a la revisión con isDead(), cada partícula se elimina en el momento adecuado, lo que evita que se acumulen infinitas partículas y asegura que la memoria se libere progresivamente.
 ### Ejemplo 4.7
 > La gestión vuelve a ser la misma: se crea un Emitter y en cada frame este genera una nueva partícula. Después, con la función isDead(), se eliminan las que ya cumplieron su ciclo.
+
 
 
 
