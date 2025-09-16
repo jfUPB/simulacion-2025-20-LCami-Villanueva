@@ -417,7 +417,8 @@ function mousePressed() {
   attractor = new Repeller(mouseX, mouseY, "attract"); // mismo Repeller pero modo "attract"
 }
 ```
-> 7.  <img width="637" height="307" alt="image" src="https://github.com/user-attachments/assets/24bf1fb4-3aeb-471f-8de7-346e20eb2f6e" />
+> <img width="637" height="307" alt="image" src="https://github.com/user-attachments/assets/24bf1fb4-3aeb-471f-8de7-346e20eb2f6e" />
+
 
 
 
