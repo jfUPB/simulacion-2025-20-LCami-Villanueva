@@ -345,10 +345,81 @@ class Emitter {
 
 ### Ejemplo 4.7
 > 1. Para este ejmeplo me gustaría aplicar una fuerza de atracción gravitacional.
-> 2. Aquí Cada vez que se llama a addParticle(), se agrega una nueva partícula al arreglo, mientras que en cada frame, durante la ejecución de run(), se recorre el arreglo de atrás hacia adelante para actualizar cada partícula y revisar si ha “muerto” mediante isDead(). Cuando la partícula cumple su vida útil, se elimina del arreglo usando splice(), liberando memoria de forma progresiva y evitando que el arreglo crezca indefinidamente. Esto es muy similar a los ejemplos anteriores, donde también se controlaba el ciclo de vida de las partículas para mantener la simulación eficiente y sin saturar la memoria.
-> 3. En este ejemplo apliqué el concepto de péndulo para las partículas. Lo implementé usando coordenadas polares, donde cada partícula tiene un ángulo y una longitud desde su origen, y su aceleración angular se calcula con la fórmula de oscilación armónica. Esto hace que la partícula se mueva de un lado a otro, y no en círculos completos, simulando un péndulo real que va y viene. Lo hice así para que el movimiento de las partículas fuera visualmente más interesante, mostrando oscilaciones suaves y controladas en lugar de trayectorias lineales o circulares.
-> 4.  [Link Ejemplo 4.6](https://editor.p5js.org/LCami-Villanueva/sketches/qhbJax5mo)
+> 2. En este código la gestión de partículas sigue la misma lógica de los ejemplos anteriores: el sistema de partículas crea instancias de la clase Particle y las almacena en un arreglo dinámico. En cada iteración del draw(), cada partícula actualiza su posición según las fuerzas aplicadas y se dibuja en pantalla. Además, se reduce progresivamente su atributo lifespan, que funciona como un temporizador de vida. Cuando lifespan llega a un valor bajo (cercano a cero), la partícula se considera “muerta” y se elimina del arreglo mediante el método remove(). Esto asegura que la memoria se use de forma eficiente, ya que solo se mantienen en memoria las partículas activas y se descartan las que han completado su ciclo de vida, evitando fugas o acumulaciones innecesarias.
+> 3. En este ejemplo añadí un attractor que coloqué con el mouse para generar una fuerza de atracción sobre las partículas. Para ello reutilicé la misma lógica del repeller, modificando el cálculo de la fuerza para que en lugar de repeler, atrajera a las partículas según una fórmula basada en la gravitación (fuerza inversamente proporcional al cuadrado de la distancia). De esta manera, cada partícula actualiza su movimiento bajo la influencia de la gravedad global y de la atracción del nuevo objeto, lo que me permitió simular un comportamiento más complejo y realista dentro del sistema de partículas, manteniendo la gestión de memoria eficiente mediante la eliminación de partículas muertas.
+> 4.  [Link Ejemplo 4.7](https://editor.p5js.org/LCami-Villanueva/sketches/GuxVXP8YB)
 > 5.  Cambios en Clase Particle
+``` JS
+class Repeller {
+  // Se agregó parámetro mode para permitir repulsión o atracción
+  constructor(x, y, mode = "repel") {
+    this.position = createVector(x, y);
+    this.power = 150;
+    this.mode = mode; // "repel" o "attract"
+  }
+
+  show() {
+    stroke(0);
+    strokeWeight(2);
+    // Cambia el color según tipo de fuerza
+    if (this.mode === "repel") fill(127); // gris para repulsor
+    else fill(100, 200, 255, 150); // azul semitransparente para atractor
+    circle(this.position.x, this.position.y, 32);
+  }
+
+  repel(particle) {
+    let force = p5.Vector.sub(this.position, particle.position);
+    let distance = force.mag();
+    distance = constrain(distance, 5, 50);
+    // Cambiado: fuerza positiva si mode = "attract"
+    let strength = (this.mode === "repel" ? -1 : 1) * this.power / (distance * distance);
+    force.setMag(strength);
+    return force;
+  }
+}
+```
+Cambios en el Sketch 
+``` JS
+let emitter;
+let repeller;
+let attractor = null; // nueva variable para la masa atractora
+
+function setup() {
+  createCanvas(640, 240);
+  emitter = new Emitter(width / 2, 60);
+  repeller = new Repeller(width / 2, 250, "repel");
+}
+
+function draw() {
+  background(255);
+
+  emitter.addParticle();
+
+  // gravedad hacia abajo
+  let gravity = createVector(0, 0.1);
+  emitter.applyForce(gravity);
+
+  // aplicar repulsor
+  emitter.applyRepeller(repeller);
+
+  // aplicar atractor si existe (nuevo)
+  if (attractor) {
+    emitter.applyRepeller(attractor);
+    attractor.show();
+  }
+
+  emitter.run();
+  repeller.show();
+}
+
+// Crear masa atractora al hacer clic (nuevo)
+function mousePressed() {
+  attractor = new Repeller(mouseX, mouseY, "attract"); // mismo Repeller pero modo "attract"
+}
+```
+> 7.  <img width="637" height="307" alt="image" src="https://github.com/user-attachments/assets/24bf1fb4-3aeb-471f-8de7-346e20eb2f6e" />
+
+
 
 
 
