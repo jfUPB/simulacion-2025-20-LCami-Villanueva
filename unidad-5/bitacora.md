@@ -438,17 +438,29 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
    >  * Que los colores tambien cambien dependiendo de la musica,
    >  * Que el fuego pueda avivarse y crecer y expandirse.
    >  * Que el agua apague dependiendo de la cantidad y donde se eche y el fuego pueda volver a invadir zonas.
-   >         
+            
    > ✏️ **Bocetos**
-   > 
+   
    > 🧩 **Conceptos Preliminares**
    > 
-   > 🖱️ **Interacción**
-   > 
+   > Con la obra pretendo simular una llama de fuego cambiante que pasa por diversos estados dependiendo del aire, del agua o si es avivada por más chispas. Los factores ambientales que la rodean afectan su comportamiento: cómo se         > mueve, cómo reacciona y hasta cómo se perciben sus “emociones”. Todo ocurre dentro de un marco de contraste entre lo fuerte y lo frágil, mostrando cómo lo fuerte puede volverse frágil y lo frágil puede transformarse en fuerza.
+   
+   > 🖱️ **Interacción Preliminar**
+   > * Musica: Cambia color e intensidad de fuego.
+   >    * Volumen: Altura y velocidad de las particulas
+   >    * Frecuencias: Colores
+   >    * Ritmo: Movimiento al compas
+   > * Mouse arrastrado: Genera viento.
+   > * Mouse con click : Agregas particulas de agua que apagan el fuego o Chispas que avivan
+   > * Tecla W: Echas agua con el mouse (Defecto)
+   > * Tecla F: Agregas chispas por el mouse
+
+   > 🧪 **Experimentos**
+
    > 💬 **Que comunica**
    > 
-   > 🧪 **Experimentos**
-   >
+   > ✨ Quiero comunicar dualidad, el estar entre lo fuerte que puede lllegar a ser el fuego y al mismo tiempo lo fragil que se puede sentir frente al agua. Al mismo tiempo la obra refleja cómo algo intenso puede apagarse, o también       > cómo puede recuperarse y fortalecerse nuevamente. Representa lo cambiante, mostrando que, aunque muchas veces algo parezca extinguido, siempre queda un rastro (Humo vapor en este caso) que recuerda lo que ya no está y evidencia       > cómo puede permanecer de una forma no tan física, pero aún existir.✨
+
    > ✨ **Concepto Final**
 3. Debes utilizar los conceptos de herencia y polimorfismo que revisaste en la fase de investigación.
    > Este concepto lo use ...
@@ -468,6 +480,7 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
     > ``` JS
     > ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
