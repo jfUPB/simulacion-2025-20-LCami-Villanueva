@@ -419,6 +419,55 @@ function mousePressed() {
 ```
 > <img width="637" height="307" alt="image" src="https://github.com/user-attachments/assets/24bf1fb4-3aeb-471f-8de7-346e20eb2f6e" />
 
+# Apply: Aplicación 🛠
+## Actividad 03
+Es hora de una nueva creación. Diseña e implementa una obra de arte generativa algorítmica interactiva en tiempo real en p5.js que cumpla con los siguientes requisitos:
+
+Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experimentación con el código y el resultado final.
+
+1. Es unidad incluye una novedad: DISEÑO. Debes intencionar tu obra. Esta vez te pediré que DISEÑES antes de generar código. Define un concepto, haz bocetos, define la interacción, etc. ¿Cuál es el concepto de tu obra? ¿Qué quieres comunicar con ella?
+   > **ETAPA DE DISEÑO** 🎨✨
+   >
+   > Luego de ver los ejmplos del libro y revisar varias cosas, me gustó mucho el ultimo ejemplo que es un sistema de particulas que emula el fuego, me gustaría que mi obra se encaminara hacia allá. 🔥
+   >
+   > 💡 **Lluvia de ideas** 
+   >  * Represemntar Fuego de diferentes colores, como cuando se mezclan con diferentes compuestos quimicos
+   >  * Hacer que pueda caer particulas que representen agua estas apagarían el fuego
+   >  * Que al apagarse el fuego se convierta en humito
+   >  * Que el fuego sea danzante, que se pueda manejar con audio y que se mueva dependiendo del sonido.
+   >  * Que los colores tambien cambien dependiendo de la musica,
+   >  * Que el fuego pueda avivarse y crecer y expandirse.
+   >  * Que el agua apague dependiendo de la cantidad y donde se eche y el fuego pueda volver a invadir zonas.
+   >         
+   > ✏️ **Bocetos**
+   > 
+   > 🧩 **Conceptos Preliminares**
+   > 
+   > 🖱️ **Interacción**
+   > 
+   > 💬 **Que comunica**
+   > 
+   > 🧪 **Experimentos**
+   >
+   > ✨ **Concepto Final**
+3. Debes utilizar los conceptos de herencia y polimorfismo que revisaste en la fase de investigación.
+   > Este concepto lo use ...
+5. Debes utilizar al menos un concepto de cada una de las unidades anteriores: 4 conceptos.
+   > * Unidad 1
+   > * Unidad 2
+   > * Unidad 3
+   > * Unidad 4
+   > * Unidad 5
+7. Debes definir cómo vas a gestionar el tiempo de vida de las partículas y la memoria.
+   > El teimpo de Particula se gestinó ....
+9. La obra debe ser interactiva en tiempo real. Puedes usar teclado, mouse, música, el micrófono, video, sensor o cualquier otro dispositivo de entrada.
+   > Las interacciones finales fueron:
+11. Incluye un enlace a tu código en el editor de p5.js.
+   > [Obra unidad 5]()
+13. Incluye el código fuente.
+   > ``` JS
+   > ```    
+14. Captura de pantallas de tu obra con las imágenes que más te gusten
 
 
 
