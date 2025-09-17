@@ -463,11 +463,12 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
 9. La obra debe ser interactiva en tiempo real. Puedes usar teclado, mouse, música, el micrófono, video, sensor o cualquier otro dispositivo de entrada.
    > Las interacciones finales fueron:
 11. Incluye un enlace a tu código en el editor de p5.js.
-   > [Obra unidad 5]()
+    > [Obra unidad 5]()
 13. Incluye el código fuente.
-   > ``` JS
-   > ```    
+    > ``` JS
+    > ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
