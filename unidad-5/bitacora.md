@@ -974,6 +974,9 @@ class ParticulaHumo extends Particula {
 }
  ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+    <img width="625" height="635" alt="image" src="https://github.com/user-attachments/assets/15a288a5-3ac6-44ab-b492-3ada5b593d7f" />
+
+
 
 
 
