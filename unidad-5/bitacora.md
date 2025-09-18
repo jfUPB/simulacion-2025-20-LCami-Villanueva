@@ -508,10 +508,18 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
 3. Debes utilizar los conceptos de herencia y polimorfismo que revisaste en la fase de investigación.
    > Este concepto fue utilizado en el array principal sistemaParticulas para almacenar y gestionar de forma unificada objetos de clases distintas (ParticulaFuego, ParticulaAgua y           > ParticulaHumo), ya que todas heredan de la clase base Particula. El objetivo de esta implementación fue simplificar radicalmente el bucle principal del programa, permitiendo invocar    > métodos genéricos como update() y show() sobre cualquier elemento del array sin necesidad de verificar su tipo específico, lo que dio como resultado un código más limpio, organizado    > y fácilmente escalable.
 5. Debes utilizar al menos un concepto de cada una de las unidades anteriores: 4 conceptos.
-   > * Unidad 1
-   > * Unidad 2
-   > * Unidad 3
-   > * Unidad 4
+   > * Unidad 1:
+   >  >   * Ruido Perlin (noise()): Controla el movimiento de la ParticulaHumo, dándole un aspecto de deriva suave y caótico en lugar de un movimiento predecible.
+   >  >   * Distribución Gaussiana (randomGaussian()): Se usa para generar las partículas de fuego en la base, concentrándolas en el centro pero con una dispersión natural hacia los         >  >     lados, lo que le da a la llama su forma de campana.
+   > * Unidad 2: (Motion 101): Es el motor fundamental de toda la simulación.
+   >   >  * La clase Particula base está construida sobre este principio, con los vectores position,          >   >    velocity y acceleration.
+   >   >  * El método update() de cada partícula implementa la lógica central (velocidad += aceleración,      >   >    posición += velocidad) que permite que todos los elementos se muevan.
+   > * Unidad 3 (Fuerzas): Se aplicaron múltiples fuerzas para influir en el comportamiento de las            >   partículas.
+   >   >  * Fuerza de Viento: El vientoGlobal, controlado por las flechas del teclado, es un vector de        >   >    fuerza que se aplica a las partículas de fuego y humo con applyForce().
+   >   >  * Fuerza de Gravedad: La ParticulaAgua es afectada por una fuerza constante hacia abajo             >   >    (applyForce(createVector(0, 0.25))) que simula la gravedad.
+   >   >  * Fuerza de Atracción: La llama obtiene su forma cónica gracias a una fuerza de atracción           >   >    central que empuja a las ParticulaFuego hacia el eje vertical a medida que suben, una             >   >    aplicación artística del principio de fuerzas centrales.
+   > * Unidad 4 (Movimiento Angular / Oscilación): Se usó para darle vida y dinamismo a la llama.
+   >   >  * Oscilación con sin(): La "danza" del fuego se logra aplicando una fuerza horizontal               >   >    oscilatoria a cada ParticulaFuego. La amplitud de esta oscilación está directamente ligada a      >   >    las frecuencias medias de la música, haciendo que la llama baile al compás.
    > * Unidad 5
 7. Debes definir cómo vas a gestionar el tiempo de vida de las partículas y la memoria.
    > El teimpo de Particula se gestinó ....
@@ -523,6 +531,7 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
     > ``` JS
     > ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
