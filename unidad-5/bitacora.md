@@ -453,18 +453,20 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
 
    > 🧪 **Experimentos**
    > 
-   > Aprovechando que Gemini me permite hacer una vista previa del código que se le da o genera, haré los primeros experimentos allí, estas pruebas serán sin audio, en vez de eso se         > usará el sonido ambiente.
+   > Aprovechando que Gemini me permite hacer una vista previa del código que se le da o genera, haré los primeros experimentos allí, estas pruebas serán sin audio, en vez de eso se         > usará el sonido ambiente para ver los cambios.
    > 
-   > * Experimento 1. Lo primero que cree  fue la clase particula, que sería la base del sitema, ya que en ella se encuentra la lógica de todas las particulas que existiran, máS             >adelante, en este caso se creo con las caracteristicas deseadas para hacer el fuego, esta ya contiene el tiempo de vida por lo que despues de un tiempo las particulas mueren para        >liberar memoría.
+   > * Experimento 1.
+   > * Lo primero que cree  fue la clase particula, que sería la base del sistema, ya que en ella se encuentra la lógica de todas las particulas que existiran, máS             >adelante,    > en este caso se creo con las caracteristicas deseadas para hacer el fuego, esta ya contiene el tiempo de vida por lo que despues de un tiempo las particulas mueren para                 > liberar memoría.
    >   
    > Imagen Experimento 1.
    > 
    > <img width="765" height="623" alt="image" src="https://github.com/user-attachments/assets/ef1fcbfc-6b13-4ee6-a153-8954dc445484" />
    
    > * Experimento 2.
-   > Agregué las particulas de agua y de humo, para que al echara agua se apague le fuergo, además que al apagarse salgan las partculas de humito.
+   > Agregué las clases de particulas de agua y de humo, para que al echara agua se apague le fuergo, además que al apagarse salgan las partculas de humito.
 
    > Imagen Experimento 2
+   > 
    > <img width="883" height="679" alt="image" src="https://github.com/user-attachments/assets/0717abbc-ea34-4609-bf40-ec1d4284fd44" />
    
    > * Experimento 3.
@@ -474,28 +476,31 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
    >Imagen experimento 3
    > 
    >   <img width="610" height="687" alt="image" src="https://github.com/user-attachments/assets/50c754fc-a61c-4453-8fe1-21ab00183af2" />
-   >*Experimeto 4
+   >
+   > * Experimeto 4
    > Aquí volví a la forma de renderizado anterior, solo que haciendo que el agua tuviera un estela  y arregle le puse un blending al humo para que se viera más como humo.
+   >
+   > Imagen Experimento 4
    > 
    > <img width="492" height="490" alt="image" src="https://github.com/user-attachments/assets/28f26a59-7f41-4390-a8ec-59f7d78d63ea" />
    >
-   >*Experimeto 5.
+   > * Experimeto 5.
    > Quise agregar viento por lo que al oprimir las flechas en el teclado se genera una fuerzaq que mueve el fuego como si viniera viento con esa dirección.
    > 
    > Imagen Experimento 5
    > 
    > <img width="709" height="436" alt="image" src="https://github.com/user-attachments/assets/da0b2604-1130-4adc-a2ef-44b48c63ccab" />
 
-   > *Experimento 6
-   > Aquí agregué audio y probe diferentes niveles de sensibilidad para reaccionar al sonido, logrando que los colores cambiens egun este, además agregue dos modos cuando escucha el         >sonido ambiente y cargando una cancion y reaccioanndo a esta.
+   > * Experimento 6
+   > Aquí agregué ya pasé a P5  audio y probe diferentes niveles de sensibilidad para reaccionar al sonido, logrando que los colores cambiens segun este, además agregue dos modos cuando     > escucha el sonido ambiente y cargando una cancion y reaccionando a esta.
    > 
    > Imagen Experimento 6
-   >
+   > 
    > <img width="653" height="645" alt="image" src="https://github.com/user-attachments/assets/bfebedbb-20ca-42a5-86f4-03ecdd52577f" />
 
    > 💬 **Que comunica**
    > 
-   > ✨ Quiero comunicar dualidad, el estar entre lo fuerte que puede lllegar a ser el fuego y al mismo tiempo lo fragil que se puede sentir frente al agua. Al mismo tiempo la obra          >refleja cómo algo intenso puede apagarse, o también       > cómo puede recuperarse y fortalecerse nuevamente. Representa lo cambiante, mostrando que, aunque muchas veces algo parezca    >extinguido, siempre queda un rastro (Humo vapor en este caso) que recuerda lo que ya no está y evidencia       > cómo puede permanecer de una forma no tan física, pero aún existir.✨
+   > ✨ Quiero comunicar dualidad, el estar entre lo fuerte que puede lllegar a ser el fuego y al mismo tiempo lo fragil que se puede sentir frente al agua. Al mismo tiempo la obra          > refleja cómo algo intenso puede apagarse, o también cómo puede recuperarse y fortalecerse nuevamente. Representa lo cambiante, mostrando que, aunque muchas veces algo parezca           > extinguido, siempre queda un rastro (Humo vapor en este caso) que recuerda lo que ya no está y evidencia cómo puede permanecer de una forma no tan física, pero aún existir.✨
 
    > ✨ **Concepto Final**
    > 
@@ -505,32 +510,33 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
    > 
    > 💫 **Explicación Obra Final**
    >
-   > 🌀Al final esta obra es un fuego digital vivo que danza y reacciona al sonido. Todo lo que ves en pantalla, desde la llama principal hasta el humo que se disipa, está creado por        > de pequeñas partículas que nacen, se mueven y mueren constantemente. La llama no es estática; su forma y color cambian con la música que escucha. Los sonidos graves la hacen crecer     > y pulsar con fuerza, mientras que los agudos pueden transformarla en un fuego de tonos azules y morados, mostrando así sus diferentes "emociones".
+   > 🌀Al final esta obra es un fuego digital vivo que danza y reacciona al sonido. Todo lo que se ve en pantalla, desde la llama principal hasta el humo que se disipa, está creado por        > pequeñas partículas que nacen, se mueven y mueren constantemente. La llama no es estática; su forma y color cambian con la música que escucha. Los sonidos graves la hacen crecer        > y pulsar con fuerza, mientras que los agudos pueden transformarla en un fuego de tonos azules y morados, mostrando así sus diferentes "emociones".
 3. Debes utilizar los conceptos de herencia y polimorfismo que revisaste en la fase de investigación.
    > Este concepto fue utilizado en el array principal sistemaParticulas para almacenar y gestionar de forma unificada objetos de clases distintas (ParticulaFuego, ParticulaAgua y           > ParticulaHumo), ya que todas heredan de la clase base Particula. El objetivo de esta implementación fue simplificar radicalmente el bucle principal del programa, permitiendo invocar    > métodos genéricos como update() y show() sobre cualquier elemento del array sin necesidad de verificar su tipo específico, lo que dio como resultado un código más limpio, organizado    > y fácilmente escalable.
 5. Debes utilizar al menos un concepto de cada una de las unidades anteriores: 4 conceptos.
    > * Unidad 1:
-   >  >   * Ruido Perlin (noise()): Controla el movimiento de la ParticulaHumo, dándole un aspecto de deriva suave y caótico en lugar de un movimiento predecible.
-   >  >   * Distribución Gaussiana (randomGaussian()): Se usa para generar las partículas de fuego en la base, concentrándolas en el centro pero con una dispersión natural hacia los         >  >     lados, lo que le da a la llama su forma de campana.
+   >   >   * Ruido Perlin (noise()): Controla el movimiento de la ParticulaHumo, dándole un aspecto de deriva suave y caótico en lugar de un movimiento predecible.
+   >   >   * Distribución Gaussiana (randomGaussian()): Se usa para generar las partículas de fuego en la base, concentrándolas en el centro pero con una dispersión natural hacia los        >   >     lados, lo que le da a la llama su forma de campana.
    > * Unidad 2: (Motion 101): Es el motor fundamental de toda la simulación.
-   >   >  * La clase Particula base está construida sobre este principio, con los vectores position,          >   >    velocity y acceleration.
-   >   >  * El método update() de cada partícula implementa la lógica central (velocidad += aceleración,      >   >    posición += velocidad) que permite que todos los elementos se muevan.
-   > * Unidad 3 (Fuerzas): Se aplicaron múltiples fuerzas para influir en el comportamiento de las            >   partículas.
-   >   >  * Fuerza de Viento: El vientoGlobal, controlado por las flechas del teclado, es un vector de        >   >    fuerza que se aplica a las partículas de fuego y humo con applyForce().
-   >   >  * Fuerza de Gravedad: La ParticulaAgua es afectada por una fuerza constante hacia abajo             >   >    (applyForce(createVector(0, 0.25))) que simula la gravedad.
-   >   >  * Fuerza de Atracción: La llama obtiene su forma cónica gracias a una fuerza de atracción           >   >    central que empuja a las ParticulaFuego hacia el eje vertical a medida que suben, una             >   >    aplicación artística del principio de fuerzas centrales.
+   >   >  * La clase Particula base está construida sobre este principio, con los vectores position, velocity y acceleration.
+   >   >  * El método update() de cada partícula implementa la lógica central (velocidad += aceleración, posición += velocidad) que permite que todos los elementos se muevan.
+   > * Unidad 3 (Fuerzas): Se aplicaron múltiples fuerzas para influir en el comportamiento de las partículas.
+   >   >  * Fuerza de Viento: El vientoGlobal, controlado por las flechas del teclado, es un vector de fuerza que se aplica a las partículas de fuego y humo con applyForce().
+   >   >  * Fuerza de Gravedad: La ParticulaAgua es afectada por una fuerza constante hacia abajo (applyForce(createVector(0, 0.25))) que simula la gravedad.
+   >   >  * Fuerza de Atracción: La llama obtiene su forma cónica gracias a una fuerza de atracción central que empuja a las ParticulaFuego hacia el eje vertical a medida que suben, una     >   >    aplicación artística del principio de fuerzas centrales.
    > * Unidad 4 (Movimiento Angular / Oscilación): Se usó para darle vida y dinamismo a la llama.
    >   >  * Oscilación con sin(): La "danza" del fuego se logra aplicando una fuerza horizontal               >   >    oscilatoria a cada ParticulaFuego. La amplitud de esta oscilación está directamente ligada a      >   >    las frecuencias medias de la música, haciendo que la llama baile al compás.
    
 7. Debes definir cómo vas a gestionar el tiempo de vida de las partículas y la memoria.
-   > En mi código gestioné el tiempo de vida de las partículas con la variable lifespan, que se reduce en cada actualización hasta que la partícula muere. Este valor también controla la     > transparencia y el tamaño, lo que genera un desvanecimiento natural en fuego, humo y agua. Para la memoria, recorro el arreglo de atrás hacia adelante y elimino con splice() las        > partículas muertas, además de limitar el sistema a 700 partículas para evitar sobrecarga.
+   > En mi código se gestinará el tiempo de vida de las partículas con la variable lifespan, que se reduciran en cada actualización hasta que la partícula muere. Este valor también          controla la transparencia y el tamaño, lo que genera un desvanecimiento natural en fuego, humo y agua. Para la memoria, recorro el arreglo de atrás hacia adelante y elimino con         > splice() las partículas muertas, además de limitar el sistema a 700 partículas para evitar sobrecarga.
 9. La obra debe ser interactiva en tiempo real. Puedes usar teclado, mouse, música, el micrófono, video, sensor o cualquier otro dispositivo de entrada.
    > ⌨️**Interacciones finales**💫
    >   > * Mouse Click → lanza agua 💧 o fuego 🔥.
    >   > * Teclado:
    >   >      * W/F → cambia entre agua/fuego.
    >   >      * M → alterna micrófono/canción.
-   >   >      * Flechas ← → → controlan viento 🌬️
+   >   >      * Flechas ← → → controlan viento
+   >   > * Sonido: Canción y ambiente, controlan la inetsidad y colores del fuego.
    >   
 11. Incluye un enlace a tu código en el editor de p5.js.
     > [Obra unidad 5](https://editor.p5js.org/LCami-Villanueva/sketches/cJ7kgQkMI)
@@ -968,6 +974,7 @@ class ParticulaHumo extends Particula {
 }
  ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
