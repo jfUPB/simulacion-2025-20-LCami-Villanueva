@@ -86,7 +86,7 @@ class Particle {
 
 ### Ejemplo 4.4
 > 1. Para este ejemplo quiero aplicar algún concepto de fuerza.
-> 2. Funciona de forma similar al 4.2 pero esta vez mediante otra clase llamada Emitter() .Cada partícula empieza en la posición del emisor y se le asignan propiedades iniciales como velocidad y vida útil. La desaparición ocurre porque cada partícula tiene una variable de “tiempo de vida” (lifespan) que va disminuyendo en cada frame. Cuando ese valor llega a cero, la partícula se considera muerta y el sistema la elimina de la lista de partículas.
+> 2. Aquí se utiliza la clase Emitter para crear y administrar partículas. En cada frame se agregan nuevas partículas y se recorren todas en run(). Cada partícula tiene un lifespan decreciente, y al llegar a cero se elimina con splice(). Esto garantiza que la memoria no se sature con partículas muertas y que el arreglo se mantenga en un tamaño controlado. De no ser así, cada clic generaría más partículas acumuladas, y el loop tendría que procesar un número creciente de elementos, lo que degradaría la velocidad de la simulación.
 > 3.En este ejemplo lo que apliqué es el concepto de la Aplicación de fuerzas. Lo que hice fue generar una fuerza de repulsión que proviene del mouse y actúa sobre las partículas. Esta fuerza externa se calcula en función de la distancia entre cada partícula y el cursor, y al aplicarse modifica directamente la aceleración, que luego afecta la velocidad y la posición según el Motion 101. De esta manera, logré que las partículas reaccionen dinámicamente al movimiento del mouse, mostrando cómo una interacción externa puede alterar el comportamiento del sistema y dándole un carácter más interactivo.
 >4. [Link Ejemplo 4.4](https://editor.p5js.org/LCami-Villanueva/sketches/C2F96WWTq)
 >5. Modificaciones en la clase Emitter
@@ -168,7 +168,7 @@ function mousePressed() {
 
 ### Ejemplo 4.5
 > 1. Para este ejemplo quiero usar un random con distribucion gauseana para los colores paara que de la ilusión que el confetti es mas colorido 
-> 2. Este funciona de forma muy similar a los anteriores, aquí lo que se hace es que a través de la clase Emitter. Cada frame se genera una nueva partícula con addParticle(), que puede ser un círculo (Particle) o un cuadrado (Confetti). Luego, en el método run(), se recorre el arreglo de partículas y se llama a isDead() para verificar si su lifespan llegó a cero. Cuando esto ocurre, la partícula se elimina con splice(), lo que libera memoria y evita que el arreglo crezca indefinidamente. De esta manera, aunque la simulación genere partículas continuamente, se mantiene controlada la cantidad en memoria, asegurando que solo existan las necesarias en cada momento.
+> 2. Este funciona de forma muy similar a los anteriores, aquí la clase Emitter genera en cada frame nuevas partículas que pueden ser círculos (Particle) o cuadrados (Confetti). Cada objeto tiene un ciclo de vida definido por lifespan. Cuando este llega a cero, isDead() devuelve true y se elimina con splice(). Gracias a este control, el arreglo se mantiene con un número estable de partículas. Si no existiera este mecanismo, el run() debería recorrer un arreglo cada vez más grande, provocando ralentizaciones notorias y un consumo innecesario de memoria.
 > 3.En este caso, quise aplicar el concepto de random gaussiano para darle variabilidad natural al tamaño y al color de las partículas. Lo implementé usando randomGaussian() dentro de los constructores o del método show() de Particle y Confetti, generando así valores alrededor de una media con cierta desviación estándar. La idea fue que los círculos tengan colores fríos y tamaños variados y los cuadrados colores cálidos. Aquí, el random gaussiano, interactúa directamente con las propiedades visuales de cada objeto Particle. Al asignar el resultado de randomGaussian() a los atributos de color (this.col) y tamaño (this.size) dentro del constructor, cada partícula nace con una identidad visual única pero coherente con el grupo. Esta interacción es la que produce la apariencia de un conjunto variado pero natural..
 >4. [Link Ejemplo 4.5](https://editor.p5js.org/LCami-Villanueva/sketches/8Xr7Q8xrs)
 >5. Modificaciones en la clase Confetti
@@ -241,8 +241,8 @@ class Particle {
 
 ### Ejemplo 4.6
 > 1. Para este ejmeplo me gustaría aplicar una fuerza tipo pendulo
-> 2. Aquí Cada vez que se llama a addParticle(), se agrega una nueva partícula al arreglo, mientras que en cada frame, durante la ejecución de run(), se recorre el arreglo de atrás hacia adelante para actualizar cada partícula y revisar si ha “muerto” mediante isDead(). Cuando la partícula cumple su vida útil, se elimina del arreglo usando splice(), liberando memoria de forma progresiva y evitando que el arreglo crezca indefinidamente. Esto es muy similar a los ejemplos anteriores, donde también se controlaba el ciclo de vida de las partículas para mantener la simulación eficiente y sin saturar la memoria.
-> 3. En este ejemplo apliqué el concepto de péndulo para las partículas. Lo implementé usando coordenadas polares, donde cada partícula tiene un ángulo y una longitud desde su origen, y su aceleración angular se calcula con la fórmula de oscilación armónica. Esto hace que la partícula se mueva de un lado a otro, y no en círculos completos, simulando un péndulo real que va y viene. Lo hice así para que el movimiento de las partículas fuera visualmente más interesante, mostrando oscilaciones suaves y controladas en lugar de trayectorias lineales o circulares.
+> 2. En este ejemplo también se emplea un Emitter. Cada frame genera partículas que pueden ser normales o de tipo péndulo. Todas reducen su lifespan hasta que isDead() las descarta con splice(). Esto mantiene estable el tamaño del arreglo y evita fugas de memoria. Si las partículas no se eliminaran, el bucle run() debería recorrer un arreglo cada vez más grande, lo que afectaría directamente la eficiencia de la simulación.
+> 3. En este ejemplo apliqué el concepto de péndulo para las partículas. Lo implementé usando coordenadas polares, la gravedad se proyecta como aceleración angular: aAcceleration = (-g / r) * sin(angle),donde cada partícula tiene un ángulo y una longitud desde su origen, y su aceleración angular se calcula con la fórmula de oscilación armónica con con sin() y cos(). Esto hace que la partícula se mueva de un lado a otro, y no en círculos completos, simulando un péndulo real que va y viene. Lo hice así para que el movimiento de las partículas fuera visualmente más interesante, mostrando oscilaciones suaves y controladas en lugar de trayectorias lineales o circulares.
 > 4.  [Link Ejemplo 4.6](https://editor.p5js.org/LCami-Villanueva/sketches/qhbJax5mo)
 > 5.  Cambios en Clase Particle
 ``` JS
@@ -346,7 +346,7 @@ class Emitter {
 
 ### Ejemplo 4.7
 > 1. Para este ejmeplo me gustaría aplicar una fuerza de atracción gravitacional.
-> 2. En este código la gestión de partículas sigue la misma lógica de los ejemplos anteriores: el sistema de partículas crea instancias de la clase Particle y las almacena en un arreglo dinámico. En cada iteración del draw(), cada partícula actualiza su posición según las fuerzas aplicadas y se dibuja en pantalla. Además, se reduce progresivamente su atributo lifespan, que funciona como un temporizador de vida. Cuando lifespan llega a un valor bajo (cercano a cero), la partícula se considera “muerta” y se elimina del arreglo mediante el método remove(). Esto asegura que la memoria se use de forma eficiente, ya que solo se mantienen en memoria las partículas activas y se descartan las que han completado su ciclo de vida, evitando fugas o acumulaciones innecesarias.
+> 2. En este código La lógica de gestión es la misma: cada partícula nace en el emisor, se actualiza en cada frame y reduce su lifespan. Cuando este llega a cero, se elimina con splice(). Así, la memoria se mantiene controlada y el rendimiento se conserva. De lo contrario, el arreglo crecería indefinidamente, ralentizando el run() con el tiempo y afectando la experiencia interactiva.
 > 3. En este ejemplo añadí un attractor que coloqué con el mouse para generar una fuerza de atracción sobre las partículas. Para ello reutilicé la misma lógica del repeller, modificando el cálculo de la fuerza para que en lugar de repeler, atrajera a las partículas según una fórmula basada en la gravitación (fuerza inversamente proporcional al cuadrado de la distancia). De esta manera, cada partícula actualiza su movimiento bajo la influencia de la gravedad global y de la atracción del nuevo objeto, lo que me permitió simular un comportamiento más complejo y realista dentro del sistema de partículas, manteniendo la gestión de memoria eficiente mediante la eliminación de partículas muertas.
 > 4.  [Link Ejemplo 4.7](https://editor.p5js.org/LCami-Villanueva/sketches/GuxVXP8YB)
 > 5.  Cambios en Clase Particle
@@ -974,6 +974,7 @@ class ParticulaHumo extends Particula {
 }
  ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
