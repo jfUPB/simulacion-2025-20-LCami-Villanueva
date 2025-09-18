@@ -977,6 +977,38 @@ class ParticulaHumo extends Particula {
     <img width="625" height="635" alt="image" src="https://github.com/user-attachments/assets/15a288a5-3ac6-44ab-b492-3ada5b593d7f" />
 
 
+## Autoevealuación
+**Nota Propuesta:** 5
+
+1.1. Investigación y Experimentación (Evidencia en Actividad 2) 
+> * Explica memoria/ciclo de vida en todos los ejemplos.
+> * Explica conceptos aplicados y su efecto en todos los ejemplos.
+> * Explica la interrelación (array ↔ rendimiento ↔ concepto aplicado.
+> * Cada prueba explica el concepto que se agregó y por que.
+  
+2. Intención y Diseño (Proceso de Actividad 3)
+> Evidencia:
+> * La bitácora incluye bocetos y explicación conceptual (dualidad fuego/agua, fragilidad/fuerza).
+> * Documentas las decisiones estéticas y el proceso (paletas cálidas y frías).
+> * Las interacciones (mouse, teclado, audio) aparecen explicadas como parte del diseño, no improvisadas.
+
+3. Aplicación Técnica (Código de Actividad 3)
+> Evidencia:
+> * Uso de class Particula y subclases ParticulaFuego, ParticulaAgua, ParticulaHumo, cada una teien comportamientos diferentes observables.
+> * Uso de polimorfismo (update() y show() sobrescritos).
+> * Funciones claras para organización: updateParticulas(), drawEscena(), drawUI().
+> * Cada partícula tiene lifespan.
+> * Cuando lifespan <= 0, se elimina con splice.
+> * Hay un límite máximo (700 partículas) para evitar desbordamiento.
+
+4. Calidad de la Obra Final (Artefacto Entregado)
+> * El sistema corre estable después del inicio.
+> * Se controla la cantidad de partículas para que no haya sobrecarga.
+> * Micrófono: Afecta los colores del fuego.
+> * Canción: Permite una versión estable y reproducible.
+
+
+
 
 
 
