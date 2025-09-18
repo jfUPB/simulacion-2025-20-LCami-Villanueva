@@ -25,7 +25,8 @@
 
 >2. En la simulación, la gestión de la creación y eliminación de partículas se hace de manera progresiva. En cada draw() se crea una nueva partícula y se almacena en un arreglo (particles). Luego, en cada frame, todas las partículas se actualizan y se dibujan con run(). Para evitar que se acumulen infinitamente, cada partícula tiene un atributo lifespan que va disminuyendo hasta llegar a cero. Cuando esto ocurre, el método isDead() devuelve true y, en ese momento, la partícula se elimina del arreglo con splice(). De esta forma, la memoria se mantiene controlada y no se satura, ya que las partículas “muertas” no siguen ocupando espacio.
 
->3. Como dije anteriormente para este ejemplo quise agregar perlin noise así lo que hice fue que en cada partícula recibe un noiseOffset único en el constructor y, en cada frame, se utiliza noise(this.noiseOffset, frameCount * 0.01) para obtener un valor que varía suavemente con el tiempo. Ese valor se transforma en una pequeña fuerza vertical adicional aplicada con applyForce(). Con esto se logra que las partículas no caigan en línea recta, sino que, al estar influenciadas por esa fuerza, desciendan de manera más suave, como si pesaran menos y fueran movidas por una ligera brisa que las hace flotar.
+>3. Como dije anteriormente para este ejemplo quise agregar perlin noise así lo que hice fue que en cada partícula recibe un noiseOffset único en el constructor. El valor generado por noise() se traduce en un vector wind. Este vector, al pasarse a applyForce(), se suma al vector acceleration de la partícula. En el siguiente update(), esta acceleration modifica la velocity, y la velocity finalmente altera la position. Es esta interacción en cadena entre los conceptos de ruido, fuerza y vectores de movimiento la que transforma un número aleatorio en un desplazamiento suave y orgánico en pantalla.
+.
 >4. [Link Ejemplo 4.2](https://editor.p5js.org/LCami-Villanueva/sketches/vyOgMlDp9 "Perlin Noise para ejmplo 4.2")
 >5. Código Fuente 4.2, como solo hice cambios en l clase Particle, solo cópiare ese código Fuente.
 ``` JS
@@ -168,7 +169,7 @@ function mousePressed() {
 ### Ejemplo 4.5
 > 1. Para este ejemplo quiero usar un random con distribucion gauseana para los colores paara que de la ilusión que el confetti es mas colorido 
 > 2. Este funciona de forma muy similar a los anteriores, aquí lo que se hace es que a través de la clase Emitter. Cada frame se genera una nueva partícula con addParticle(), que puede ser un círculo (Particle) o un cuadrado (Confetti). Luego, en el método run(), se recorre el arreglo de partículas y se llama a isDead() para verificar si su lifespan llegó a cero. Cuando esto ocurre, la partícula se elimina con splice(), lo que libera memoria y evita que el arreglo crezca indefinidamente. De esta manera, aunque la simulación genere partículas continuamente, se mantiene controlada la cantidad en memoria, asegurando que solo existan las necesarias en cada momento.
-> 3.En este caso, quise aplicar el concepto de random gaussiano para darle variabilidad natural al tamaño y al color de las partículas. Lo implementé usando randomGaussian() dentro de los constructores o del método show() de Particle y Confetti, generando así valores alrededor de una media con cierta desviación estándar. La idea fue que los círculos tengan colores fríos y tamaños variados y los cuadrados colores cálidos, lo que logra que la simulación se vea más orgánica y menos uniforme, imitando cómo en la vida real los objetos de un mismo tipo no son idénticos y crean un efecto visual más interesante y dinámico.
+> 3.En este caso, quise aplicar el concepto de random gaussiano para darle variabilidad natural al tamaño y al color de las partículas. Lo implementé usando randomGaussian() dentro de los constructores o del método show() de Particle y Confetti, generando así valores alrededor de una media con cierta desviación estándar. La idea fue que los círculos tengan colores fríos y tamaños variados y los cuadrados colores cálidos. Aquí, el random gaussiano, interactúa directamente con las propiedades visuales de cada objeto Particle. Al asignar el resultado de randomGaussian() a los atributos de color (this.col) y tamaño (this.size) dentro del constructor, cada partícula nace con una identidad visual única pero coherente con el grupo. Esta interacción es la que produce la apariencia de un conjunto variado pero natural..
 >4. [Link Ejemplo 4.5](https://editor.p5js.org/LCami-Villanueva/sketches/8Xr7Q8xrs)
 >5. Modificaciones en la clase Confetti
 ``` JS
@@ -973,6 +974,7 @@ class ParticulaHumo extends Particula {
 }
  ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
