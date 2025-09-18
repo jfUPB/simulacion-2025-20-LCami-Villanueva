@@ -498,6 +498,7 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
    > ✨ Quiero comunicar dualidad, el estar entre lo fuerte que puede lllegar a ser el fuego y al mismo tiempo lo fragil que se puede sentir frente al agua. Al mismo tiempo la obra          >refleja cómo algo intenso puede apagarse, o también       > cómo puede recuperarse y fortalecerse nuevamente. Representa lo cambiante, mostrando que, aunque muchas veces algo parezca    >extinguido, siempre queda un rastro (Humo vapor en este caso) que recuerda lo que ya no está y evidencia       > cómo puede permanecer de una forma no tan física, pero aún existir.✨
 
    > ✨ **Concepto Final**
+   > 
    > 🌀La obra representa la dualidad de un mismo elemento, en este caso, el fuego. Por un lado, puede verse fuerte, imponente y casi indestructible; una fuerza que, incluso dentro de su    > fortaleza, es cambiante y capaz de representar estados y emociones.
    >
    >Sin embargo, al mismo tiempo, vive al vilo de la debilidad: tan solo un poco de agua puede llevarlo a desaparecer. Pero no todo está perdido, ya que una pequeña chispa en el lugar       >indicado es suficiente para que el fuego renazca con el mismo vigor.
@@ -520,17 +521,454 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
    >   >  * Fuerza de Atracción: La llama obtiene su forma cónica gracias a una fuerza de atracción           >   >    central que empuja a las ParticulaFuego hacia el eje vertical a medida que suben, una             >   >    aplicación artística del principio de fuerzas centrales.
    > * Unidad 4 (Movimiento Angular / Oscilación): Se usó para darle vida y dinamismo a la llama.
    >   >  * Oscilación con sin(): La "danza" del fuego se logra aplicando una fuerza horizontal               >   >    oscilatoria a cada ParticulaFuego. La amplitud de esta oscilación está directamente ligada a      >   >    las frecuencias medias de la música, haciendo que la llama baile al compás.
-   > * Unidad 5
+   
 7. Debes definir cómo vas a gestionar el tiempo de vida de las partículas y la memoria.
-   > El teimpo de Particula se gestinó ....
+   > En mi código gestioné el tiempo de vida de las partículas con la variable lifespan, que se reduce en cada actualización hasta que la partícula muere. Este valor también controla la     > transparencia y el tamaño, lo que genera un desvanecimiento natural en fuego, humo y agua. Para la memoria, recorro el arreglo de atrás hacia adelante y elimino con splice() las        > partículas muertas, además de limitar el sistema a 700 partículas para evitar sobrecarga.
 9. La obra debe ser interactiva en tiempo real. Puedes usar teclado, mouse, música, el micrófono, video, sensor o cualquier otro dispositivo de entrada.
    > ⌨️**Interacciones finales**💫
+   >   > * Mouse Click → lanza agua 💧 o fuego 🔥.
+   >   > * Teclado:
+   >   >      * W/F → cambia entre agua/fuego.
+   >   >      * M → alterna micrófono/canción.
+   >   >      * Flechas ← → → controlan viento 🌬️
+   >   
 11. Incluye un enlace a tu código en el editor de p5.js.
-    > [Obra unidad 5]()
+    > [Obra unidad 5](https://editor.p5js.org/LCami-Villanueva/sketches/cJ7kgQkMI)
 13. Incluye el código fuente.
-    > ``` JS
-    > ```    
+``` JS
+    // ===================================
+// VARIABLES GLOBALES
+// ===================================
+let sistemaParticulas = []; // El array que contendrá todas nuestras partículas
+let intensidadNucleo = 1.0; // Controla la vida del núcleo del fuego (1.0 = vivo, 0.0 = apagado)
+let vientoGlobal; // Vector para la fuerza del viento del teclado
+
+// Variables de Audio
+let mic;
+let cancion;
+let fft;
+let audioStarted = false;
+let perlinColorOffset = 0;
+let modoCancion = false; // false = micrófono, true = canción
+
+// Paletas de Colores
+let paletaCalida = [];
+let paletaFria = [];
+
+// Textura para el fuego
+let fuegoTextura;
+
+// Interacción
+let modoAgua = false;
+
+
+// ===================================
+// FUNCIONES PRINCIPALES DE P5.JS
+// ===================================
+
+function preload() {
+  // Sube tu canción al editor de p5.js y pon el nombre aquí
+  cancion = loadSound('DAN.mp3');
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 360, 100, 100, 100);
+  
+  vientoGlobal = createVector(0, 0);
+
+  // Configuración del micrófono
+  mic = new p5.AudioIn();
+  fft = new p5.FFT(0.8, 128);
+  fft.setInput(mic); // Inicia con el micrófono por defecto
+
+  paletaCalida = [
+    color(0, 80, 100),   // Rojo
+    color(20, 90, 100),  // Naranja
+    color(40, 100, 100), // Amarillo-Naranja
+    color(60, 100, 100), // Amarillo
+    color(340, 80, 100), // Rojo-Violeta
+  ];
+
+  // Paleta de colores fríos ajustada para más morados
+  paletaFria = [
+    color(240, 100, 90), // Azul
+    color(270, 90, 100), // Morado
+    color(300, 80, 100), // Magenta
+    color(280, 80, 95),  // Púrpura oscuro
+  ];
+
+  // Crear la textura del fuego programáticamente
+  fuegoTextura = createGraphics(100, 100);
+  fuegoTextura.noStroke();
+  for (let i = 50; i > 0; i--) {
+    let alpha = map(i, 50, 0, 0, 255);
+    fuegoTextura.fill(255, alpha / 3);
+    fuegoTextura.ellipse(50, 50, i * 2, i * 2);
+  }
+}
+
+function draw() {
+  if (!audioStarted) {
+    background(0);
+    // Espera al primer clic del usuario para empezar
+    return;
+  }
+
+  fft.analyze();
+
+  let bassEnergy = fft.getEnergy('bass');
+  let midEnergy = fft.getEnergy('mid');
+  let trebleEnergy = fft.getEnergy('treble');
+  
+  // Amplificador de sensibilidad para el micrófono
+  if (!modoCancion) {
+    const sensibilidad = 2.5; // Aumenta este valor para más sensibilidad
+    bassEnergy = min(bassEnergy * sensibilidad, 255);
+    midEnergy = min(midEnergy * sensibilidad, 255);
+    trebleEnergy = min(trebleEnergy * sensibilidad, 255);
+  }
+
+  background(0);
+
+  // Genera y actualiza partículas
+  updateParticulas(bassEnergy, midEnergy, trebleEnergy);
+  
+  // Dibuja la escena
+  drawEscena(bassEnergy, midEnergy, trebleEnergy);
+
+  // Dibuja la interfaz de usuario
+  drawUI();
+}
+
+function updateParticulas(bassEnergy, midEnergy, trebleEnergy) {
+  // --- LÓGICA DE VIENTO CON TECLADO ---
+  if (keyIsDown(LEFT_ARROW)) {
+    vientoGlobal.x -= 0.1; // Añade fuerza hacia la izquierda
+  } else if (keyIsDown(RIGHT_ARROW)) {
+    vientoGlobal.x += 0.1; // Añade fuerza hacia la derecha
+  }
+  // El viento se disipa lentamente y tiene un límite
+  vientoGlobal.mult(0.97);
+  vientoGlobal.limit(2);
+
+  // OPTIMIZACIÓN: Límite de partículas para evitar colapsos
+  if (sistemaParticulas.length < 700) {
+    // Genera nuevas partículas de fuego
+    if (intensidadNucleo > 0.1) {
+      let cantidadFuego = 1 + map(bassEnergy, 0, 255, 0, 5);
+      for (let i = 0; i < cantidadFuego; i++) {
+        let posX = randomGaussian(width / 2, 50);
+        sistemaParticulas.push(new ParticulaFuego(posX, height - 10));
+      }
+    }
+  }
+
+
+  perlinColorOffset += 0.005;
+
+  // Bucle principal de actualización y eliminación
+  for (let i = sistemaParticulas.length - 1; i >= 0; i--) {
+    let p = sistemaParticulas[i];
+    
+    // OPTIMIZACIÓN: El viento se aplica en el mismo bucle de actualización
+    if (p instanceof ParticulaFuego || p instanceof ParticulaHumo) {
+      p.applyForce(vientoGlobal);
+    }
+
+    // Lógica de interacción
+    if (p instanceof ParticulaAgua) {
+      for (let j = sistemaParticulas.length - 1; j >= 0; j--) {
+        let otra = sistemaParticulas[j];
+        if (otra instanceof ParticulaFuego && p.position.dist(otra.position) < 30) { 
+          otra.lifespan = 0;
+          p.lifespan -= 30; 
+        }
+      }
+      let baseFuego = createVector(width / 2, height);
+      if (p.position.dist(baseFuego) < 100) { 
+        intensidadNucleo -= 0.1; 
+        p.lifespan -= 15;
+      }
+    }
+
+    p.update({ bass: bassEnergy, mid: midEnergy, treble: trebleEnergy });
+    
+    // Elimina partículas muertas
+    if (p.isDead()) {
+      if (p instanceof ParticulaFuego) {
+        if (random(1) < 0.3) { // Probabilidad de humo ajustada al 30%
+          sistemaParticulas.push(new ParticulaHumo(p.position.x, p.position.y));
+        }
+      }
+      sistemaParticulas.splice(i, 1);
+    }
+  }
+}
+
+function drawEscena(bassEnergy, midEnergy, trebleEnergy) {
+  // El núcleo del fuego se recupera lentamente SOLO SI está encendido.
+  if (intensidadNucleo > 0.01) {
+      intensidadNucleo = lerp(intensidadNucleo, 1.0, 0.01);
+  }
+  intensidadNucleo = constrain(intensidadNucleo, 0, 1);
+  
+  // CAPA 1: HUMO (MODO NORMAL)
+  blendMode(BLEND);
+  for (let p of sistemaParticulas) {
+    if (p instanceof ParticulaHumo) {
+      p.show({ bass: bassEnergy, mid: midEnergy, treble: trebleEnergy });
+    }
+  }
+
+  // CAPA 2: FUEGO Y AGUA (MODO LUMINOSO)
+  blendMode(ADD);
+  
+  // Efecto de luz ambiental
+  let glowSize = map(bassEnergy, 0, 255, 200, 400) * intensidadNucleo;
+  let glowAlpha = map(bassEnergy, 0, 255, 5, 20) * intensidadNucleo;
+  tint(30, 90, 100, glowAlpha);
+  image(fuegoTextura, width / 2, height, glowSize, glowSize);
+  
+  // Núcleo incandescente
+  let coreSize = map(bassEnergy, 0, 255, 60, 120) * intensidadNucleo;
+  let coreAlpha = map(bassEnergy, 0, 255, 60, 90) * intensidadNucleo;
+  tint(30, 90, 100, coreAlpha);
+  image(fuegoTextura, width / 2, height - 10, coreSize * 1.5, coreSize * 0.8);
+  tint(50, 100, 100, coreAlpha * 0.5);
+  image(fuegoTextura, width / 2, height - 15, coreSize * 0.8, coreSize * 1.2);
+  
+  // Dibuja las partículas de fuego y agua
+  for (let p of sistemaParticulas) {
+      if (p instanceof ParticulaFuego || p instanceof ParticulaAgua) {
+        p.show({ bass: bassEnergy, mid: midEnergy, treble: trebleEnergy });
+      }
+  }
+  
+  blendMode(BLEND);
+}
+
+// ===================================
+// FUNCIONES DE INTERACCIÓN Y UI
+// ===================================
+
+function drawUI() {
+  push();
+  // Indicador visual para el cursor del mouse
+  if (modoAgua) {
+    fill(100, 150, 255, 50); // Azul translúcido
+    stroke(200, 220, 255, 150);
+  } else {
+    fill(255, 150, 50, 50); // Naranja translúcido
+    stroke(255, 200, 150, 150);
+  }
+  strokeWeight(2);
+  circle(mouseX, mouseY, 25); // Tamaño del indicador reducido
+  pop();
+}
+
+function keyPressed() {
+  if (key === 'w' || key === 'W') modoAgua = true;
+  if (key === 'f' || key === 'F') modoAgua = false;
+  if (key === 'm' || key === 'M') {
+    modoCancion = !modoCancion;
+    if (modoCancion) {
+      mic.stop();
+      cancion.loop();
+      fft.setInput(cancion);
+    } else {
+      cancion.stop();
+      mic.start();
+      fft.setInput(mic);
+    }
+  }
+}
+
+function mousePressed() {
+  if (!audioStarted) {
+    userStartAudio();
+    mic.start();
+    audioStarted = true;
+    return; // Detiene la función aquí en el primer clic
+  }
+
+  // A partir del segundo clic, esta lógica se ejecuta
+  if (modoAgua) {
+    if (sistemaParticulas.length < 700) {
+      for (let i = 0; i < 40; i++) { // Chorro un poco más controlado
+        let p = new ParticulaAgua(mouseX, mouseY);
+        p.velocity.y += random(1, 3);
+        p.velocity.x += random(-1, 1);
+        sistemaParticulas.push(p);
+      }
+    }
+  } else {
+    // Si el fuego está apagado Y hacemos clic en la parte inferior, lo reavivamos.
+    if (intensidadNucleo <= 0.01 && mouseY > height * 0.75) {
+      intensidadNucleo = 1.0; // ¡Vuelve el fuego!
+    }
+    // Siempre creamos chispas al hacer clic en este modo.
+    for (let i = 0; i < 15; i++) {
+      sistemaParticulas.push(new ParticulaFuego(mouseX, mouseY, true));
+    }
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+
+// ===================================
+// CLASES DE PARTÍCULAS
+// ===================================
+
+class Particula {
+  constructor(x, y, lifespan = 100) {
+    this.position = createVector(x, y);
+    this.velocity = createVector(0, 0);
+    this.acceleration = createVector(0, 0);
+    this.mass = 1;
+    this.lifespan = lifespan;
+    this.initialLifespan = lifespan;
+  }
+  applyForce(force) {
+    let f = force.copy();
+    f.div(this.mass);
+    this.acceleration.add(f);
+  }
+  update(audioData) {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+    this.lifespan -= 1;
+  }
+  isDead() { return this.lifespan < 0; }
+  show(data) { /* Placeholder */ }
+}
+
+class ParticulaFuego extends Particula {
+  constructor(x, y, avivada = false) {
+    super(x, y, random(80, 120));
+    let velY = avivada ? random(-3, -5) : random(-1, -3);
+    this.velocity = createVector(random(-1, 1), velY);
+    this.initialRadius = random(40, 70);
+    this.radius = this.initialRadius;
+    this.oscOffset = random(TWO_PI);
+  }
+  update(audioData) {
+    this.applyForce(createVector(0, -0.07));
+    // La danza (oscilación) es más sutil para una forma más vertical
+    let oscilacionAmp = map(audioData.mid, 0, 255, 0.1, 0.5);
+    let oscilacion = sin(frameCount * 0.1 + this.oscOffset) * oscilacionAmp;
+    this.applyForce(createVector(oscilacion, 0));
+    
+    // La forma de la llama se mantiene más unida
+    let centroX = width / 2;
+    let fuerzaCentrado = createVector(centroX - this.position.x, 0);
+    // Ajustado para que los bajos no la expandan tanto y sea más vertical
+    let bassFactor = map(audioData.bass, 0, 255, 1.0, 0.6); 
+    let factorAltura = map(this.position.y, height, 0, 0, 0.15) * bassFactor; 
+    fuerzaCentrado.mult(factorAltura);
+    this.applyForce(fuerzaCentrado);
+    
+    super.update(audioData);
+  }
+  show(audioData) {
+    // --- LÓGICA DE COLOR DANZANTE Y SENSIBLE ---
+    let perlinVal = noise(perlinColorOffset + this.position.x * 0.01);
+    let warmColorIndex = floor(map(perlinVal, 0, 1, 0, paletaCalida.length));
+    let c_warm = paletaCalida[warmColorIndex];
+    let coldColorIndex = floor(map(perlinVal, 0, 1, 0, paletaFria.length));
+    let c_cold = paletaFria[coldColorIndex];
+    
+    // RANGO AJUSTADO PARA MAYOR SENSIBILIDAD A LOS AGUDOS
+    let coolnessFactor = map(audioData.treble, 70, 130, 0, 1);
+    coolnessFactor = constrain(coolnessFactor, 0, 1);
+    let finalColor = lerpColor(c_warm, c_cold, coolnessFactor);
+
+    let finalSaturation = lerp(saturation(finalColor), 100, map(audioData.mid, 0, 255, 0, 0.5));
+    let c = color(hue(finalColor), finalSaturation, brightness(finalColor));
+    
+    let lifeRatio = this.lifespan / this.initialLifespan;
+    let alpha = lifeRatio * lifeRatio * 100;
+    let currentRadius = this.initialRadius * lifeRatio;
+    
+    imageMode(CENTER);
+    let glowBrightness = map(audioData.bass, 0, 255, 70, 90) * lifeRatio;
+    tint(hue(c), saturation(c), glowBrightness, alpha * 0.5);
+    image(fuegoTextura, this.position.x, this.position.y, currentRadius, currentRadius);
+    let coreBrightness = map(audioData.bass, 0, 255, 95, 110) * lifeRatio;
+    tint(hue(c), saturation(c), coreBrightness, alpha);
+    image(fuegoTextura, this.position.x, this.position.y, currentRadius * 0.5, currentRadius * 0.5);
+  }
+}
+
+class ParticulaAgua extends Particula {
+  constructor(x, y) {
+    super(x, y, 150); // Vida más corta para optimizar
+    this.velocity = p5.Vector.random2D().mult(random(1, 4));
+    this.velocity.y = abs(this.velocity.y) * 0.5;
+    this.radius = random(4, 8);
+  }
+  update(audioData) {
+    this.applyForce(createVector(0, 0.25));
+    super.update(audioData);
+  }
+  show(audioData) {
+    let lifeRatio = this.lifespan / this.initialLifespan;
+    let alpha = lifeRatio * lifeRatio * 100;
+    let currentRadius = this.radius * lifeRatio;
+
+    // --- ESTELA ("CHORRITO") OPTIMIZADA ---
+    let tail = this.velocity.copy();
+    tail.mult(-1);
+    tail.setMag(map(this.velocity.mag(), 0, 15, 5, 20));
+    
+    // El color y el grosor se desvanecen con la vida
+    stroke(195, 80, 100, alpha * 0.7);
+    strokeWeight(currentRadius);
+    line(this.position.x, this.position.y, this.position.x + tail.x, this.position.y + tail.y);
+  }
+}
+
+class ParticulaHumo extends Particula {
+  constructor(x, y) {
+    super(x, y, random(50, 100)); // Vida más corta para el humo
+    this.velocity = createVector(random(-0.2, 0.2), random(-0.3, -0.8));
+    this.initialRadius = random(15, 25);
+    this.noiseOffset = createVector(random(1000), random(1000));
+    this.angle = random(TWO_PI);
+    this.angleVelocity = random(-0.01, 0.01);
+  }
+  update(audioData) {
+    this.angle += this.angleVelocity;
+    // Movimiento orgánico con Ruido Perlin
+    let noiseForceX = map(noise(this.noiseOffset.x), 0, 1, -0.05, 0.05);
+    let noiseForceY = map(noise(this.noiseOffset.y), 0, 1, -0.01, 0);
+    this.applyForce(createVector(noiseForceX, noiseForceY));
+    this.noiseOffset.add(0.01, 0.01);
+    super.update(audioData);
+  }
+  show(audioData) {
+    let lifeRatio = this.lifespan / this.initialLifespan;
+    // El humo se expande
+    let currentRadius = map(lifeRatio, 1, 0, this.initialRadius, this.initialRadius * 3);
+    // Y se desvanece
+    let alpha = map(lifeRatio, 1, 0, 25, 0);
+
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    tint(0, 0, 80, alpha); // Tinte gris
+    imageMode(CENTER);
+    image(fuegoTextura, 0, 0, currentRadius, currentRadius);
+    pop();
+  }
+}
+ ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
