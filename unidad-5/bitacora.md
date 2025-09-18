@@ -437,33 +437,76 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
    >  * Que el fuego sea danzante, que se pueda manejar con audio y que se mueva dependiendo del sonido.
    >  * Que los colores tambien cambien dependiendo de la musica,
    >  * Que el fuego pueda avivarse y crecer y expandirse.
-   >  * Que el agua apague dependiendo de la cantidad y donde se eche y el fuego pueda volver a invadir zonas.
             
    > ✏️ **Bocetos**
    
    > 🧩 **Conceptos Preliminares**
    > 
-   > Con la obra pretendo simular una llama de fuego cambiante que pasa por diversos estados dependiendo del aire, del agua o si es avivada por más chispas. Los factores ambientales que la rodean afectan su comportamiento: cómo se         > mueve, cómo reacciona y hasta cómo se perciben sus “emociones”. Todo ocurre dentro de un marco de contraste entre lo fuerte y lo frágil, mostrando cómo lo fuerte puede volverse frágil y lo frágil puede transformarse en fuerza.
+   > Con la obra pretendo simular una llama de fuego cambiante que pasa por diversos estados dependiendo del aire, del agua. Los factores ambientales que la rodean afectan su comportamiento: cómo se mueve con viento. Todo ocurre dentro de un marco de contraste entre lo fuerte y lo frágil, mostrando cómo lo fuerte puede volverse frágil y lo frágil puede transformarse en fuerza de nuevo.
    
    > 🖱️ **Interacción Preliminar**
    > * Musica: Cambia color e intensidad de fuego.
-   >    * Volumen: Altura y velocidad de las particulas
-   >    * Frecuencias: Colores
-   >    * Ritmo: Movimiento al compas
    > * Mouse arrastrado: Genera viento.
    > * Mouse con click : Agregas particulas de agua que apagan el fuego o Chispas que avivan
    > * Tecla W: Echas agua con el mouse (Defecto)
    > * Tecla F: Agregas chispas por el mouse
 
    > 🧪 **Experimentos**
+   > 
+   > Aprovechando que Gemini me permite hacer una vista previa del código que se le da o genera, haré los primeros experimentos allí, estas pruebas serán sin audio, en vez de eso se         > usará el sonido ambiente.
+   > 
+   > * Experimento 1. Lo primero que cree  fue la clase particula, que sería la base del sitema, ya que en ella se encuentra la lógica de todas las particulas que existiran, máS             >adelante, en este caso se creo con las caracteristicas deseadas para hacer el fuego, esta ya contiene el tiempo de vida por lo que despues de un tiempo las particulas mueren para        >liberar memoría.
+   >   
+   > Imagen Experimento 1.
+   > 
+   > <img width="765" height="623" alt="image" src="https://github.com/user-attachments/assets/ef1fcbfc-6b13-4ee6-a153-8954dc445484" />
+   
+   > * Experimento 2.
+   > Agregué las particulas de agua y de humo, para que al echara agua se apague le fuergo, además que al apagarse salgan las partculas de humito.
+
+   > Imagen Experimento 2
+   > <img width="883" height="679" alt="image" src="https://github.com/user-attachments/assets/0717abbc-ea34-4609-bf40-ec1d4284fd44" />
+   
+   > * Experimento 3.
+   >   Intente que el agua y el fuego se vieran un poco mejor, y aunque logre con blending y transparencia mejoroar la apariencia de fuego, el gaua se complico, no daba los resultados que
+   >   queria y al implementar una tecnica diferente de renderizado no supe por que se creo una estela azul por un lado.
+   >   
+   >Imagen experimento 3
+   > 
+   >   <img width="610" height="687" alt="image" src="https://github.com/user-attachments/assets/50c754fc-a61c-4453-8fe1-21ab00183af2" />
+   >*Experimeto 4
+   > Aquí volví a la forma de renderizado anterior, solo que haciendo que el agua tuviera un estela  y arregle le puse un blending al humo para que se viera más como humo.
+   > 
+   > <img width="492" height="490" alt="image" src="https://github.com/user-attachments/assets/28f26a59-7f41-4390-a8ec-59f7d78d63ea" />
+   >
+   >*Experimeto 5.
+   > Quise agregar viento por lo que al oprimir las flechas en el teclado se genera una fuerzaq que mueve el fuego como si viniera viento con esa dirección.
+   > 
+   > Imagen Experimento 5
+   > 
+   > <img width="709" height="436" alt="image" src="https://github.com/user-attachments/assets/da0b2604-1130-4adc-a2ef-44b48c63ccab" />
+
+   > *Experimento 6
+   > Aquí agregué audio y probe diferentes niveles de sensibilidad para reaccionar al sonido, logrando que los colores cambiens egun este, además agregue dos modos cuando escucha el         >sonido ambiente y cargando una cancion y reaccioanndo a esta.
+   > 
+   > Imagen Experimento 6
+   >
+   > <img width="653" height="645" alt="image" src="https://github.com/user-attachments/assets/bfebedbb-20ca-42a5-86f4-03ecdd52577f" />
 
    > 💬 **Que comunica**
    > 
-   > ✨ Quiero comunicar dualidad, el estar entre lo fuerte que puede lllegar a ser el fuego y al mismo tiempo lo fragil que se puede sentir frente al agua. Al mismo tiempo la obra refleja cómo algo intenso puede apagarse, o también       > cómo puede recuperarse y fortalecerse nuevamente. Representa lo cambiante, mostrando que, aunque muchas veces algo parezca extinguido, siempre queda un rastro (Humo vapor en este caso) que recuerda lo que ya no está y evidencia       > cómo puede permanecer de una forma no tan física, pero aún existir.✨
+   > ✨ Quiero comunicar dualidad, el estar entre lo fuerte que puede lllegar a ser el fuego y al mismo tiempo lo fragil que se puede sentir frente al agua. Al mismo tiempo la obra          >refleja cómo algo intenso puede apagarse, o también       > cómo puede recuperarse y fortalecerse nuevamente. Representa lo cambiante, mostrando que, aunque muchas veces algo parezca    >extinguido, siempre queda un rastro (Humo vapor en este caso) que recuerda lo que ya no está y evidencia       > cómo puede permanecer de una forma no tan física, pero aún existir.✨
 
    > ✨ **Concepto Final**
+   > 🌀La obra representa la dualidad de un mismo elemento, en este caso, el fuego. Por un lado, puede verse fuerte, imponente y casi indestructible; una fuerza que, incluso dentro de su    > fortaleza, es cambiante y capaz de representar estados y emociones.
+   >
+   >Sin embargo, al mismo tiempo, vive al vilo de la debilidad: tan solo un poco de agua puede llevarlo a desaparecer. Pero no todo está perdido, ya que una pequeña chispa en el lugar       >indicado es suficiente para que el fuego renazca con el mismo vigor.
+   > 
+   > 💫 **Explicación Obra Final**
+   >
+   > 🌀Al final esta obra es un fuego digital vivo que danza y reacciona al sonido. Todo lo que ves en pantalla, desde la llama principal hasta el humo que se disipa, está creado por        > de pequeñas partículas que nacen, se mueven y mueren constantemente. La llama no es estática; su forma y color cambian con la música que escucha. Los sonidos graves la hacen crecer     > y pulsar con fuerza, mientras que los agudos pueden transformarla en un fuego de tonos azules y morados, mostrando así sus diferentes "emociones".
 3. Debes utilizar los conceptos de herencia y polimorfismo que revisaste en la fase de investigación.
-   > Este concepto lo use ...
+   > Este concepto fue utilizado en el array principal sistemaParticulas para almacenar y gestionar de forma unificada objetos de clases distintas (ParticulaFuego, ParticulaAgua y           > ParticulaHumo), ya que todas heredan de la clase base Particula. El objetivo de esta implementación fue simplificar radicalmente el bucle principal del programa, permitiendo invocar    > métodos genéricos como update() y show() sobre cualquier elemento del array sin necesidad de verificar su tipo específico, lo que dio como resultado un código más limpio, organizado    > y fácilmente escalable.
 5. Debes utilizar al menos un concepto de cada una de las unidades anteriores: 4 conceptos.
    > * Unidad 1
    > * Unidad 2
@@ -473,13 +516,14 @@ Documenta el proceso de creación, incluyendo la idea inicial, bocetos, experime
 7. Debes definir cómo vas a gestionar el tiempo de vida de las partículas y la memoria.
    > El teimpo de Particula se gestinó ....
 9. La obra debe ser interactiva en tiempo real. Puedes usar teclado, mouse, música, el micrófono, video, sensor o cualquier otro dispositivo de entrada.
-   > Las interacciones finales fueron:
+   > ⌨️**Interacciones finales**💫
 11. Incluye un enlace a tu código en el editor de p5.js.
     > [Obra unidad 5]()
 13. Incluye el código fuente.
     > ``` JS
     > ```    
 14. Captura de pantallas de tu obra con las imágenes que más te gusten
+
 
 
 
