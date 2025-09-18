@@ -1005,7 +1005,8 @@ class ParticulaHumo extends Particula {
 > * El sistema corre estable después del inicio.
 > * Se controla la cantidad de partículas para que no haya sobrecarga.
 > * Micrófono: Afecta los colores del fuego.
-> * Canción: Permite una versión estable y reproducible.
+> * Canción: Permite una versión estable y reproducible que da resultados visuales diferentes.
+
 
 
 
