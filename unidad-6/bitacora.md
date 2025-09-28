@@ -47,7 +47,7 @@
 
 
 5. ¿Qué relación tiene la steering force con Craig Reynolds y su trabajo en simulación de comportamiento animal?
-   > **Craig Reynolds** es el padre del concepto de fuerzas de dirección.La relación es directa y fundamental; él acuñó el término y desarrolló el modelo que seguimos utilizando hoy.
+   > **Craig Reynolds** es el padre del concepto de fuerzas de dirección. La relación es directa y fundamental; él acuñó el término y desarrolló el modelo que seguimos utilizando hoy.
    > En 1986, mientras trabajaba en la industria de la animación por computadora, Reynolds se enfrentó al problema de cómo animar de forma realista grupos de animales (como bandadas de pájaros o cardúmenes de peces) sin tener que animar cada individuo a mano. Su investigació     > culminó en un artículo revolucionario llamado "Flocks, Herds, and Schools: A Distributed Behavioral Model".
    >
    > En este trabajo, presentó su famoso y revolucionario modelo "Boids" (abreviatura de "bird-oid objects" u objetos parecidos a pájaros). La genialidad de su propuesta radicó en demostrar que un comportamiento de grupo increíblemente complejo y realista, como una bandada de pájaros en vuelo, podía emerger no de una inteligencia centralizada o un líder, sino de la interacción de agentes individuales siguiendo tres reglas muy simples y locales:
@@ -59,8 +59,9 @@
    > Ningún "boid" conoce el estado global de la bandada; solo percibe a sus vecinos inmediatos. Sin embargo, la suma de estas millones de decisiones locales y descentralizadas da como resultado el fenómeno emergente de un movimiento de bandada fluido y orgánico.
    >
    > Para implementar estas reglas, Reynolds inventó el mecanismo de las fuerzas de dirección. Cada una de estas reglas (y otras que desarrolló después como seek, flee, path following, etc.) era un "comportamiento de dirección" que calculaba un vector de fuerza. Al combinar y ponderar estas fuerzas, cada "boid" podía navegar su entorno y relacionarse con sus compañeros de una manera autónoma y creíble.
-   > Su trabajo no solo sentó las bases para la simulación de vida artificial, sino que se convirtió en una técnica estándar en la industria de los **videojuegos,
+   > Su trabajo no solo sentó las bases para la simulación de vida artificial, sino que se convirtió en una técnica estándar en la industria de los **videojuegos**,
 
    ### Actividad 03 ✏️
+
 
 
