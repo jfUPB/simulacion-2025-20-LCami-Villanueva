@@ -137,8 +137,62 @@
       > );
       > }
       > ```
+ ### Actividad 04 ✏
+  1. Explica con tus palabras el objetivo y la lógica general de cálculo de cada una de las tres reglas de Flocking (Separación, Alineación, Cohesión).
+     > - Separación: El objetivo de esta regla es evitar colisiones. El método ```separate()``` itera sobre todos los demás boids y, para aquellos que están dentro de un radio de ```desiredSeparation```, calcula un vector de repulsión. Este vector apunta en dirección opuesta al vecino y su magnitud es inversamente proporcional a la distancia, generando un empuje más fuerte cuanto más
+     >   cerca esté. Finalmente, se promedian todos estos vectores de repulsión para obtener una única fuerza de dirección ```(steer)``` que aleja al agente del amontonamiento.
+     > -  Alineación: Esta regla busca que el grupo se mueva de forma unificada. El método ```align()``` identifica a todos los boids dentro de un ```neighborDistance``` y calcula el vector de velocidad promedio de ese grupo local. Este vector promedio se convierte en la velocidad deseada del agente, y se utiliza la fórmula de Reynolds (Steer = Desired - Velocity) para calcular la
+     >    fuerza dirección que ajusta suavemente la trayectoria del agente hasta que se alinee con la de sus compañeros.
+     > - Cohesión: El propósito de esta regla es mantener la bandada unida, evitando que los agentes se dispersen. De forma similar a la alineación, el método ```cohere()``` encuentra el centro geométrico de sus vecinos cercanos promediando sus vectores de posición. Este punto central se convierte en el target para un comportamiento de ```seek()```, el cual calcula la fuerza de
+     >    dirección necesaria para guiar al agente hacia el centro del grupo local.
+  2. Lista los parámetros clave identificados (radio de percepción, pesos de las reglas, maxspeed, maxforce).
+     > - maxspeed (Velocidad Máxima): Limita la velocidad máxima a la que un agente puede moverse. Un valor alto crea una bandada más rápida y energética; uno
+     >   bajo, una más lenta y pausada.
+     > - maxforce (Fuerza Máxima): Controla la agilidad o capacidad de giro de un agente. Un valor bajo genera movimientos suaves y curvas amplias, mientras que
+     >   un valor alto permite giros bruscos y reacciones rápidas.
+     > - Radios de Percepción (desiredSeparation y neighborDistance): Definen el "espacio personal" y la "conciencia social" de cada agente.
+     > - desiredSeparation (en separate): Es un radio muy corto que activa la fuerza de repulsión para evitar colisiones.
+     > - neighborDistance (en align y cohere): Es un radio más grande que define qué agentes son considerados "vecinos" para calcular el movimiento y la cohesión
+     >   del grupo.
+     > - Pesos de las Reglas (los multiplicadores en flock()): Estos valores (1.5 para separación, 1.0 para alineación y cohesión) son cruciales, ya que
+     >   establecen la jerarquía de prioridades de un agente. Al darle un peso mayor a la separación, nos aseguramos de que evitar una colisión sea siempre más
+     >   importante que intentar alinearse con el grupo.
+  3. Describe la modificación que realizaste al código y explica detalladamente el efecto que tuvo en el comportamiento colectivo del enjambre (¿Se dispersan? ¿Forman grupos compactos? ¿se mueven caóticamente?). Incluye una captura de pantalla o GIF si ilustra bien el cambio. Muestra el fragmento de código modificado.
+     >  > #### Experimento #3: Cambiar el Peso de las Reglas
+      > - Descripción de la Modificación
+      >   
+      >    Para este experimento, la modificación consistió en anular por completo la influencia de la regla de Alineación. Esto se logró dentro del método flock() de la clase Boid, estableciendo el multiplicador del vector de fuerza de alineación (ali) a 0.0. Al hacer esto, se elimina por completo el deseo de los agentes de moverse en la misma dirección que sus vecinos, aislando únicamente las fuerzas de Separación (evitar choques) y Cohesión (mantenerse cerca del grupo) para observar su interacción directa.
+      >    
+      > - Efecto en el Comportamiento Colectivo del ejambre
+      >   
+      >   El efecto de anular la alineación es inmediato y drástico. La bandada no se dispersa, ya que la fuerza de Cohesión sigue atrayendo a los agentes hacia el centro del grupo, manteniéndolos en un grupo compacto. Sin embargo, sin la regla de Alineación que les proporcione una dirección común, el movimiento se vuelve completamente caótico. Cada agente intenta acercarse al grupo (Cohesión) mientras evita a sus vecinos inmediatos (Separación), pero sin un rumbo compartido, sus trayectorias individuales se vuelven erráticas y conflictivas. El resultado es un "hervidero", una masa agitada que permanece agrupada pero que hierve y se retuerce sobre sí misma sin desplazarse de manera coherente, muy similar a un enjambre de abejas.
+      >
+      > - Gif
+      >    
+      > ![Recording-2025-09-29-010511](https://github.com/user-attachments/assets/23e7de5e-b6cc-43d1-a7f4-71b35cd6ecff)
+      >
+      >- Código Modificado
+      >   
+      >  ``` JS
+      >   flock(boids) {
+      > let sep = this.separate(boids); // Separation
+      > let ali = this.align(boids); // Alignment
+      > let coh = this.cohere(boids); // Cohesion
+      > sep.mult(1.5);
+      >  ali.mult(0.0); // Cambie este valor a 0 
+      >  coh.mult(1.0);
+      > this.applyForce(sep);
+      > this.applyForce(ali);
+      > this.applyForce(coh);
+      >  }
+      >```    
+ 
+     
+      
+
 
   
+
 
 
 
