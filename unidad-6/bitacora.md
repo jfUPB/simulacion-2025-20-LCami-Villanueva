@@ -63,9 +63,82 @@
 
    ### Actividad 03 ✏️
    1. Explica brevemente la estructura de datos usada para el campo de flujo y cómo se generan sus vectores.
+      > La forma en que se implementa el campo de flujo es usando un array de dos dimensiones ```this.field ```, que básicamente funciona como una cuadrícula que cubre todo el lienzo. El tamaño de esta cuadrícula depende de la resolución, lo que define cuántas columnas
+      > ```cols```  y filas ```rows``` se crean. En cada celda se guarda un objeto p5.Vector, que indica la dirección de la fuerza en ese punto. Para generar estos vectores se recorre la cuadrícula con un bucle anidado, y en cada paso se  calcula un valor de Ruido Perlin            > ```noise(xoff, yoff))```, que se convierte en un ángulo. Con ese ángulo se crea un vector unitario ```p5.Vector.fromAngle(angle)``` y se asigna a la celda. De esta manera, se termina  con una estructura llena de direcciones suaves y continuas, que hacen que el campo         > tenga un comportamiento orgánico, parecido a corrientes de viento o agua.
    2. Describe con tus palabras cómo un agente utiliza el campo para calcular su fuerza de dirección.
+      > El agente calcula su fuerza de dirección dentro del método ```follow(flow)``` mediante un proceso de tres pasos. Primero, determina el vector de dirección ideal obteniéndolo del campo de flujo con ```flow.lookup(this.position)```. Despues, este vector se escala a la         > velocidad máxima del agente con ```desired.mult(this.maxspeed)``` para establecer una velocidad deseada ```desired```. Finalmente, se aplica la fórmula de Reynolds calculando la diferencia entre la velocidad deseada y la velocidad actual ```let steer = p5.Vector.sub(desired, this.velocity)```. El vector que resulta ```steer```es la fuerza de dirección, la cual se limita a una fuerza máxima ```steer.limit(this.maxforce)``` antes de ser aplicada a la aceleración, guiando así su movimiento de forma gradual y orgánica.
    3. Lista los parámetros clave identificados (resolución, maxspeed, maxforce).
-   4. Describe la modificación que realizaste al código y explica detalladamente el efecto que tuvo en el movimiento y comportamiento colectivo de los agentes. Incluye una captura de pantalla o GIF si ilustra bien el cambio. Muestra el fragmento de código modificado.
+      > - **maxspeed y maxforce (Límites del Agente):** Son los parámetros más cruciales porque definen la personalidad física de cada vehículo. maxspeed controla el ritmo general de la simulación, mientras que maxforce determina la agilidad de los agentes, haciendo que su movimiento se sienta suave y orgánico o, por el contrario, brusco y robótico.
+      >
+      > - Resolution: Este parámetro define la granularidad del campo de flujo. Un valor bajo crea un mapa de corrientes muy detallado y complejo, mientras que un valor alto genera flujos más amplios y suaves. Cambiar este número altera fundamentalmente el entorno que los agentes deben navegar.
+      >
+      > - Incremento del Ruido (El "Zoom" del Campo): Los valores 0.1 usados para incrementar xoff y yoff al generar el Ruido Perlin son clave para la estética del movimiento. Controlan la escala de las corrientes; valores pequeños crean flujos suaves como un río, y valores grandes generan turbulencias caóticas.
+      >
+      > - Númeero de vehiculos (Complejidad del Sistema): Determina la densidad y la riqueza del comportamiento emergente. Una población mayor crea patrones de grupo más complejos y visualmente impactantes, pero también es el factor que más afecta el rendimiento.
+      
+   6. Describe la modificación que realizaste al código y explica detalladamente el efecto que tuvo en el movimiento y comportamiento colectivo de los agentes. Incluye una captura de pantalla o GIF si ilustra bien el cambio. Muestra el fragmento de código modificado.
+      > #### Experimento #1: Alterar maxspeed y maxforce
+      > - Descripción de la Modificación
+      >   
+      >    Para este primer experimento, la modificación se centró en los dos parámetros: maxspeed (su velocidad máxima) y maxforce (su capacidad de giro). El cambio se realizó directamente en la función setup(), dentro del bucle for que inicializa la població de
+      >   Vehículos. Se alteraron los rangos de los valores aleatorios asignados a estos dos parámetros al momento de crear cada nuevo objeto Vehicle, haciendo el valor de maxforce muy bajo.
+      >   
+      > - Efecto en el Movimiento y Comportamiento Colectivo
+      >   
+      >   Alterar estos parámetros tuvo un efecto inmediato en el comportamiento emergente del grupo. Con un maxforce bajo, los agentes exhibieron una gran inercia; al igual que un barco pesado, viendose mucho mas lento al empezar la simulación, sus giros eran amplios
+      >   suaves, forzándolos a ignorar pequeñas turbulencias del campo de flujo. Colectivamente, esto resultó en un movimiento increíblemente fluido y orgánico.
+      >
+      > - Gif
+      >     
+      >     ![Video1](https://github.com/user-attachments/assets/463b8390-867b-4a7f-8318-469dc4a13bec)
+      >
+      > - Código Modificado
+      >  ``` JS
+      >     function setup() {
+      >      let text = createP(
+      >       "Hit space bar to toggle debugging lines.<br>Click the mouse to generate a new flow field."
+      >       );
+      >
+      >      createCanvas(640, 240);
+      >      flowfield = new FlowField(20);
+      >      for (let i = 0; i < 120; i++) {
+      >     vehicles.push(
+      >     new Vehicle(random(width), random(height), random(1, 2), random(0.001, 0.005)) // Random modificado a valores mucho mas pequeños.
+      >     );
+      >    }
+      >   }        
+      >   ```
+      >
+      >   #### Experimento #2: Modificar la Resolución del Campo de Flujo (Fina)
+      > - Descripción de la Modificación
+      >   
+      >    En este segundo experimento, el cambio se enfocó en el parámetro resolution del objeto FlowField. La modificación se realizó en la función setup(), en la línea donde se instancia el campo de flujo. El valor de la resolución se redujo  ( de 20 a 5), lo que tiene el       >    efecto de crear una cuadrícula mucho más densa y detallada, con un número significativamente mayor de vectores de dirección en el mismo espacio del lienzo.
+      >   
+      > - Efecto en el Movimiento y Comportamiento Colectivo
+      >   
+      >   Esta alteración transformó el comportamiento del sistema. Con una resolución tan fina, cada agente se encuentra con una gran variedad de vectores de dirección en distancias muy cortas. En lugar de seguir grandes arcos, sus caminos se llenan de pequeñas desviaciones       > y giros bruscos al intentar seguir cada micro-corriente del campo. Colectivamente, las grandes formaciones fluidas y orgánicas desaparecieron por completo. El grupo ya no se comporta como un solo río, sino como un enjambre caótico y texturizado, donde la                    > individualidad de cada agente es mucho más perceptible. El efecto general es de una mayor energía y complejidad visual, como si los agentes estuvieran navegando por un terreno invisible increíblemente turbulento.
+      >
+      > - Imagen
+      >  <img width="794" height="298" alt="image" src="https://github.com/user-attachments/assets/bcdf5591-784a-4370-8500-bc71d119b99a" />
+      >
+      > 
+      > - Código Modificado
+      >   
+      >  ``` JS
+      >   function setup() {
+      > let text = createP(
+      > "Hit space bar to toggle debugging lines.<br>Click the mouse to generate a new flow field."
+      > );
+      > createCanvas(640, 240);
+      > flowfield = new FlowField(5); //
+      > for (let i = 0; i < 120; i++) {
+      > vehicles.push(
+      > new Vehicle(random(width), random(height), random(1, 2), random(0.1, 0.5))
+      > );
+      > }
+      > ```
+
+  
 
 
 
