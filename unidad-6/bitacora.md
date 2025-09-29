@@ -130,7 +130,7 @@
       > "Hit space bar to toggle debugging lines.<br>Click the mouse to generate a new flow field."
       > );
       > createCanvas(640, 240);
-      > flowfield = new FlowField(5); //
+      > flowfield = new FlowField(5); //Modifique la resolución por una mucho mas fina.
       > for (let i = 0; i < 120; i++) {
       > vehicles.push(
       > new Vehicle(random(width), random(height), random(1, 2), random(0.1, 0.5))
@@ -139,6 +139,7 @@
       > ```
 
   
+
 
 
 
