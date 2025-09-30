@@ -206,16 +206,20 @@
    > 
    >Con la obra pretendo capturar la esencia efímera de un carnaval, donde cada agente es un 'danzante' impulsado por la energía vibrante de la música. A medida que se mueven, no solo bailan, sino que 'pintan' el lienzo con el rastro de su recorrido, dejando una estela de color que es su prueba efímera de haber estado ahí. La verdadera magia ocurre a nivel colectivo: la suma de todos estos bailes individuales y caóticos va revelando gradualmente una estructura mayor, una huella dactilar. De esta forma, la obra no representa una huella genérica, sino que forma la huella única de ese carnaval en específico, un registro visual e irrepetible forjado por la energía de sus participantes.  
    
-   > 🖱️ **Interactividad Preliminar**
+   >🖱️ **Interactividad Preliminar**
    >   * Mouse (Movimiento): Actúa como atractor, llamando a los danzantes para guiar la coreografía y concentrar el color en áreas específicas de la huella.
->      * Mouse (Clic): Genera una ráfaga de danzantes nuevos y de vida corta.
->      * Teclas 'S', 'A', 'C' : Modulan en tiempo real el comportamiento de la bandada.
->           * 'S' (Separación): Aumenta el deseo de espacio personal, haciendo el baile más caótico y disperso.
->           * 'A' (Alineación): Incrementa el orden, haciendo que los danzantes formen ríos de movimiento fluidos.
->           * 'C' (Cohesión): Fomenta la unión, haciendo que la bandada se agrupe en una masa compacta y densa
->           * Barra Espaciadora (Modo Lienzo): Oculta a los danzantes activos para permitirte contemplar únicamente la huella pintada con sus estelas.
->           * Tecla 'G' (Guardar): Guarda la huella actual en la galería y limpia el lienzo para empezar a pintar una nueva.
->           * Tecla 'V' (Ver Galería): Entra y sale del modo galería, donde puedes ver todas las huellas que has creado una al lado de la otra.
+   >      * Mouse (Clic): Genera una ráfaga de danzantes nuevos y de vida corta.
+   >      * Teclas 'S', 'A', 'C' : Modulan en tiempo real el comportamiento de la bandada.
+   >           * 'S' (Separación): Aumenta el deseo de espacio personal, haciendo el baile más caótico y disperso.
+   >           * 'A' (Alineación): Incrementa el orden, haciendo que los danzantes formen ríos de movimiento fluidos.
+   >           * 'C' (Cohesión): Fomenta la unión, haciendo que la bandada se agrupe en una masa compacta y densa
+   >           * Barra Espaciadora (Modo Lienzo): Oculta a los danzantes activos para permitirte contemplar únicamente la huella pintada con sus estelas.
+   >           * Tecla 'G' (Guardar): Guarda la huella actual en la galería y limpia el lienzo para empezar a pintar una nueva.
+   >           * Tecla 'V' (Ver Galería): Entra y sale del modo galería, donde puedes ver todas las huellas que has creado una al lado de la otra.
+   > 🧪 **Experimentos**
+   >   * Experimento 1.
+   > 💬 **Que comunica**
+   > ✨ **Concepto Final**    
         
      3. El código fuente completo de tu sketch en p5.js.
      4. Un enlace a tu sketch en el editor de p5.js.
@@ -225,6 +229,7 @@
 
 
   
+
 
 
 
