@@ -185,13 +185,19 @@
       > this.applyForce(ali);
       > this.applyForce(coh);
       >  }
-      >```    
- 
+      >```
+     ### Actividad 05
+     1. Documenta todo el proceso de diseño y creación en tu bitácora, incluyendo bocetos y decisiones de diseño.
+        
+     3. El código fuente completo de tu sketch en p5.js.
+     4. Un enlace a tu sketch en el editor de p5.js.
+     5. Capturas de pantalla mostrando tu pieza en acción.
      
       
 
 
   
+
 
 
 
