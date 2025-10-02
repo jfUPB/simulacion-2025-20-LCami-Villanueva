@@ -244,30 +244,676 @@
 >
 >Aquí me enfrenté al desafío más grande: el equilibrio. Por un lado, la estela que dejaban los danzantes o se acumulaba demasiado, saturando la pantalla con líneas, o se desvanecía tan rápido que no se llegaba a formar la huella. Por otro lado, la regla de Separación era un problema: o era muy débil y los danzantes se amontonaban visualmente (ya que sus 'faldas' eran más grandes que su radio de colisión), o era tan fuerte que la bandada se desintegraba.
 >
-><img width="761" height="661" alt="Screenshot 2025-10-01 155450" src="https://github.com/user-attachments/assets/fc8e968f-eca5-4b4e-ab43-16d853ba2c84" />
->
 > La solución final fue doble. Para la estela, implementé un 'pulso de limpieza' rítmico: el rastro se acumula suavemente, pero con cada golpe fuerte de la percusión (bassBeat), la pantalla se limpia con un desvanecimiento rápido, manteniendo la imagen siempre fresca. Para la separación, la clave fue recalibrar los pesos de las fuerzas, dándole mucha más prioridad a la separación y aumentando el 'espacio personal' de cada danzante. Esto, junto con hacerlos un poco más pequeños, finalmente logró que el baile se viera fluido y sin amontonamientos.
 >
-><img width="704" height="632" alt="Screenshot 2025-10-01 165405" src="https://github.com/user-attachments/assets/37081f70-0683-4aba-8ab6-0dc7532b603d" />
+><p align="center">
+  <img src="https://github.com/user-attachments/assets/fc8e968f-eca5-4b4e-ab43-16d853ba2c84" width="48%">
+  <img src="https://github.com/user-attachments/assets/37081f70-0683-4aba-8ab6-0dc7532b603d" width="48%">
+</p>
+
+>
+> * Expermineto 5.
+>   
+> Finalmente, para consolidar la obra como un verdadero instrumento visual, se reintrodujeron y refinaron las interacciones clave. Se implementó una "mesa de mezclas de emociones" con las teclas 'S', 'A' y 'C', permitiendo al usuario modular en tiempo real la emoción de la bandada. Además, se añadieron los "solos" de los danzantes al hacer clic y las explosiones de confeti con los golpes de la música, completando así la atmósfera de carnaval.
+>
+> <img width="734" height="659" alt="image" src="https://github.com/user-attachments/assets/5fbeccec-65aa-4e13-baaf-0f896fad13bb" />
+>
+> **Cabe resaltar que la idea original de la huella se desechó en el proceso. Una vez que el campo de flujo comenzó a moverse con la música, se volvió muy difícil que una huella estática se pudiera mantener. Sin embargo, como el reto principal era que la obra se sintiera como un instrumento, decidí centrar todo el enfoque en la expresividad de los danzantes y su coreografía.**
+>
+> ⚙️ **Descripción Tecnica**
+>
+>El núcleo de la simulación es un Campo de Flujo (FlowField) dinámico, cuyo campo vectorial se genera en tiempo real mediante Ruido Perlin tridimensional, con parámetros modulados por el análisis de audio FFT de la canción. Una población de agentes autónomos, o "danzantes", navega este entorno combinando el seguimiento del campo con un sistema de Flocking completo (separación, alineación y cohesión), cuyas ponderaciones son manipulables por el usuario como un instrumento visual. Para optimizar la complejidad computacional de la detección de vecinos, se implementa una subdivisión espacial (binning). Finalmente, tanto la apariencia de los danzantes como las estelas que pintan sobre un lienzo de memoria (trailBuffer) son controladas dinámicamente por las diferentes frecuencias del espectro de audio, creando una experiencia sinestésica donde el movimiento y el color son una interpretación directa de la música.
+>
+> 💬 **Que comunica**
+> 
+>Lo que quise hacer con esta obra es capturar un poco la esencia de un carnaval. Esa sensación de fiesta vibrante, llena de energía, donde cada persona baila con su propio estilo, con su propio color y su propia alegría. En la simulación, esos “danzantes” representan justamente eso: la individualidad de cada quien. Pero lo interesante no está solo en verlos a cada uno por separado, sino en lo que pasa cuando empiezan a conectarse con la música y entre ellos mismos. Ahí es cuando dejan de ser figuras aisladas y se convierten en una comparsa, como pasa en un carnaval real. Juntos van formando trazos, patrones y figuras que no existirían si bailaran solos.
+>
+> La idea es que no sea solo un baile individual, sino una suma de alegrías que, al sincronizarse, generan algo mucho más grande y complejo: una huella visual que cambia constantemente y que nunca se repite igual. Como en un carnaval de verdad, cada momento es único, cada trazo cuenta, y la magia surge de la unión de todas esas pequeñas energías en movimiento.
+>
+> ✨ **Concepto Final**
+>
+>la simulación transforma el lienzo en una pista de baile donde agentes autónomos, o "danzantes", se mueven al compás de la música. Cada danzante, único en su movimiento, deja una estela de color efímera, una prueba de su existencia en la fiesta. El verdadero corazón de la obra reside en la memoria colectiva: la suma de todos estos rastros individuales va pintando gradualmente una huella dactilar, un símbolo de que cada carnaval, aunque compuesto por innumerables alegrías personales, deja una marca única e irrepetible. El usuario no es un mero espectador, sino el intérprete y director de esta orquesta visual, utilizando la interacción como un instrumento para modular la emoción del baile y, en última instancia, esculpir la forma,
+>
+> 🖱️ **Interactividad FInal**
+>  * Teclas 'S', 'A', 'C' ( Mezclas): Permiten modular la "emoción" de la bandada. La 'S' se encarga de separar a los danzantes para un efecto caótico; la 'A' los alinea en ríos de movimiento fluidos; y la 'C' aumenta la cohesión, agrupándolos en una masa compacta.
+>  
+>  * Mouse: Actúa como un atractor constante. Todos los danzantes sienten una fuerza que los guía suavemente hacia la posición del cursor, permitiéndote dirigir el foco de la acción.
+>  
+>  * Clic del Mouse (El Foco del Solista): Al hacer clic cerca de un danzante, este es elegido como "solista" y realiza una pirueta sobre su eje, destacándose del resto del grupo.
+
+2. El código fuente completo de tu sketch en p5.js.
+```JS
+        // ===================================
+// VARIABLES GLOBALES
+// ===================================
+let danzantes = [];
+let confeti = []; // Array para las partículas de confeti
+let flowfield;
+let trailBuffer;
+let cancion, fft;
+let audioStarted = false;
+let showAgents = true;
+const MAX_DANZANTES = 200;
+
+// Variables para la optimización de la cuadrícula
+let grid = [];
+let gridResolution = 50;
+let gridCols, gridRows;
+
+// Variables para la detección de beats y el color rítmico
+let globalHue = 220; // Tono inicial (azul estático)
+let previousBass = 0;
+let previousMid = 0;
+let previousTreble = 0;
+
+// Variables del "Instrumento"
+let sepWeight = 1.8, aliWeight = 1.0, cohWeight = 1.0;
+let targetSep = 1.8, targetAli = 1.0, targetCoh = 1.0;
+
+// Paletas de Colores
+let paletaCalida = [];
+let paletaFria = [];
+let paletaPastel = [];
 
 
+// ===================================
+// FUNCIONES PRINCIPALES DE P5.JS
+// ===================================
+
+function preload() {
+  // ¡IMPORTANTE! Sube tu canción con el nombre 'DAN.mp3' al editor de p5.js
+  cancion = loadSound('DAN.mp3');
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 360, 100, 100, 100);
+
+  trailBuffer = createGraphics(width, height);
+  trailBuffer.colorMode(HSB, 360, 100, 100, 100);
+  trailBuffer.background(0);
+
+  fft = new p5.FFT(0.8, 128);
+  fft.setInput(cancion);
+
+  paletaCalida = [
+    color(0, 80, 100),   // Rojo
+    color(20, 90, 100),  // Naranja
+    color(40, 100, 100), // Amarillo-Naranja
+    color(60, 100, 100), // Amarillo
+    color(340, 80, 100), // Rojo-Violeta
+  ];
+
+  paletaFria = [
+    color(240, 100, 90), // Azul
+    color(270, 90, 100), // Morado
+    color(300, 80, 100), // Magenta
+    color(280, 80, 95),  // Púrpura oscuro
+  ];
+  
+  paletaPastel = [
+    color(350, 40, 100), // Rojo pastel
+    color(330, 30, 100), // Rosado pastel
+    color(0, 0, 100)     // Blanco
+  ];
+
+  flowfield = new FlowField(20);
+  
+  // Inicializa la cuadrícula de optimización
+  initGrid();
+}
+
+function draw() {
+  if (!audioStarted) {
+    background(0);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(20);
+    text("Haz clic para comenzar", width / 2, height / 2);
+    return;
+  }
+  
+  background(0);
+
+  fft.analyze();
+  let bassEnergy = fft.getEnergy('bass');
+  let midEnergy = fft.getEnergy('mid');
+  let trebleEnergy = fft.getEnergy('treble');
+
+  // --- LÓGICA DE COLOR RÍTMICO Y PULSO DE LIMPIEZA ---
+  let targetHue = 220;
+  let lerpSpeed = 0.05;
+  
+  const bassThreshold = 1.1; 
+  const midThreshold = 1.15;
+  const trebleThreshold = 1.2;
+
+  let bassBeat = bassEnergy > previousBass * bassThreshold && bassEnergy > 120;
+  let midBeat = midEnergy > previousMid * midThreshold && midEnergy > 90;
+  let trebleBeat = trebleEnergy > previousTreble * trebleThreshold && trebleEnergy > 60;
+
+  if (bassBeat) {
+    targetHue = 0;
+    lerpSpeed = 0.6;
+    trailBuffer.background(0, 0, 0, 40); 
+  } else {
+    trailBuffer.background(0, 0, 0, 0.5);
+  }
+  
+  if (midBeat) {
+    targetHue = 60;
+    lerpSpeed = 0.6;
+  } else if (trebleBeat) {
+    targetHue = 300;
+    lerpSpeed = 0.6;
+  }
+  
+  globalHue = lerp(globalHue, targetHue, lerpSpeed);
+
+  previousBass = bassEnergy;
+  previousMid = midEnergy;
+  previousTreble = trebleEnergy;
 
 
+  image(trailBuffer, 0, 0);
+
+  flowfield.update(bassEnergy, trebleEnergy);
+  
+  updateInstrument(); // Actualiza los pesos del instrumento
+  updateAndDrawSystems(bassEnergy, midEnergy, trebleEnergy, bassBeat);
+  // drawUI(); // UI desactivada
+}
+
+function updateAndDrawSystems(bassEnergy, midEnergy, trebleEnergy, bassBeat) {
+  if (danzantes.length < MAX_DANZANTES && frameCount % 5 === 0) {
+    let cantidad = map(bassEnergy, 0, 255, 0, 3);
+    for(let i=0; i<cantidad; i++){
+       danzantes.push(new Danzante(random(width), random(height)));
+    }
+  }
+
+  // --- EXPLOSIONES DE CONFETI ---
+  if (bassBeat && danzantes.length > 0) {
+    for (let i = 0; i < 3; i++) {
+      let d = random(danzantes);
+      for (let j = 0; j < 15; j++) {
+        confeti.push(new ParticulaConfeti(d.position.x, d.position.y, paletaCalida));
+      }
+    }
+  }
+  
+  // Actualiza el confeti
+  for (let i = confeti.length - 1; i >= 0; i--) {
+    let p = confeti[i];
+    p.update();
+    if (p.isDead()) {
+      confeti.splice(i, 1);
+    }
+  }
+  
+  for (let i = 0; i < gridCols; i++) {
+    for (let j = 0; j < gridRows; j++) {
+      grid[i][j] = [];
+    }
+  }
+  for (let d of danzantes) {
+    let col = floor(d.position.x / gridResolution);
+    let row = floor(d.position.y / gridResolution);
+    col = constrain(col, 0, gridCols - 1);
+    row = constrain(row, 0, gridRows - 1);
+    grid[col][row].push(d);
+  }
 
 
+  for (let i = danzantes.length - 1; i >= 0; i--) {
+    let d = danzantes[i];
+    
+    let neighbors = [];
+    let col = floor(d.position.x / gridResolution);
+    let row = floor(d.position.y / gridResolution);
+    for (let x = -1; x <= 1; x++) {
+      for (let y = -1; y <= 1; y++) {
+        let checkCol = col + x;
+        let checkRow = row + y;
+        if (checkCol >= 0 && checkCol < gridCols && checkRow >= 0 && checkRow < gridRows) {
+          neighbors = neighbors.concat(grid[checkCol][checkRow]);
+        }
+      }
+    }
+    
+    d.run(neighbors, flowfield, { bass: bassEnergy, mid: midEnergy, treble: trebleEnergy });
+    d.drawTrail(trailBuffer, { bass: bassEnergy, mid: midEnergy, treble: trebleEnergy });
+    if (d.isDead()) {
+      danzantes.splice(i, 1);
+    }
+  }
+
+  drawEscena(bassEnergy, midEnergy, trebleEnergy);
+}
+
+function drawEscena(bassEnergy, midEnergy, trebleEnergy){
+    if (showAgents) {
+      for (let d of danzantes) {
+        d.show({ bass: bassEnergy, mid: midEnergy, treble: trebleEnergy });
+      }
+    }
+    // Dibuja el confeti encima de todo
+    for (let p of confeti) {
+        p.show();
+    }
+}
 
 
-   > 💬 **Que comunica**
-   > ✨ **Concepto Final**    
-        
-     3. El código fuente completo de tu sketch en p5.js.
-     4. Un enlace a tu sketch en el editor de p5.js.
-     5. Capturas de pantalla mostrando tu pieza en acción.
+// ===================================
+// CLASES Y FUNCIONES DE INTERACCIÓN
+// ===================================
+
+function keyPressed() {
+  if (key === ' ') showAgents = !showAgents;
+}
+
+function mousePressed() {
+  if (!audioStarted) {
+    cancion.loop();
+    audioStarted = true;
+    return;
+  }
+  
+  let closestDist = Infinity;
+  let closestDanzante = null;
+  
+  for (let d of danzantes) {
+    let dist = p5.Vector.dist(d.position, createVector(mouseX, mouseY));
+    if (dist < closestDist) {
+      closestDist = dist;
+      closestDanzante = d;
+    }
+  }
+  
+  if (closestDanzante && closestDist < 50) {
+    closestDanzante.startSolo();
+  }
+}
+
+function drawUI(){
+    // La UI ha sido desactivada para una experiencia visual limpia
+}
+
+function updateInstrument() {
+  targetSep = 1.8;
+  targetAli = 1.0;
+  targetCoh = 1.0;
+  let sepLerpSpeed = 0.1;
+
+  if (keyIsDown(83)) { 
+    targetSep = 4.0;
+    sepLerpSpeed = 0.8;
+  }
+  if (keyIsDown(65)) { 
+    targetAli = 2.0; 
+  } 
+  if (keyIsDown(67)) {
+    targetCoh = 2.5;
+  }
+  
+  sepWeight = lerp(sepWeight, targetSep, sepLerpSpeed);
+  aliWeight = lerp(aliWeight, targetAli, 0.1);
+  cohWeight = lerp(cohWeight, targetCoh, 0.1);
+}
+
+function initGrid() {
+  gridCols = floor(width / gridResolution);
+  gridRows = floor(height / gridResolution);
+  grid = new Array(gridCols);
+  for (let i = 0; i < gridCols; i++) {
+    grid[i] = new Array(gridRows);
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  trailBuffer = createGraphics(width, height);
+  trailBuffer.colorMode(HSB, 360, 100, 100, 100);
+  trailBuffer.background(0);
+  initGrid();
+}
+
+// ===================================
+// CLASE DANZANTE (AGENTE)
+// ===================================
+
+class Danzante {
+  constructor(x, y, lifespan = random(300, 500)) {
+    this.position = createVector(x, y);
+    this.velocity = p5.Vector.random2D();
+    this.acceleration = createVector(0, 0);
+    this.baseMaxSpeed = random(1.5, 3);
+    this.maxspeed = this.baseMaxSpeed;
+    this.maxforce = random(0.5, 1.0);
+    this.r = random(2, 5);
+    this.history = [];
+    this.lifespan = lifespan;
+    this.initialLifespan = lifespan;
+    this.oscOffset = random(1000);
+    this.spin = 0;
+    this.spinVelocity = 0;
+    this.soloTimer = 0;
+  }
+
+  isDead() { return this.lifespan < 0; }
+
+  run(neighbors, flowfield, audioData) {
+    this.flock(neighbors, flowfield, audioData);
+    this.update(audioData);
+    this.borders();
+  }
+
+  flock(neighbors, flowfield, audioData) {
+    let flow = flowfield.lookup(this.position);
+    let sep = this.separate(neighbors);
+    let ali = this.align(neighbors);
+    let coh = this.cohere(neighbors);
+    let mouse = this.seek(createVector(mouseX, mouseY));
+    
+    flow.mult(1.2);
+    sep.mult(sepWeight); 
+    ali.mult(aliWeight);
+    coh.mult(cohWeight);
+    mouse.mult(0.3);
+    
+    this.applyForce(flow);
+    this.applyForce(sep);
+    this.applyForce(ali);
+    this.applyForce(coh);
+    this.applyForce(mouse);
+  }
+
+  applyForce(force) { this.acceleration.add(force); }
+
+  startSolo() {
+    this.spinVelocity += random(PI, TWO_PI);
+    this.soloTimer = 60;
+  }
+
+  update(audioData) {
+    this.maxspeed = this.baseMaxSpeed + map(audioData.mid, 0, 255, 0, 2.0);
+    
+    let swayForce = this.velocity.copy();
+    swayForce.rotate(PI / 2);
+    let swayMagnitude = sin(frameCount * 0.2 + this.oscOffset) * map(audioData.mid, 0, 255, 0, this.maxforce * 0.5);
+    swayForce.setMag(swayMagnitude);
+    this.applyForce(swayForce);
+
+    this.spin += this.spinVelocity;
+    this.spinVelocity *= 0.9;
+
+    if (this.soloTimer > 0) {
+      this.soloTimer--;
+    }
+
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxspeed);
+    this.history.push(this.position.copy());
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+    this.lifespan -= 1;
+    if (this.history.length > 20) {
+      this.history.splice(0, 1);
+    }
+  }
+
+  show(audioData) {
+    let lifeRatio = this.lifespan / this.initialLifespan;
+    let { h, s, b } = this.getColor(audioData);
+    
+    let soloEffect = this.soloTimer / 60.0;
+    let baseRadius = this.r * map(audioData.bass, 0, 255, 0.7, 2.0);
+    baseRadius *= (1 + soloEffect * 1.5);
+    let finalBrightness = b + (soloEffect * 20);
+
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(this.velocity.heading() + PI / 2 + this.spin);
+
+    stroke(h, s, finalBrightness, 60 * lifeRatio * (1 + soloEffect));
+    strokeWeight(1.5 + soloEffect * 2);
+    fill(h, s, finalBrightness, 20 * lifeRatio * (1 + soloEffect));
+
+    let numPeaks = 8;
+    let angleStep = 360 / (numPeaks * 2);
+    beginShape();
+    for (let i = 0; i < 360; i += angleStep) {
+      let radius = (floor(i / angleStep) % 2 === 0) ? baseRadius * 1.1 : baseRadius * 0.8;
+      let x = cos(radians(i)) * radius;
+      let y = sin(radians(i)) * radius;
+      vertex(x, y);
+    }
+    endShape(CLOSE);
+    
+    noStroke();
+    fill(h, s, 100, 80 * lifeRatio * (1 + soloEffect * 2));
+    ellipse(0, 0, this.r * 0.6 * (1 + soloEffect));
+
+    pop();
+  }
+  
+  drawTrail(buffer, audioData){
+    if (this.history.length < 2) return;
+    
+    let lifeRatio = this.lifespan / this.initialLifespan;
+    let { h, s, b } = this.getColor(audioData);
+    
+    let pos = this.position;
+    let prevPos = this.history[this.history.length - 2];
+    
+    if (p5.Vector.dist(pos, prevPos) < this.maxspeed * 10) {
+      let alpha = 5 * lifeRatio;
+      let trailBrightness = map(audioData.bass, 0, 255, 80, 100);
+      buffer.stroke(h, s, trailBrightness, alpha);
+      buffer.strokeWeight(map(audioData.bass, 0, 255, 1, 3));
+      buffer.line(pos.x, pos.y, prevPos.x, prevPos.y);
+    }
+  }
+
+  getColor(audioData) {
+    let h = globalHue;
+    let s = map(audioData.mid, 0, 255, 70, 100);
+    let b = map(audioData.bass, 0, 255, 80, 100);
+    return { h, s, b };
+  }
+
+  seek(target) {
+    let desired = p5.Vector.sub(target, this.position);
+    desired.setMag(this.maxspeed);
+    let steer = p5.Vector.sub(desired, this.velocity);
+    steer.limit(this.maxforce);
+    return steer;
+  }
+  
+  borders() {
+    if (this.position.x < -this.r) this.position.x = width + this.r;
+    if (this.position.y < -this.r) this.position.y = height + this.r;
+    if (this.position.x > width + this.r) this.position.x = -this.r;
+    if (this.position.y > height + this.r) this.position.y = -this.r;
+  }
+}
+
+// ===================================
+// CLASE FLOWFIELD (LA HUELLA)
+// ===================================
+class FlowField {
+    constructor(r) {
+    this.resolution = r;
+    this.cols = floor(width / this.resolution);
+    this.rows = floor(height / this.resolution);
+    this.field = new Array(this.cols);
+    for (let i = 0; i < this.cols; i++) {
+      this.field[i] = new Array(this.rows);
+    }
+    this.zoff = 0;
+  }
+
+  init() {
+    // No necesita init() si se recalcula en update()
+  }
+
+  update(bass, treble) {
+    let noiseIncrement = map(bass, 0, 255, 0.02, 0.3);
+    let zSpeed = map(treble, 0, 255, 0.005, 0.05);
+    let xoff = 0;
+    for (let i = 0; i < this.cols; i++) {
+      let yoff = 0;
+      for (let j = 0; j < this.rows; j++) {
+        let angle = noise(xoff, yoff, this.zoff) * TWO_PI * 2;
+        this.field[i][j] = p5.Vector.fromAngle(angle);
+        yoff += noiseIncrement;
+      }
+      xoff += noiseIncrement;
+    }
+    this.zoff += zSpeed;
+  }
+
+  lookup(position) {
+    let column = constrain(floor(position.x / this.resolution), 0, this.cols - 1);
+    let row = constrain(floor(position.y / this.resolution), 0, this.rows - 1);
+    return this.field[column][row].copy();
+  }
+}
+
+// ===================================
+// CLASE PARTÍCULA BASE Y CONFETI
+// ===================================
+class Particula {
+  constructor(x, y, lifespan = 100) {
+    this.position = createVector(x, y);
+    this.velocity = createVector(0, 0);
+    this.acceleration = createVector(0, 0);
+    this.lifespan = lifespan;
+  }
+  update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
+    this.acceleration.mult(0);
+    this.lifespan -= 1;
+  }
+  isDead() { return this.lifespan < 0; }
+  show() {}
+}
+
+class ParticulaConfeti extends Particula {
+  constructor(x, y, palette) {
+    super(x, y, 100);
+    this.velocity = p5.Vector.random2D().mult(random(2, 5));
+    this.r = random(1.5, 3); // Más pequeño
+    this.angle = random(TWO_PI);
+    this.angleVelocity = random(-0.1, 0.1);
+    this.color = random(palette);
+  }
+
+  update() {
+    this.velocity.y += 0.05; // Gravedad
+    this.velocity.mult(0.99); // Fricción
+    this.position.add(this.velocity);
+    this.angle += this.angleVelocity;
+    this.lifespan -= 2;
+  }
+
+  show() {
+    let lifeRatio = this.lifespan / 100;
+    push();
+    translate(this.position.x, this.position.y);
+    rotate(this.angle);
+    noStroke();
+    fill(hue(this.color), saturation(this.color), brightness(this.color), 80 * lifeRatio); 
+    rectMode(CENTER);
+    square(0, 0, this.r * 2);
+    pop();
+  }
+}
+
+
+// Métodos de Flocking
+Danzante.prototype.separate = function(neighbors) {
+  let desiredseparation = this.r * 20;
+  let steer = createVector(0, 0);
+  let count = 0;
+  for (let other of neighbors) {
+    let d = p5.Vector.dist(this.position, other.position);
+    if ((d > 0) && (d < desiredseparation)) {
+      let diff = p5.Vector.sub(this.position, other.position);
+      diff.normalize();
+      diff.div(d);
+      steer.add(diff);
+      count++;
+    }
+  }
+  if (count > 0) {
+    steer.div(count);
+  }
+  if (steer.mag() > 0) {
+    steer.setMag(this.maxspeed);
+    steer.sub(this.velocity);
+    steer.limit(this.maxforce);
+  }
+  return steer;
+}
+
+Danzante.prototype.align = function(neighbors) {
+  let neighbordist = 50;
+  let sum = createVector(0, 0);
+  let count = 0;
+  for (let other of neighbors) {
+    let d = p5.Vector.dist(this.position, other.position);
+    if ((d > 0) && (d < neighbordist)) {
+      sum.add(other.velocity);
+      count++;
+    }
+  }
+  if (count > 0) {
+    sum.div(count);
+    sum.setMag(this.maxspeed);
+    let steer = p5.Vector.sub(sum, this.velocity);
+    steer.limit(this.maxforce);
+    return steer;
+  } else {
+    return createVector(0, 0);
+  }
+}
+
+Danzante.prototype.cohere = function(neighbors) {
+  let neighbordist = 50;
+  let sum = createVector(0, 0);
+  let count = 0;
+  for (let other of neighbors) {
+    let d = p5.Vector.dist(this.position, other.position);
+    if ((d > 0) && (d < neighbordist)) {
+      sum.add(other.position);
+      count++;
+    }
+  }
+  if (count > 0) {
+    sum.div(count);
+    return this.seek(sum);
+  } else {
+    return createVector(0, 0);
+  }
+}
+```
+
+3. Un enlace a tu sketch en el editor de p5.js.
+   > [apply unidad 6](https://editor.p5js.org/LCami-Villanueva/sketches/he0CXgyon)
+
+4. Capturas de pantalla mostrando tu pieza en acción.
+   >
+   > <img width="789" height="675" alt="image" src="https://github.com/user-attachments/assets/b09a8ba8-5178-4d51-9b0c-6cac1c565050" />
+
+   
      
       
 
 
   
+
 
 
 
