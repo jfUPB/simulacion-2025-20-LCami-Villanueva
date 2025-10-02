@@ -216,8 +216,47 @@
    >           * Barra Espaciadora (Modo Lienzo): Oculta a los danzantes activos para permitirte contemplar únicamente la huella pintada con sus estelas.
    >           * Tecla 'G' (Guardar): Guarda la huella actual en la galería y limpia el lienzo para empezar a pintar una nueva.
    >           * Tecla 'V' (Ver Galería): Entra y sale del modo galería, donde puedes ver todas las huellas que has creado una al lado de la otra.
+   >             
    > 🧪 **Experimentos**
    >   * Experimento 1.
+   >
+   >    Lo primero que hice diseñar el flowfield por lo que en cada fotograma el método update() recalcula todos los vectores de la huella basándose en la música. A partir de ahí, la energía de los graves (bassEnergy) controla el “zoom” del ruido Perlin, de modo que con bajos suaves las curvas resultan amplias y fluidas, mientras que con golpes fuertes se contraen, volviéndose más apretadas y complejas. Por otro lado, la energía de los agudos (trebleEnergy) introduce una dimensión temporal al campo: con agudos suaves permanece estable, pero cuando los sonidos son más intensos, como platillos o voces altas, el campo vibra y cambia rápidamente, generando turbulencias que los danzantes deben atravesar. Finalmente, estos danzantes se limitan a seguir el campo de flujo vivo, lo que transforma su recorrido en una coreografía compleja y profundamente conectada con la canción.
+>
+><p align="center">
+  <img src="https://github.com/user-attachments/assets/61756120-e7a9-4a71-91ba-610c46739578" width="45%">
+  <img src="https://github.com/user-attachments/assets/283aa74c-3b2a-4ac5-b92f-5c66d41e99a6" width="45%">
+</p>
+
+> * Experimento 2.
+> 
+>El siguiente paso fue agregar a los danzantes para representar el baile. Ellos siguen el campo de flujo y dejan una estela que marca el lugar por donde han pasado. De esta manera, al moverse conforme al flujo, también siguen el ritmo de la música.
+>
+><img width="734" height="656" alt="Screenshot 2025-10-01 143821" src="https://github.com/user-attachments/assets/783244fd-ed02-42e2-b14a-2556d8d86afc" />
+
+>
+> * Experimento 3.
+>
+> Para que los danzantes se sintieran como un grupo y no como individuos aislados, implementé el algoritmo de Flocking. A partir de este punto, cada agente aplica las tres reglas clásicas: Separación (para no chocar), Alineación (para moverse en la misma dirección) y Cohesión (para mantenerse unidos). Esto se combinó con una conexión más profunda con la música: la forma de su "falda" ahora pulsa con los bajos, mientras que sus colores reaccionan a los agudos, creando una coreografía colectiva mucho más rica y orgánica.
+>
+> <img width="726" height="641" alt="Screenshot 2025-10-01 145447" src="https://github.com/user-attachments/assets/b1769c11-8acc-4ac3-a925-6642a8c3b108" />
+>
+> * Experimento 4.
+>
+>Aquí me enfrenté al desafío más grande: el equilibrio. Por un lado, la estela que dejaban los danzantes o se acumulaba demasiado, saturando la pantalla con líneas, o se desvanecía tan rápido que no se llegaba a formar la huella. Por otro lado, la regla de Separación era un problema: o era muy débil y los danzantes se amontonaban visualmente (ya que sus 'faldas' eran más grandes que su radio de colisión), o era tan fuerte que la bandada se desintegraba.
+>
+><img width="761" height="661" alt="Screenshot 2025-10-01 155450" src="https://github.com/user-attachments/assets/fc8e968f-eca5-4b4e-ab43-16d853ba2c84" />
+>
+> La solución final fue doble. Para la estela, implementé un 'pulso de limpieza' rítmico: el rastro se acumula suavemente, pero con cada golpe fuerte de la percusión (bassBeat), la pantalla se limpia con un desvanecimiento rápido, manteniendo la imagen siempre fresca. Para la separación, la clave fue recalibrar los pesos de las fuerzas, dándole mucha más prioridad a la separación y aumentando el 'espacio personal' de cada danzante. Esto, junto con hacerlos un poco más pequeños, finalmente logró que el baile se viera fluido y sin amontonamientos.
+>
+><img width="704" height="632" alt="Screenshot 2025-10-01 165405" src="https://github.com/user-attachments/assets/37081f70-0683-4aba-8ab6-0dc7532b603d" />
+
+
+
+
+
+
+
+
    > 💬 **Que comunica**
    > ✨ **Concepto Final**    
         
@@ -229,6 +268,7 @@
 
 
   
+
 
 
 
