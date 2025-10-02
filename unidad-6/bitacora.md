@@ -907,12 +907,56 @@ Danzante.prototype.cohere = function(neighbors) {
    >
    > <img width="789" height="675" alt="image" src="https://github.com/user-attachments/assets/b09a8ba8-5178-4d51-9b0c-6cac1c565050" />
 
+## Autoevaluacion Unidad 6
+
+**Nota Propuesta: 5.0**
+1. Cumplimiento de Actividades
+> Se realizaron las 5 actividades solicitadas para la unidad. Las primeras cuatro, correspondientes a la investigación y experimentación con los algoritmos de Flocking y Flow Fields, están documentadas en la bitácora del proyecto, donde se analizó el efecto de modificar parámetros clave. La quinta actividad es la pieza final, la cual cumple con todos sus requisitos específicos: está inspirada en el tema musical "Samba do Brasil"; utiliza una . combinación de Flow Fields y Flocking; visualiza la música a través del color, el movimiento y la forma; y, fundamentalmente, funciona como un instrumento visual que puede ser "tocado" en tiempo real.
+>
+** Sustentación Apply**
+> 1. Investigación y Experimentación
+> * Conceptos Aplicados y su Efecto: El núcleo de la obra es la combinación de un Campo de Flujo (FlowField) y un sistema de Flocking. El FlowField crea un   > entorno dinámico que pulsa y se transforma con la música, funcionando como el "escenario" o la "pista de baile". Sobre este escenario, los Danzantes aplican > las tres reglas de Flocking (Separación, Alineación y Cohesión), lo que les da un comportamiento de grupo orgánico. El efecto es que no solo siguen         > ciegamente las corrientes, sino que interactúan entre ellos, creando una coreografía compleja y emergente.
+>   
+> * Interrelación Rendimiento y Concepto: La implementación de Flocking introduce un desafío de rendimiento. Para solucionarlo, apliqué la técnica de
+> subdivisión espacial ("binning"), creando una cuadrícula que permite a cada danzante interactuar solo con sus vecinos cercanos. Esta optimización fue
+> crucial para poder tener una gran cantidad de agentes en pantalla sin sacrificar la fluidez, lo que era esencial para el concepto de "carnaval".
+> * Ciclo de Vida y Memoria: A diferencia de un sistema de partículas simple, los Danzantes tienen un ciclo de vida largo para poder pintar la huella.
+>   gestión de memoria se logra con un límite máximo de agentes (MAX_DANZANTES) y un sistema de "reciclaje": los danzantes más antiguos se eliminan para dar
+>   paso a los nuevos, manteniendo la simulación siempre viva y optimizada.
+> 2. Intención y Diseño
+> El diseño de la obra fue un proceso iterativo, pero siempre guiado por un concepto central claro.
+>   * Concepto y Estética: La obra materializa el concepto de "Huella Rítmica". La idea de que cada experiencia es única se representa en la estela permanente
+>     que pintan los danzantes, creando una "huella dactilar" visual de cada sesión. Estéticamente, se buscó un equilibrio entre la energía caótica de un
+>     carnaval (representada en el Flocking y las explosiones de Confeti) y la belleza de las formas orgánicas que emergen (las corrientes del FlowField y las
+>     estelas de luz).
+>   * Diseño de Interacción como Instrumento: La interactividad fue diseñada desde el principio para que el usuario no fuera un simple espectador, sino un
+>     intérprete. Las teclas S, A y C no son botones, son "faders" que permiten modular la "emoción" de la bandada. El clic del mouse para activar un "solo"
+>     funciona como un acento rítmico. Estas decisiones transforman la simulación en un instrumento visual expresivo.
+> 3. Aplicación Técnica
+> El código final es una síntesis de todas las unidades del curso, con un enfoque en las técnicas de la Unidad 6.
+> * Implementación de la Unidad 6: La obra demuestra un uso avanzado tanto de Flow Fields como de Flocking. El FlowField no es estático, sino que sus
+>   parámetros (noiseIncrement, zSpeed) son modulados en tiempo real por el análisis de audio FFT. El sistema de Flocking se implementa con pesos dinámicos
+>   que el usuario puede "tocar" con el teclado, demostrando un control profundo sobre el comportamiento del sistema.
+> * Integración de Unidades Anteriores: La obra es un ecosistema donde cada unidad tiene un rol:
+>     *  Unidad 1 (Aleatoriedad): noise() genera el FlowField y random() da individualidad a cada Danzante.
+>     *  Unidad 2 (Motion 101): Es el motor físico de cada agente.
+>     *  Unidad 3 (Fuerzas): El sistema acumula múltiples fuerzas de dirección (FlowField, Flocking, seek del mouse) para cada agente.
+>     *  Unidad 4 (Oscilación): El "balanceo de samba" de los danzantes se logra con una fuerza oscilatoria basada en sin().
+>     *  Unidad 5 (Sistemas de Partículas): La arquitectura general (clases Danzante y Confeti, gestión de arrays y ciclo de vida) es una aplicación directa
+>        de esta unidad.
+> 4. Calidad de la Obra Final
+> La pieza final es estable, expresiva y conceptualmente coherente.
+> * Estabilidad y Rendimiento: Gracias a la optimización con "binning", la simulación corre de forma fluida con una gran cantidad de agentes.
+> * Conexión con la Música: La obra tiene una conexión multi-capa con la canción: el FlowField pulsa con el ritmo, la velocidad y el color de los danzantes
+>   cambian, y los acentos rítmicos generan explosiones de confeti.
+
    
      
       
 
 
   
+
 
 
 
