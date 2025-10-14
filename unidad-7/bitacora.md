@@ -275,8 +275,8 @@ function drawBody(body) {
   }
 }
 ```
-   > Experimento 3: 🧪
-3. Incluye una **captura de pantalla o ENLACE a un GIF (no olvides, enlace) de cada experimento funcionando.
+
+3. Incluye una **captura de pantalla o ENLACE a un GIF (no olvides, enlace) de cada experimento funcionando.**
    > Experimento 1: 🧪 **Crear un mundo con gravedad y añadir algunos cuerpos simples (círculos, cajas) que caigan y colisionen.**
    > - [Ejemplo Mundo Con Gravedad](https://editor.p5js.org/LCami-Villanueva/sketches/dGYzPqN5L)
    > 
@@ -285,8 +285,12 @@ function drawBody(body) {
    >   ![20251014-1853-40 9723303](https://github.com/user-attachments/assets/a3ab2d1a-1728-4761-8e17-691b24c6e347)
    > 
    > Experimento 2: 🧪
+   > - [Ejemplo objeto Estatico ](https://editor.p5js.org/LCami-Villanueva/sketches/lfqodjwjb)
    >
-   > Experimento 3: 🧪
+   > - GIF
+   >
+   >  <img width="732" height="495" alt="image" src="https://github.com/user-attachments/assets/ee94b649-32ad-4d67-8540-af0b97b9a7d7" />
+   >
 4. Proporciona tu explicación clara y concisa de los conceptos clave (Engine, World, Bodies, Constraint, MouseConstraint).
    > - **Engine (Motor):** Para mí, el Engine es el cerebro de toda la simulación. Es el que se encarga de que el tiempo avance y calcula toda la física, como la gravedad y las colisiones. Aunque no lo vemos directamente, es el motor que lo mueve todo.
    > - **World (Mundo):** El World es como el escenario donde ocurre la simulación. Es el contenedor que guarda todos mis objetos (Bodies). Entendí que para que a un objeto le afecte la gravedad o pueda chocar, es obligatorio añadirlo a este mundo.
@@ -295,14 +299,18 @@ function drawBody(body) {
    > - **MouseConstraint (Vínculo con el Mouse):** Este es simplemente la herramienta que me permite "jugar" con la simulación. Es un Constraint especial que conecta mi mouse con los Bodies, dejándome agarrarlos, arrastrarlos y lanzarlos. Es la forma más directa de hacer el proyecto interactivo.
    
 5. Menciona brevemente cualquier dificultad encontrada al configurar o usar Matter.js inicialmente.
+   > Realmete no tuve ninguna dificultad muy complicada, tal vez al principio que me dio error porque había referenciado mal la librería, pero no fue nada grave. 
 
 # Apply 🛠
 ## Actividad 03 
 1. Indica claramente la palabra elegida.
+   > ### Ola 
 2. Explica tu idea conceptual: ¿Cómo la animación física representa el significado de la palabra?
-3. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
-4. Incluye el código completo de tu sketch final.
-5. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+   > 
+5. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
+6. Incluye el código completo de tu sketch final.
+7. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+
 
 
 
