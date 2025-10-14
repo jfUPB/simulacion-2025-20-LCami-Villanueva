@@ -51,14 +51,239 @@
 ## Seek: Investigación 🔎
 ### Actividad 02 ✍️ 
 1. Muestra el código de los dos (o más) experimentos básicos que replicaste integrando Matter.js y p5.js.
-   > Experimento 1: 🧪
-   >
-   > Experimento 2: 🧪 
-   >
+   > Experimento 1: 🧪   **Crear un mundo con gravedad y añadir algunos cuerpos simples (círculos, cajas) que caigan y colisionen.**
+   >   > ✨ Para este ejercicio, mi objetivo fue crear un mundo básico con gravedad usando Matter.js, basándome en el primer ejemplo del video que integra la librería con p5.js. De ahí tomé la estructura fundamental: crear el Engine y el World en el setup(), y lo más importante, actualizar la simulación con Engine.update(engine) dentro del draw(). A partir de esa base, construí mi propia escena añadiendo un suelo estático y varios Bodies dinámicos como cajas y círculos. Finalmente, creé una función para dibujarlos que simplemente toma la posición y el ángulo que Matter.js calcula y los representa en el lienzo de p5.js.✨
+   >   >
+``` JS
+  // Módulos que vamos a usar de Matter.js
+const { Engine, World, Bodies, Composite } = Matter;
+
+// Variables para el motor de física y los objetos
+let engine;
+let world;
+let ground;
+let shapes = []; // Un arreglo para guardar todas nuestras figuras
+
+function setup() {
+  // 1. Creamos el lienzo (canvas) de p5.js
+  createCanvas(600, 400);
+
+  // 2. Creamos el motor de física y el mundo
+  engine = Engine.create();
+  world = engine.world;
+
+  // 3. Creamos nuestros cuerpos (bodies)
+
+  // El suelo: es un cuerpo estático para que no se caiga
+  ground = Bodies.rectangle(width / 2, height - 10, width, 20, {
+    isStatic: true
+  });
+  // Le añadimos sus dimensiones para poder dibujarlo con la misma función
+  ground.w = width;
+  ground.h = 20;
+
+
+  // Cuerpos simples: círculos y cajas (dinámicos)
+  let box1 = Bodies.rectangle(200, 50, 80, 80, { restitution: 0.8, friction: 0.1 });
+  // Guardamos sus dimensiones originales
+  box1.w = 80;
+  box1.h = 80;
+
+  let circle1 = Bodies.circle(300, 20, 40, { restitution: 0.5 });
+  // Guardamos su radio original
+  circle1.r = 40;
+
+  let box2 = Bodies.rectangle(250, 150, 50, 50, { angle: PI / 4 });
+  // Guardamos sus dimensiones originales
+  box2.w = 50;
+  box2.h = 50;
+
+
+  // 4. Añadimos todos los cuerpos al mundo
+  Composite.add(world, [ground, box1, circle1, box2]);
+
+  // Guardamos las figuras dinámicas en nuestro arreglo para dibujarlas
+  shapes.push(box1);
+  shapes.push(circle1);
+  shapes.push(box2);
+}
+
+function draw() {
+  background(51); // Fondo oscuro
+
+  // 5. Actualizamos el motor de física en cada fotograma
+  Engine.update(engine);
+
+  // 6. Dibujamos todos los cuerpos en el lienzo de p5.js
+
+  // Dibujar el suelo
+  fill(170);
+  noStroke();
+  drawBody(ground);
+
+  // Dibujar las figuras dinámicas
+  fill(255, 100, 200); // Color rosado para las figuras
+  stroke(255);
+  for (let shape of shapes) {
+    drawBody(shape);
+  }
+}
+
+// Función auxiliar para dibujar cualquier tipo de cuerpo (body)
+function drawBody(body) {
+  // Si el cuerpo es un rectángulo
+  if (body.label === 'Rectangle Body') {
+    let pos = body.position;
+    let angle = body.angle;
+
+    push();
+    translate(pos.x, pos.y);
+    rotate(angle);
+    rectMode(CENTER);
+    // Usamos las dimensiones guardadas
+    rect(0, 0, body.w, body.h);
+    pop();
+  }
+
+  // Si el cuerpo es un círculo
+  if (body.label === 'Circle Body') {
+    let pos = body.position;
+
+    push();
+    translate(pos.x, pos.y);
+    ellipseMode(CENTER);
+    // Usamos el radio guardado
+    ellipse(0, 0, body.r * 2);
+    pop();
+  }
+}
+```
+   > Experimento 2: 🧪  **Crear cuerpos estáticos (como el suelo)**.
+   >   > ✨ Para este segundo experimento, el foco era entender y crear cuerpos estáticos. Ya había usado uno para el suelo, pero quería explorar cómo crear un entorno más complejo. Descubrí que la clave es muy simple: al crear cualquier Body (sea un rectángulo o cualquier otra forma), solo hay que añadir la opción { isStatic: true }. Esto le dice a Matter.js que ese objeto es inamovible: no le afecta la gravedad ni las colisiones, simplemente se queda fijo en su lugar. En mi sketch, además del suelo, añadí una rampa (que es solo un rectángulo estático con un ángulo) y una pared lateral, creando así un escenario fijo donde los cuerpos dinámicos pueden rebotar y deslizarse.✨
+   >   >
+``` JS
+// Módulos de Matter.js
+const { Engine, World, Bodies, Composite } = Matter;
+
+let engine;
+let world;
+
+// Arreglos para guardar los cuerpos
+let dynamicShapes = [];
+let staticShapes = [];
+
+function setup() {
+  createCanvas(600, 400);
+
+  engine = Engine.create();
+  world = engine.world;
+
+  // --- CUERPOS ESTÁTICOS (el escenario) ---
+
+  // 1. El suelo
+  let ground = Bodies.rectangle(width / 2, height - 10, width, 20, {
+    isStatic: true // La propiedad clave para que no se mueva
+  });
+  ground.w = width;
+  ground.h = 20;
+
+  // 2. Una rampa
+  let ramp = Bodies.rectangle(300, 300, 400, 20, {
+    isStatic: true,
+    angle: -PI / 12 // Le damos una inclinación
+  });
+  ramp.w = 400;
+  ramp.h = 20;
+
+  // Añadimos los cuerpos estáticos a su arreglo
+  staticShapes.push(ground, ramp);
+
+
+  // --- CUERPOS DINÁMICOS (los que caen) ---
+
+  let box = Bodies.rectangle(100, 50, 40, 40, { restitution: 0.8 });
+  box.w = 40;
+  box.h = 40;
+
+  let circle = Bodies.circle(450, 20, 25, { restitution: 0.6 });
+  circle.r = 25;
+
+  // Añadimos los cuerpos dinámicos a su arreglo
+  dynamicShapes.push(box, circle);
+
+
+  // Finalmente, añadimos TODOS los cuerpos al mundo
+  Composite.add(world, staticShapes);
+  Composite.add(world, dynamicShapes);
+}
+
+function draw() {
+  background(51);
+  Engine.update(engine);
+
+  // Dibujar los cuerpos estáticos (grises)
+  fill(170);
+  noStroke();
+  for (let body of staticShapes) {
+    drawBody(body);
+  }
+
+  // Dibujar los cuerpos dinámicos (rosados)
+  fill(255, 100, 200);
+  stroke(255);
+  for (let body of dynamicShapes) {
+    drawBody(body);
+  }
+}
+
+// Función para añadir más figuras con el mouse
+function mousePressed() {
+  let newShape;
+  if (random(1) > 0.5) {
+    newShape = Bodies.rectangle(mouseX, mouseY, 30, 30, { restitution: 0.8 });
+    newShape.w = 30;
+    newShape.h = 30;
+  } else {
+    newShape = Bodies.circle(mouseX, mouseY, 15, { restitution: 0.5 });
+    newShape.r = 15;
+  }
+  dynamicShapes.push(newShape);
+  Composite.add(world, newShape);
+}
+
+
+// Función auxiliar para dibujar cualquier tipo de cuerpo
+function drawBody(body) {
+  if (body.label === 'Rectangle Body') {
+    let pos = body.position;
+    let angle = body.angle;
+    push();
+    translate(pos.x, pos.y);
+    rotate(angle);
+    rectMode(CENTER);
+    rect(0, 0, body.w, body.h);
+    pop();
+  }
+
+  if (body.label === 'Circle Body') {
+    let pos = body.position;
+    push();
+    translate(pos.x, pos.y);
+    ellipseMode(CENTER);
+    ellipse(0, 0, body.r * 2);
+    pop();
+  }
+}
+```
    > Experimento 3: 🧪
 3. Incluye una **captura de pantalla o ENLACE a un GIF (no olvides, enlace) de cada experimento funcionando.
-   > Experimento 1: 🧪
-   >
+   > Experimento 1: 🧪 **Crear un mundo con gravedad y añadir algunos cuerpos simples (círculos, cajas) que caigan y colisionen.**
+   > - [Ejemplo Mundo Con Gravedad](https://editor.p5js.org/LCami-Villanueva/sketches/dGYzPqN5L)
+   > 
+   > - GIF
+   > 
+   >   ![20251014-1853-40 9723303](https://github.com/user-attachments/assets/a3ab2d1a-1728-4761-8e17-691b24c6e347)
+   > 
    > Experimento 2: 🧪
    >
    > Experimento 3: 🧪
@@ -78,6 +303,7 @@
 3. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
 4. Incluye el código completo de tu sketch final.
 5. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+
 
 
 
