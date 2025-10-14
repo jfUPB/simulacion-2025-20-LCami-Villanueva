@@ -1,5 +1,6 @@
 # Evidencias de la unidad 7
-## Actividad 01
+## Set: 💡
+### Actividad 01 🧐
 
 1. Tu análisis de 3-4 ejemplos de Ji Lee, explicando cómo logran la conexión palabra-imagen.
 >
@@ -46,20 +47,21 @@
    ><img width="385" height="375" alt="image" src="https://github.com/user-attachments/assets/b134a84d-75e7-4f97-871c-ac52e7fa7415" />
    >
    >Para 'Caída', la palabra sigue una trayectoria descendente donde cada letra está más rotada que la anterior, mostrando la aceleración. Detalles clave, como el la 'a' final deformada en el suelo, marca el impacto.
-
-## Actividad 02
+   
+## Seek: Investigación 🔎
+### Actividad 02 ✍️ 
 1. Muestra el código de los dos (o más) experimentos básicos que replicaste integrando Matter.js y p5.js.
-   > Experimento 1:
+   > Experimento 1: 🧪
    >
-   > Experimento 2:
+   > Experimento 2: 🧪 
    >
-   > Experimento 3:
+   > Experimento 3: 🧪
 3. Incluye una **captura de pantalla o ENLACE a un GIF (no olvides, enlace) de cada experimento funcionando.
-   > Experimento 1:
+   > Experimento 1: 🧪
    >
-   > Experimento 2:
+   > Experimento 2: 🧪
    >
-   > Experimento 3:
+   > Experimento 3: 🧪
 4. Proporciona tu explicación clara y concisa de los conceptos clave (Engine, World, Bodies, Constraint, MouseConstraint).
    > - **Engine (Motor):** Para mí, el Engine es el cerebro de toda la simulación. Es el que se encarga de que el tiempo avance y calcula toda la física, como la gravedad y las colisiones. Aunque no lo vemos directamente, es el motor que lo mueve todo.
    > - **World (Mundo):** El World es como el escenario donde ocurre la simulación. Es el contenedor que guarda todos mis objetos (Bodies). Entendí que para que a un objeto le afecte la gravedad o pueda chocar, es obligatorio añadirlo a este mundo.
@@ -68,6 +70,15 @@
    > - **MouseConstraint (Vínculo con el Mouse):** Este es simplemente la herramienta que me permite "jugar" con la simulación. Es un Constraint especial que conecta mi mouse con los Bodies, dejándome agarrarlos, arrastrarlos y lanzarlos. Es la forma más directa de hacer el proyecto interactivo.
    
 5. Menciona brevemente cualquier dificultad encontrada al configurar o usar Matter.js inicialmente.
+
+# Apply 🛠
+## Actividad 03 
+1. Indica claramente la palabra elegida.
+2. Explica tu idea conceptual: ¿Cómo la animación física representa el significado de la palabra?
+3. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
+4. Incluye el código completo de tu sketch final.
+5. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+
 
 
 
