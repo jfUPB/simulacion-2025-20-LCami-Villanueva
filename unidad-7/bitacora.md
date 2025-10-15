@@ -322,7 +322,8 @@ function drawBody(body) {
 >
 > ### Proceso de Ejecución en Código
 > - **Experimento 1**
->     > Para empezar quise que solo se formara la palabra "Ratón" con las caracteristicas orejas de ratón. 
+>     > Para empezar quise que solo se formara la palabra "Ratón" con las caracteristicas orejas de ratón.
+>     > 
 
 1. Indica claramente la palabra elegida.
    > ### Ola 
@@ -331,6 +332,7 @@ function drawBody(body) {
 5. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
 6. Incluye el código completo de tu sketch final.
 7. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+
 
 
 
