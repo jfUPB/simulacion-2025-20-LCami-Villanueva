@@ -303,6 +303,27 @@ function drawBody(body) {
 
 # Apply 🛠
 ## Actividad 03 
+### ETAPA DE DISEÑO 🎨✨
+>
+> ### IDEA FALLIDA 🚫❌ 
+>  >Para esta etapa inicial decidí comenzar con la palabra “Ola”, trabajándola como en la imagen que realicé en la parte de ideas. Sin embargo, durante el proceso no encontré una forma adecuada de representar la ola en la letra O, y los resultados que obtuve no me convencieron. Finalmente, me rendí, ya que la idea tampoco me inspiraba lo suficiente.
+>
+> <img width="697" height="393" alt="image" src="https://github.com/user-attachments/assets/4996eb36-8e6e-4a1a-9846-c3b213ae4204" />
+>
+>- [Código Idea Fallida ❌ ](https://editor.p5js.org/LCami-Villanueva/sketches/J5eKax_XR)
+>  
+> 🚫 ❌
+>
+> ### IDEA DOS 💡✅
+> > 💫 Esta idea surgió a través de un proceso con muchas propuestas, una tras otra. La idea inicial era representar la palabra “ratón”, haciendo que la R tuviera las orejitas del ratón, de modo que se reconociera fácilmente la palabra pero con ese detalle distintivo. Sin embargo, al analizarla más a fondo, pensé en darle un giro más divertido y contar una pequeña historia visual.
+> >
+> > Noté que las palabras “ratón” y “gato” se parecen bastante, y que bastaba con reemplazar la R por una G, y quitar la n y la tilde. A partir de eso, se me
+> > ocurrió que la G (con forma de gato) se comiera la R (ratón), que la n, asustada, saliera huyendo, y que la tilde cayera, dando como resultado la palabra
+>
+> ### Proceso de Ejecución en Código
+> - **Experimento 1**
+>     > Para empezar quise que solo se formara la palabra "Ratón" con las caracteristicas orejas de ratón. 
+
 1. Indica claramente la palabra elegida.
    > ### Ola 
 2. Explica tu idea conceptual: ¿Cómo la animación física representa el significado de la palabra?
@@ -310,6 +331,7 @@ function drawBody(body) {
 5. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
 6. Incluye el código completo de tu sketch final.
 7. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+
 
 
 
