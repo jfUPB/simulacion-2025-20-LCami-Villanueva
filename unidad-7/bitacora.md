@@ -571,8 +571,41 @@ function mousePressed() {
    > - GIF
    >   ![20251016-0631-57 1638613](https://github.com/user-attachments/assets/8f60a52f-1c47-4dc9-b988-ca74c088da75)
 
+## Autoevaluación - Unidad 7
+
+**Nota Propuesta: 5.0**
+
+### Defensa de la Nota
+
+- Actividad 1: Análisis e Ideación Estática
+>
+> - Análisis de Referentes: Se realizó un análisis detallado de 4 ejemplos del proyecto “Word as Image” de Ji Lee, describiendo las técnicas visuales y
+>   tipográficas específicas que utilizan para conectar la palabra con su significado.
+>
+> - Generación de Ideas Propias: Se generaron y documentaron 3 ideas originales para representar palabras de forma estática ("Semilla", "Ola" y "Caída"). En esta fase, se exploró la manipulación de la composición y la forma de las letras para evocar su concepto, lo cual fue fundamental para el desarrollo posterior.
+> 
+> Esta actividad demostró la comprensión del concepto central de la tipografía semántica antes de introducir la complejidad de la animación.
+>
+- Actividad 2: Fundamentos Técnicos de Matter.js (Completada)
+> Esta actividad se desarrolló de manera exhaustiva para asegurar el dominio de la herramienta principal. La bitácora contiene:
+>
+> - Experimentación Práctica: Se replicaron con éxito dos experimentos básicos utilizando p5.js y Matter.js: uno que simula la caída y colisión de cuerpos en un mundo con gravedad, y otro que explora la creación de cuerpos estáticos para formar un escenario.
+> - Evidencia de Funcionamiento: Se incluyeron tanto el código fuente de los experimentos como los enlaces a los GIFs animados que demuestran su correcto funcionamiento.
+> - Comprensión Conceptual: Se elaboró una explicación clara y con mis propias palabras de los conceptos clave de la librería (Engine, World, Bodies, Constraint, MouseConstraint), demostrando la asimilación de la arquitectura y los componentes fundamentales de Matter.js.
+> 
+- Actividad 3: Implementación de Tipografía Semántica Animada (Completada)
+> La Actividad 3, que representa la síntesis del proyecto, fue implementada satisfactoriamente, cumpliendo con todos los requisitos.
+> - Palabra Elegida y Conceptualización: Se eligió la palabra "SOL".
+> - La idea conceptual, detallada en la bitácora, se centra en cómo la animación física representa el significado de la palabra, transformando la letra "O" en una estrella que emite energía, ejerce una fuerza expansiva y se convierte en el centro dominante del sistema. Incluso se documentó una idea previa descartada, mostrando un proceso de iteración y diseño reflexivo.
+> - Implementación Técnica: Se describen los aspectos técnicos clave, explicando cómo se formaron las letras con cuerpos circulares de Matter.js, la importancia de propiedades como la gravedad cero y la restitución, y la decisión de usar una manipulación programática del offsetX en lugar de Constraints para obtener un control artístico preciso sobre la animación.
+> - Entregables Completos: La bitácora incluye el código completo y funcional del sketch final y el enlace al GIF animado que muestra el resultado en acción, demostrando que la implementación fue exitosa y comunica efectivamente la idea conceptual.
+
+**Conclusión**
+> Las tres actividades fueron realizadas de manera completa y reflexiva, demostrando tanto la comprensión teórica del concepto de tipografía semántica como la competencia técnica en el uso de Matter.js para crear una simulación interactiva con propósito. Por lo tanto, considero que he cumplido con todos los requisitos y objetivos de aprendizaje de la unidad, justificando la nota de 5.0.
+
 
     
+
 
 
 
