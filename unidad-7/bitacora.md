@@ -315,23 +315,265 @@ function drawBody(body) {
 > 🚫 ❌
 >
 > ### IDEA DOS 💡✅
-> > 💫 Esta idea surgió a través de un proceso con muchas propuestas, una tras otra. La idea inicial era representar la palabra “ratón”, haciendo que la R tuviera las orejitas del ratón, de modo que se reconociera fácilmente la palabra pero con ese detalle distintivo. Sin embargo, al analizarla más a fondo, pensé en darle un giro más divertido y contar una pequeña historia visual.
-> >
-> > Noté que las palabras “ratón” y “gato” se parecen bastante, y que bastaba con reemplazar la R por una G, y quitar la n y la tilde. A partir de eso, se me
-> > ocurrió que la G (con forma de gato) se comiera la R (ratón), que la n, asustada, saliera huyendo, y que la tilde cayera, dando como resultado la palabra
->
-> ### Proceso de Ejecución en Código
-> - **Experimento 1**
->     > Para empezar quise que solo se formara la palabra "Ratón" con las caracteristicas orejas de ratón.
->     > 
-
+> > 💫 Para esta segunda idea pensé en la palabra sol, y en hacer que la O sea como el sol y tenga un resplandor. Inicialmente, las letras flotan en un espacio sin gravedad, y la "O" ya emite sutiles ondas de luz.
+> > 
 1. Indica claramente la palabra elegida.
-   > ### Ola 
+   > ### Sol 
 2. Explica tu idea conceptual: ¿Cómo la animación física representa el significado de la palabra?
+   > La palabra "SOL". La "O" se presenta como un núcleo de energía contenida, y la interacción del usuario actúa como el catalizador que desata su verdadero significado. Al ser activada, esta se expande de forma explosiva, ejerciendo una fuerza que desplaza a las otras letras y emitiendo partículas como una erupción solar, convirtiendo así el texto en una simulación dinámica de su propio concepto.
+3. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
+   >
+   > En esta implementación, cada letra de la palabra "SOL" está representada por un cuerpo circular invisible (Bodies.circle) en el motor de física. El carácter visual de la letra simplemente se dibuja en la
+   > posición de este cuerpo físico en cada fotograma, lo que permite que el texto se comporte de acuerdo con las leyes de la simulación.
    > 
-5. Describe brevemente los aspectos técnicos clave de tu implementación: ¿Cómo formaste las letras con Matter.js? ¿Qué propiedades físicas fueron importantes? ¿Usaste restricciones?
-6. Incluye el código completo de tu sketch final.
-7. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+   > Las propiedades físicas más importantes fueron:
+   >
+   > - Gravedad Cero: world.gravity.y = 0 es fundamental para que las letras floten en el espacio en lugar de caer.
+   > - Restitución y Fricción: Se ajustaron valores bajos de restitution (0.6) y friction (0.1) para dar a las letras un rebote suave y una interacción fluida, evitando que se detuvieran por completo o rebotaran de manera caótica.
+   > - Densidad: La density (0.04) fue clave para que los cuerpos tuvieran suficiente masa para reaccionar de forma natural al empujarse entre sí al inicio.
+   >
+   > No utilicé restricciones (Constraints) de Matter.js. En su lugar, el efecto de separación durante la animación se logró de forma visual y programática. Manipulé directamente el desplazamiento (offsetX) de las letras "S" y "L" usando la función lerp(). Esta decisión fue deliberada para tener un control artístico total sobre el movimiento, asegurando una separación suave y coreografiada en lugar de una reacción física que podría ser menos predecible.
+   > 
+4. Incluye el código completo de tu sketch final.
+``` JS
+const Engine = Matter.Engine;
+const World = Matter.World;
+const Bodies = Matter.Bodies;
+const Body = Matter.Body;
+
+let engine;
+let world;
+let letters = [];
+let animating = false;
+let animationProgress = 0;
+let particles = [];
+let clickedO = false;
+let concentric = [];
+
+function setup() {
+  createCanvas(800, 800);
+  textAlign(CENTER, CENTER);
+  textFont('Georgia');
+  
+  // Create Matter.js engine
+  engine = Engine.create();
+  world = engine.world;
+  world.gravity.y = 0;
+  
+  // Create letter objects with manual positioning
+  let word = 'SOL';
+  let startX = width / 2 - 50;
+  let spacing = 55;
+  
+  for (let i = 0; i < word.length; i++) {
+    let x = startX + i * spacing;
+    let y = height / 2;
+    let letterSize = 150;
+    
+    // Create physics body for each letter
+    let body = Bodies.circle(x, y, letterSize / 2, {
+      restitution: 0.6,
+      friction: 0.1,
+      density: 0.04
+    });
+    
+    World.add(world, body);
+    
+    letters.push({
+      letter: word[i],
+      body: body,
+      letterSize: letterSize,
+      offsetX: 0
+    });
+  }
+}
+
+function draw() {
+  background(20, 30, 50);
+  
+  // Get sun center coordinates
+  let centerX = letters[1].body.position.x + letters[1].offsetX;
+  let centerY = letters[1].body.position.y;
+  
+  // Generate new concentric circle every few frames
+  if (frameCount % 40 === 0) {
+    concentric.push({
+      radius: 0,
+      alpha: 255
+    });
+  }
+  
+  // Draw and update concentric circles
+  drawConcentricCircles(centerX, centerY);
+  
+  // Update physics
+  if (!clickedO) {
+    Engine.update(engine);
+  }
+  
+  // Handle animation
+  if (animating) {
+    animationProgress += 0.02;
+    
+    let oLetter = letters.find(l => l.letter === 'O');
+    if (oLetter && animationProgress <= 1) {
+      let maxOSize = 300;
+      let currentOSize = lerp(oLetter.letterSize, maxOSize, animationProgress);
+      oLetter.letterSize = currentOSize;
+      
+      // Calculate safe separation distance
+      let separation = min((width - maxOSize)/2 - 60, 110);
+      
+      // Apply separation to S and L
+      for (let letter of letters) {
+        if (letter.letter === 'S') {
+          let targetOffsetX = -separation;
+          letter.offsetX = lerp(letter.offsetX, targetOffsetX, 0.1);
+        } else if (letter.letter === 'L') {
+          let targetOffsetX = separation;
+          letter.offsetX = lerp(letter.offsetX, targetOffsetX, 0.1);
+        }
+      }
+      
+      // Generate particles
+      if (frameCount % 3 === 0) {
+        let angle = random(TWO_PI);
+        let speed = random(1, 3);
+        let distance = random(currentOSize * 0.5, currentOSize * 0.8);
+        particles.push({
+          x: oLetter.body.position.x + 400 + cos(angle) * distance,
+          y: oLetter.body.position.y + 400 + sin(angle) * distance,
+          vx: cos(angle) * speed * 1.5,
+          vy: sin(angle) * speed * 1.5,
+          life: 1,
+          particleSize: random(30, 70)
+        });
+      }
+    }
+    
+    if (animationProgress > 1) {
+      animating = false;
+      animationProgress = 1;
+    }
+  }
+  
+  // Draw particles
+  drawParticles();
+  
+  // Draw letters
+  for (let letter of letters) {
+    let pos = letter.body.position;
+    
+    // Custom rendering based on letter
+    if (letter.letter === 'O') {
+      fill(255, 200, 50);
+      noStroke();
+      circle(pos.x + letter.offsetX, pos.y, letter.letterSize);
+      
+      // Draw inner circle for sun effect
+      fill(255, 220, 100, 150);
+      circle(pos.x + letter.offsetX, pos.y, letter.letterSize * 0.7);
+    } else {
+      fill(255);
+      textSize(letter.letterSize);
+      text(letter.letter, pos.x + letter.offsetX, pos.y);
+    }
+  }
+  
+
+  
+  // Apply separation if not in animation
+  if (!animating && !clickedO) {
+    separateLetters();
+  }
+  
+  // Update existing particles
+  for (let i = particles.length - 1; i >= 0; i--) {
+    let p = particles[i];
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life -= 0.02;
+    
+    if (p.life <= 0) {
+      particles.splice(i, 1);
+    }
+  }
+}
+
+function drawParticles() {
+  for (let p of particles) {
+    let alpha = p.life * 255;
+    fill(255, 200, 50, alpha);
+    noStroke();
+    circle(p.x - (letters.find(l => l.letter === 'O')?.body.position.x || 0) - (letters.find(l => l.letter === 'O')?.offsetX || 0), 
+           p.y - (letters.find(l => l.letter === 'O')?.body.position.y || 0), 
+           p.particleSize * p.life);
+  }
+}
+
+function separateLetters() {
+  let oIndex = letters.findIndex(l => l.letter === 'O');
+  if (oIndex !== -1) {
+    // Apply separation forces
+    for (let i = 0; i < letters.length; i++) {
+      if (i < oIndex) {
+        // Letters before O move left
+        Body.applyForce(letters[i].body, letters[i].body.position, {x: -0.0, y: 0});
+      } else if (i > oIndex) {
+        // Letters after O move right
+        Body.applyForce(letters[i].body, letters[i].body.position, {x: 0.0, y: 0});
+      }
+    }
+  }
+}
+
+function drawConcentricCircles(centerX, centerY) {
+  // Update and draw each concentric circle
+  for (let i = concentric.length - 1; i >= 0; i--) {
+    let c = concentric[i];
+    
+    // Increase radius and decrease alpha
+    c.radius += 2;
+    c.alpha -= 3;
+    
+    // Draw the circle
+    noFill();
+    stroke(255, 200, 50, c.alpha);
+    strokeWeight(2);
+    circle(centerX, centerY, c.radius * 3);
+    
+    // Remove if faded out
+    if (c.alpha <= 0) {
+      concentric.splice(i, 1);
+    }
+  }
+}
+
+function mousePressed() {
+  // Check if click is on 'O' letter
+  for (let letter of letters) {
+    if (letter.letter === 'O') {
+      let pos = letter.body.position;
+      let d = dist(mouseX, mouseY, pos.x + letter.offsetX, pos.y);
+      if (d < letter.letterSize / 2) {
+        animating = true;
+        animationProgress = 0;
+        clickedO = true;
+        particles = [];
+      }
+    }
+  }
+}
+```
+5. Inserta una captura de pantalla estática Y un enlace a un GIF animado (¡Esencial!) que muestre tu tipografía semántica animada en acción.
+   > - [ENlace Código](https://editor.p5js.org/LCami-Villanueva/sketches/4lNsKCmqA)
+   >   
+   > - GIF
+   >   ![20251016-0631-57 1638613](https://github.com/user-attachments/assets/8f60a52f-1c47-4dc9-b988-ca74c088da75)
+
+
+    
+
 
 
 
