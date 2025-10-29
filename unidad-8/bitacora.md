@@ -90,7 +90,9 @@
    >
 5. Tus bocetos y una explicación de cómo los inputs influirán en los visuales.
    >
-   >
+   >![20251029-1825-29 2059907](https://github.com/user-attachments/assets/bd3bb626-d05c-4d3d-ba74-517fef72771d)
+
+
 
 
 
