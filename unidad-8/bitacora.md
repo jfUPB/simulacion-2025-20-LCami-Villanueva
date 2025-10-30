@@ -17,8 +17,8 @@
 
 ## Actividad 02
 1.  La pieza musical elegida (con enlace/archivo si es posible).
-    > La canción elegida es [The Milk Cartoon de Madilyn Mei](https://www.youtube.com/watch?v=vzlgrmieUAs)
-    >
+> La canción elegida es [The Milk Cartoon de Madilyn Mei](https://www.youtube.com/watch?v=vzlgrmieUAs)
+>
 #### 2. La descripción de tu concepto visual.
 
 > Mi concepto visual es una metáfora de la disonancia de la canción. La protagonista, una única luz (la Estrellita), está huyendo de un espacio oscuro e infinito que representa la "cacería".
@@ -818,6 +818,7 @@ function keyPressed() {
      > * **Integración de Conceptos y Técnicas:** El código final combina con éxito la **Física de resorte** (para el movimiento elástico de la Estrella), las **Fuerzas** (para la repulsión del pasillo), los **Sistemas de Partículas**, y el **Ruido Perlin** (para la distorsión caótica).
      > * **Diseño e Implementación de un Sistema Generativo:** Se diseñó un sistema de visualización que interpreta la disonancia de la canción. Las **Puertas** (arte generativo) reaccionan al audio, y la **Rotación** se usa como un acto expresivo en tiempo real.
      > * **Interpretación Musical en Tiempo Real (Liveness):** Logré crear una narrativa controlable. Los comandos como el **Pulso de Brillo    (K)**, el **Blackout Fugaz (L) de 0.2s**, y los **Efectos Temporales** me permiten interpretar la lucha por la supervivencia de la Estrellita justo en el momento que lo exige la música.
+
 
 
 
