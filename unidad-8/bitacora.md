@@ -19,82 +19,90 @@
 1.  La pieza musical elegida (con enlace/archivo si es posible).
     > La canción elegida es [The Milk Cartoon de Madilyn Mei](https://www.youtube.com/watch?v=vzlgrmieUAs)
     >
-2. La descripción de tu concepto visual.
-   >
-   > Mi concepto visual es una metáfora de la disonancia de la canción: un sonido que tiende a ser muy dulce y en algunos momentos suena como un cuento de hadas, ya que en muchas lso sonidos me llevan a pensaar en esto, pero a la vez, la idea es que se sienta como una "cacería", pensando un poco mas en la letra y loq ue la canción represnta. Es casi como si el cuento se convirtiera en una historia un poco de terror, de huida.
-   >
-   > La protagonista visual es una única luz. Ella es la voz suave y el ukelele punteado. Está sola en un espacio oscuro e infinito.
-   >
-   > Ella está siempre huyendo. Creamos la sensación de que corre por un "pasillo infinito". Este pasillo no es una estructura real, sino una ilusión: está hecho de formas y partículas que fluyen constantemente hacia ella, como un bosque. A medida que la estrellita "avanza", estas formas se "abren" a su paso para dejarla pasar.
-   >
-   > El comportamiento de la estrella refleja la música. Cuando la canción es suave, ella avanza y deja una estela de luz suavemente. Pero cuando la música se vuelve urgente (el rasgueo), la huida se vuelve desesperada: su movimiento se "distorsiona", dando bandazos erráticos de izquierda a derecha, y el "pasillo" fluye hacia ella mucho más rápido, creando una sensación de pánico.
-   >
-   > El conflicto central es la "oscuridad". Es una presencia (como el "coyote" o la "asfixia" de la letra) que intenta "opacarla" y "hacerla más pequeña".
-   > 
-   > Mi rol como intérprete será hacer que se sienta esa lucha por la supervivencia. Mientras la oscuridad (reaccionando a la tensión de la canción) intenta apagarla, yo tengo la capacidad de hacer que la estrellita "crezca". Puedo hacerla brillar más, volverse más grande, que parpadee y empujar las formas del pasillo con más fuerza, como si fuera un "grito" visual de desafío. Las formas y colores del pasillo también cambiarán, pasando de un sueño delicado a una pesadilla inquietante, para reflejar esa lucha interna. Incluso quisiera agregar partículas extras que reflejen ilusiones y esa sensación de cuento de hadas. 
-   >
-3. Los inputs seleccionados y la justificación de por qué los elegiste.
-   >
-   > ### 1. Inputs Reactivos (Automáticos)
-   >   - **Ritmo de la Canción (Rasgueo Urgente):** Controla la velocidad base del "pasillo" (las partículas que fluyen hacia la estrella).
-   >   
-   >     **Justificación:** Es el motor del pánico. Vincula la sensación de "huida" directamente con la urgencia rítmica de la canción.
-   >     
-   >   - **Tensión Vocal (Voz Entrecortada)**: Controla la aparición, densidad e intensidad de la "oscuridad" (las partículas-sombra).
-   >     
-   >     **Justificación:** Es la manifestación de la "asfixia" y el "coyote" de la letra. Es la amenaza automática del sistema.
-   >     
-   >   - **Armonía y Tonalidad (El "Color" de la Música)**: Cambia la paleta de colores general del "pasillo" y del entorno.
-   >     
-   >    **Justificación:** Refleja la disonancia emocional, pasando visualmente del "cuento de hadas" (colores suaves) a la "pesadilla" (colores inquietantes)
-   según la emoción de los acordes.
-   >
-   >
-   > ### 2. Inputs de Performance (Manuales)
-   >   - **Acelerador / Freno Manual (Override de Velocidad)** Suma o resta un valor de velocidad a la velocidad base que marca el ritmo automático.
-   >     
-   >     **Justificación:** Me da control expresivo sobre la huida. Me permite crear "sprints" dramáticos (acelerando) o momentos de "agotamiento" (frenando), independientemente del tempo de la canción.
-   >     
-   >   - **Control de Distorsión (Huida Errática)**: Controla el movimiento lateral (bandazos de izquierda a derecha) de la "estrellita".
-   >     
-   >     **Justificación:** Es la interpretación manual del pánico. Me permite decidir el nivel de desesperación y lucha por el equilibrio.
-   >     
-   >   - **Control de Ramificación (Estela de Luz)**: Genera ráfagas de "estrellitas extras" (partículas-luz) que nacen de la estrella principal y crean la estela.
-   >     
-   >     **Justificación:** Es mi control sobre la parte del cuento de hada. Me permite "dibujar" con la estela y crear momentos de belleza visual para contrastar con la oscuridad.
-   >     
-   >   - **Grito Visual (Tamaño y Parpadeo)** Controla dos aspectos:
-   >   - 1. El tamaño literal de la estrella (haciéndola crecer).
-   >   - 2. Su visibilidad (haciéndola apagar y prender erráticamente).
-   >     
-   >     **Justificación:** Es el acto central de desafío y vulnerabilidad. Me permite hacer crecer para luchar contra la oscuridad o parpadear para simular el agotamiento y el miedo.
-   >     
-   >   - **Ancho del Pasillo (Repulsor)** Controla la fuerza repulsora de la estrella, determinando qué tan "ancho" o "estrecho" es el camino que las partículas del pasillo abren a su paso.
-   >     
-   >     **Justificación:** Es el control de la "presencia" de la estrella. Un pasillo ancho es un grito de poder que empuja el mundo, mientras que un pasillo estrecho muestra que la estrella está débil y siendo oprimida por el entorno.
-   >     
-   >     
-4. ¿Qué algoritmos o técnicas planeas usar (ej: flow fields, flocking, física, partículas, etc.) y por qué?
-   >
-   > **1. Sistemas de Partículas (Unidad 5):** Esta es la técnica central de todo el proyecto. La usaré de dos maneras: Para el "Pasillo Infinito": Un emisor en el borde de la pantalla generará las "formas" del pasillo. Estas partículas tendrán una velocidad constante hacia la estrella, creando la ilusión de "correr al infinito". Para la "Estela Ramificada": La propia "estrellita" será un emisor. Las partículas que genere (mi input manual) crearán la estela y las "ilusiones de cuento de hadas".
-   >
-   > **2. Fuerzas (Unidad 3)**: Es la mecánica clave de interacción de la estrella con su entorno. La "estrellita" aplicará una fuerza repulsora a las partículas del "pasillo" (del sistema anterior). Mi input manual ("Ancho del Pasillo") controlará el radio y la magnitud de esta fuerza. Es mi forma de "empujar" el mundo.
-   >
-   > **3. Sistemas Complejos Flow-Field (Unidad 6)**: Para simular la "oscuridad" o el "coyote", necesito algo más que partículas simples. Un campo de flujo (probablemente basado en Ruido Perlin) me da esa sensación de amenaza envolvente, caótica y "ahogante" que reacciona a la tensión vocal. Es el antagonista perfecto para la estrella.
-   >
-   > **4. Aleatoriedad y Ruido Perlin(Unidad 1)**: Usaré estas técnicas para dar "vida" y "pánico" a la estrella:
-   >   - Ruido Perlin (noise()): Lo usaré para el input manual de "Distorsión". noise() me da un movimiento fluido pero errático, perfecto para los "bandazos" de pánico de izquierda a derecha.
-   >   - Aleatoriedad (random()): Lo usaré para el "parpadeo" de la estrella durante el "Grito Visual", haciendo que la luz se apague y se prenda de forma impredecible.
-   >   - 
-   > **5. Motion 101 (Unidad 2)**: Aunque es la base, es fundamental. Cada partícula del pasillo, cada partícula de la estela y la propia "estrellita" son "Movers" que usan estos vectores. Las fuerzas se aplicarán a la aceleración de las partículas para que el sistema funcione.
-   >
+#### 2. La descripción de tu concepto visual.
+
+> Mi concepto visual es una metáfora de la disonancia de la canción. La protagonista, una única luz (la Estrellita), está huyendo de un espacio oscuro e infinito que representa la "cacería".
+>
+> La Estrellita corre por un "pasillo infinito", que es una ilusión de formas que fluyen constantemente hacia ella. El conflicto central es la **"oscuridad"**.
+>
+> Mi rol es manipular esta realidad. Puedo evocar un **Pulso de Brillo (K)**, forzar un **Blackout Fugaz (L)** para simular el agotamiento, o manipular las formas y colores del entorno (Rotación y Paletas temporales), transformando el pasaje de un sueño delicado a una pesadilla inquietante para reflejar esa lucha interna.
+
+---
+
+#### 3. Los inputs seleccionados y la justificación de por qué los elegiste.
+
+##### 3.1. Inputs Reactivos (Automáticos)
+
+* **Ritmo de la Canción (Rasgueo Urgente):** La Energía HighMid de FFT controla la velocidad del pasillo. Vincula directamente la sensación de "huida" con la urgencia rítmica de la canción.
+* **Tensión Armónica (La Oscuridad):** La intensidad de la música manipula la paleta de colores general de las Puertas, reflejando el cambio emocional del "cuento de hadas" a la "pesadilla".
+* **Movimiento de la Estrellita:** El movimiento lateral caótico (bandazos erráticos) de la Estrella se intensifica con la música, simulando la desesperación.
+
+##### 3.2. Inputs de Performance (Manuales)
+
+**Nota:** Todos los efectos manuales (excepto Acelerar/Frenar) tienen una duración de **1 segundo** o menos, enfatizando el control fugaz y dramático.
+
+* **Acelerador / Freno Manual (Flechas UP/DOWN):** Permite crear **"sprints"** o momentos de **"agotamiento"** (Override de Velocidad).
+* **Pulso de Brillo (Tecla K):** Es el **"Grito de Poder"** de la estrella. Aumenta temporalmente el tamaño y la luminiscencia para desafiar a la oscuridad.
+* **Blackout Fugaz (Tecla L):** Simula la vulnerabilidad extrema. Apaga y enciende la luz en solo **0.2 segundos** (12 frames), creando un parpadeo rápido.
+* **Rotación de la Realidad (Teclas Q/W):** Fuerza la rotación del entorno, interpretando el **retorcimiento del espacio** (inspiración en Alexander Calder) por 1 segundo.
+* **Paletas Temporales (Teclas 1, 2, 3):** Permite cambiar el entorno visual (Warm, BW estricto, Random) temporalmente.
+* **Control de Distorsión (Flechas LEFT/RIGHT):** Permite realizar **"Gestos"** o movimientos laterales elásticos que interpretan la evasión y la lucha por el equilibrio.
+* **Ancho del Pasillo (Repulsor):** Este control se implementó como una **fuerza repulsora fija** de la Estrellita, estableciendo su "presencia" inherente.
+
+---
+
+#### 4. ¿Qué algoritmos o técnicas planeas usar y por qué?
+
+* **Sistemas de Partículas:** Técnica central para el "Pasillo Infinito" y la Estela de Luz.
+* **Física de Muelle/Amortiguación:** Utilizado en la Estrellita para dar un movimiento elástico y orgánico que simula la lucha por el equilibrio.
+* **Fuerzas:** La Estrellita aplica una **fuerza repulsora fija** al entorno, la mecánica clave de su interacción.
+* **Ruido Perlin (`noise()`):** Usado para la **"Distorsión"** (movimiento lateral errático) de la Estrellita, añadiendo pánico y vida al protagonista.
+* **Control de Frame-Rate y Temporización:** Uso de contadores de *frame* para gestionar los efectos manuales con **precisión temporal** y el inicio suave de la simulación.
 5. Tus bocetos y una explicación de cómo los inputs influirán en los visuales.
+   > ### Bocetos:
    >
+   > > Mi concepto visual final sigue siendo una metáfora de la disonancia de la canción, manteniendo el contraste entre el dulce *cuento de hadas* y el *terror de la cacería*. La protagonista (la Estrellita) es la única luz, constantemente huyendo a través de un pasillo infinito de formas que representan la oscuridad.
+
+### La Lucha por la Luz: Conexión de Inputs y Visuales
+
+#### 1.  Inputs Reactivos (La Música como Antagonista)
+
+* **Ritmo (Rasgueo Urgente):** El pulso rítmico controla la velocidad del pasillo y de las puertas cósmicas. A mayor urgencia en la canción, más rápido fluye el túnel hacia la Estrellita, aumentando la sensación de pánico y huida.
+* **Tensión Armónica (Tonalidad):** La intensidad de la música mapea la paleta de colores del pasillo. Esto refleja el cambio de estado emocional, pasando de tonos suaves de "cuento de hadas" a tonos inquietantes de "pesadilla".
+* **Movimiento de la Estrellita:** La Estrellita tiene un movimiento lateral caótico que se intensifica con la velocidad de la música, simulando los "bandazos erráticos" de desesperación.
+
+#### 2.Inputs de Performance 
+
+Estos comandos manuales crean picos de intensidad expresiva de **1 segundo** de duración.
+
+* **Acelerador/Freno (Flechas UP/DOWN):** Permite hacer un *override* momentáneo de la velocidad. Se usa para crear un "sprint" dramático o momentos de "agotamiento".
+* **Pulso de Brillo (Tecla K):** Es mi "Grito de Poder". La Estrellita y su estela duplican su tamaño y luminiscencia , desafiando a la oscuridad con un pulso de luz intensa.
+* **Blackout Fugaz (Tecla L):** Simula la vulnerabilidad extrema. La luz desaparece y reaparece en solo **0.2 segundos**, creando un parpadeo rápido como si la luz estuviera al borde de la extinción.
+* **Rotación de la Realidad (Teclas Q/W):** Fuerza a las Puertas Cósmicas a rotar. Esto interpreta el retorcimiento del espacio  ante la presión, llevando el túnel a una pesadilla espiralada por 1 segundo.
+* **Paletas Temporales (Teclas 1, 2, 3):** Permite cambiar el entorno visual (Warm, BW estricto, Random) para acentuar un sentimiento, volviendo a la paleta reactiva al finalizar el segundo.
+* **Control de Distorsión (Flechas LEFT/RIGHT):** Permite realizar "Gestos" o movimientos laterales elásticos, interpretando la evasión y la lucha por el equilibrio.
+
+  ### Proceso
+   >###1
+   > El primer paso fue establecer el escenario y la protagonista. Necesitaba una "única luz" simple y un entorno que generara la ilusión de huida. Utilicé partículas muy básicas para construir el pasillo infinito, configurándolas para que fluyeran desde el centro hacia afuera, lo que establece la perspectiva y el movimiento inicial. La Estrellita aquí es solo un punto simple en un espacio oscuro y estático, listo para recibir vida.
+   > 
    > <img width="1136" height="846" alt="image" src="https://github.com/user-attachments/assets/97ad7d0d-6ed2-495d-ae39-98a96eec58a4" />
    >
+   > ### 2
+   >A continuación, a la estrellita le implementé la física para darle un movimiento elástico y estable. Lo más importante fue añadir la estela y el brillo, que definen a la Estrellita como una entidad de luz. La estela se creó como un rastro de partículas que se desvanece, reforzando la sensación de velocidad y movimiento constante a través del pasillo.
+   >    
    > ![Recording 2025-10-29 190608](https://github.com/user-attachments/assets/7b4eb9ef-74cd-4c2d-859a-efe0a622d859)
    >
-   > ![20251030-0600-25 4093284](https://github.com/user-attachments/assets/da912e3e-3198-40dc-baa4-c028ba0d1ce7)
+   >### 3
+   >introduje las formas, el elemento de arte generativo. Estas formas complejas, compuestas de capas y pétalos que reaccionan al audio, se vuelven el corazón dinámico del túnel. Su aparición y color (Azul/Morado) ahora completan el entorno, creando el pasaje en que la Estrellita debe navegar, pasando de un punto estático a un mundo vivo y cambiante.
+   >
+   > ![20251030-0600-25 4093284](https://github.com/user-attachments/assets/da912e3e-3198-40dc-baa4-c028ba0d1ce7
+
+   > ### 4
+   > Fianlmente añadí la interactividad, transformando la simulación en una performance controlada. Utilizando la lógica de temporizadores y el input del teclado. Ahora puedo expresar la narrativa de supervivencia con comandos: provoco el Pulso de Brillo (K), fuerzo el Blackout (L) o manipulo el entorno con los efectos de Rotación (Q/W) y Paletas Temporales. Estos inputs me permiten acentuar la disonancia emocional de la música, creando la lucha por la luz en tiempo real .
+   >
+   > 
+
 
 
 
