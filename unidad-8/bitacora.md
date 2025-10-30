@@ -809,6 +809,15 @@ function keyPressed() {
     
     
  4. Capturas de pantalla mostrando tu pieza en acción.
+    >
+    > <img width="1227" height="881" alt="image" src="https://github.com/user-attachments/assets/dbd67937-a578-4a0f-b1a3-d39f491e171a" />
+    > <img width="1472" height="875" alt="image" src="https://github.com/user-attachments/assets/495a1b4f-7d6c-4c6a-a057-d9ad1fa0de94" />
+    > <img width="1620" height="870" alt="image" src="https://github.com/user-attachments/assets/162ca7f7-e6db-4173-9df6-8b637c2ff42a" />
+    > <img width="612" height="653" alt="image" src="https://github.com/user-attachments/assets/feb032f0-ebdb-4d5c-b62d-d2cf16346b4d" />
+    > 
+
+
+
 
 
 
