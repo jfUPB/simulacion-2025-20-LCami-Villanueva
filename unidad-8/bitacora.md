@@ -91,8 +91,12 @@
 5. Tus bocetos y una explicación de cómo los inputs influirán en los visuales.
    >
    > <img width="1136" height="846" alt="image" src="https://github.com/user-attachments/assets/97ad7d0d-6ed2-495d-ae39-98a96eec58a4" />
+   >
    > ![Recording 2025-10-29 190608](https://github.com/user-attachments/assets/7b4eb9ef-74cd-4c2d-859a-efe0a622d859)
-   > 
+   >
+   > ![20251030-0600-25 4093284](https://github.com/user-attachments/assets/da912e3e-3198-40dc-baa4-c028ba0d1ce7)
+
+
 
 
 
