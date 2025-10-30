@@ -96,20 +96,719 @@ Estos comandos manuales crean picos de intensidad expresiva de **1 segundo** de 
    >### 3
    >introduje las formas, el elemento de arte generativo. Estas formas complejas, compuestas de capas y pétalos que reaccionan al audio, se vuelven el corazón dinámico del túnel. Su aparición y color (Azul/Morado) ahora completan el entorno, creando el pasaje en que la Estrellita debe navegar, pasando de un punto estático a un mundo vivo y cambiante.
    >
-   > ![20251030-0600-25 4093284](https://github.com/user-attachments/assets/da912e3e-3198-40dc-baa4-c028ba0d1ce7
+   > ![20251030-0600-25 4093284](https://github.com/user-attachments/assets/da912e3e-3198-40dc-baa4-c028ba0d1ce7)
 
    > ### 4
    > Fianlmente añadí la interactividad, transformando la simulación en una performance controlada. Utilizando la lógica de temporizadores y el input del teclado. Ahora puedo expresar la narrativa de supervivencia con comandos: provoco el Pulso de Brillo (K), fuerzo el Blackout (L) o manipulo el entorno con los efectos de Rotación (Q/W) y Paletas Temporales. Estos inputs me permiten acentuar la disonancia emocional de la música, creando la lucha por la luz en tiempo real .
    >
-   > 
+   > https://github.com/user-attachments/assets/07aca93a-5205-4c65-851f-85ee6cf3ed86
+   >
+## Actividad 03
+ 
+ 1. El código fuente completo de tu sketch en p5.js.
+``` JS
+    // Simulación p5.js — Estrellita + Puertas + Pasillo
+// FINAL CODE: Incluye efectos temporales, inicio suave, corrección BW, pulso de brillo,
+// y blackout fugaz de 0.2 segundos, INDEPENDIENTE de otros efectos.
+
+let song, fft;
+let estrellita;
+let pasillo = [];
+let portales = [];
+let trailLayer, glowLayer, portalLayer;
+
+// portal / spacing
+let portalInnerRadius, portalSpacingFraction, portalSpacing, basePortalVel, maxPortalRadio;
+
+// pasillo color (Gris Pálido Fijo)
+let currentR = 230, currentG = 230, currentB = 240, currentAlpha = 80;
+
+// interacción velocidad
+let manualSpeed = 1.0;
+let manualSpeedStep = 0.5;
+let manualOverrideTimer = 0;
+let manualOverrideDuration = 120; // 2 segundos
+
+// blackout
+let blackoutGlobalTimer = 0;
+let blackoutGlobalDuration = 12; // ✨ AJUSTE: 0.2 segundos
+// ---
+
+// límites
+let wallHalf = 0;
+
+// palette mode (se resetea a 'normal' después del timer)
+let paletteMode = 'normal';
+
+// rotación global (se resetea a 0 después del timer)
+let portalRotationDir = 0; // -1 ccw, 0 none, +1 cw
+let portalRotationSpeed = 0.02; 
+
+// --- TEMPORIZADORES CLAVE ---
+let temporaryEffectTimer = 0;
+const TEMPORARY_DURATION = 60; // 60 frames = 1 segundo (Efectos Q, W, 1, 2, 3, K)
+
+let initialDelayTimer = 0;
+const INITIAL_DELAY_DURATION = 60; // 60 frames = 1 segundo (Inicio suave del Pasillo)
+// ----------------------------
 
 
+function preload() {
+  song = loadSound('TheMilkCarton.mp3');
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+
+  portalLayer = createGraphics(width, height);
+  trailLayer = createGraphics(width, height);
+  trailLayer.noStroke();
+  glowLayer = createGraphics(width, height);
+  glowLayer.noStroke();
+
+  fft = new p5.FFT();
+  song.connect(fft);
+
+  estrellita = new Estrellita();
+
+  for (let i = 0; i < 100; i++) pasillo.push(new FormaPasillo());
+
+  portalInnerRadius = width / 10;
+  maxPortalRadio = dist(0, 0, width / 2, height / 2);
+  portalSpacingFraction = random(0.25, 0.5);
+  portalSpacing = portalSpacingFraction * (maxPortalRadio - portalInnerRadius);
+  basePortalVel = 1.0;
+
+  let numPortales = 5;
+  for (let i = 0; i < numPortales; i++) {
+    let p = new PuertaCosmica();
+    p.startInnerRadius = portalInnerRadius;
+    p.maxRadio = maxPortalRadio;
+    p.velBase = basePortalVel;
+    p.radio = portalInnerRadius + i * portalSpacing;
+    portales.push(p);
+  }
+
+  colorMode(RGB, 255, 255, 255, 100);
+  wallHalf = (width / 10) / 2;
+  noStroke();
+
+  // INICIALIZAR TEMPORIZADOR DE ANIMACIÓN INICIAL
+  initialDelayTimer = INITIAL_DELAY_DURATION;
+}
+
+function draw() {
+  fft.analyze();
+  let energiaRasgueo = fft.getEnergy("highMid");
+  let velocidadMundoAudio = map(energiaRasgueo, 40, 200, 0.5, 8.0, true);
+
+  // 1. MANEJO DE TEMPORIZADORES GLOBALES
+  if (manualOverrideTimer > 0) manualOverrideTimer--;
+  if (blackoutGlobalTimer > 0) blackoutGlobalTimer--;
+  if (initialDelayTimer > 0) initialDelayTimer--;
+
+  // Reset de efectos temporales (Paleta, Rotación, Brillo de Estrellita)
+  if (temporaryEffectTimer > 0) {
+    temporaryEffectTimer--;
+  } else {
+    paletteMode = 'normal'; 
+    portalRotationDir = 0; 
+    estrellita.starBrightnessMultiplier = 1.0; // Restaura el brillo al valor normal
+  }
+
+  let velocidadMundo = (manualOverrideTimer > 0) ? manualSpeed : velocidadMundoAudio;
+
+  estrellita.update(velocidadMundo);
+
+  for (let p of portales) p.update(velocidadMundo, energiaRasgueo);
+  for (let f of pasillo) f.update(velocidadMundo, estrellita);
+
+  portalLayer.clear();
+  for (let p of portales) p.show(portalLayer);
+
+  trailLayer.background(0, 15);
+  for (let f of pasillo) f.show(trailLayer);
+
+  glowLayer.clear();
+  estrellita.drawGlowSource(glowLayer);
+  glowLayer.filter(BLUR, 10);
+
+  background(0);
+  image(trailLayer, 0, 0);
+  image(portalLayer, 0, 0);
+  blendMode(ADD);
+  image(glowLayer, 0, 0);
+  blendMode(BLEND);
+
+  estrellita.drawTrail();
+  estrellita.show();
+
+  // HUD MÍNIMO
+  push();
+  noStroke();
+  fill(255);
+  textSize(12);
+  textAlign(LEFT, TOP);
+  const currentRotation = portalRotationDir === 1 ? 'CW (T)' : portalRotationDir === -1 ? 'CCW (T)' : 'OFF';
+  const currentPalette = paletteMode === 'normal' ? 'Normal' : `${paletteMode.toUpperCase()} (T)`;
+  const currentBrightness = estrellita.starBrightnessMultiplier > 1.0 ? 'PULSE (T)' : 'Normal';
+  
+  text(`Paleta (1/2/3/0): ${currentPalette}`, 12, height - 58);
+  text(`Rotación (Q/W): ${currentRotation}`, 12, height - 40);
+  text(`Brillo Estrella (K): ${currentBrightness}`, 12, height - 22);
+  pop();
+}
+
+// ---------------- Clase PuertaCosmica (Rotación y Color Temporal + BW Estricto) ----------------
+class PuertaCosmica {
+  constructor() {
+    this.vpX = width / 2;
+    this.vpY = height / 2;
+    this.maxRadio = maxPortalRadio || dist(0, 0, this.vpX, this.vpY);
+    this.startInnerRadius = portalInnerRadius || (width / 10);
+    this.startRadio = this.startInnerRadius * 1.0;
+    this.radio = this.startRadio;
+    this.velBase = 1.0;
+
+    this.strokeW = 2;
+    this.numPetals = floor(random(8, 15));
+    this.currentVel = 0;
+    this.currentEnergy = 0;
+    this.noiseSeedShape = random(1000);
+
+    this.layer1_shape = floor(random(3));
+    this.layer2_shape = floor(random(3));
+    this.layer3_shape = floor(random(3));
+    this.layer2_isFilled = random() > 0.5;
+    this.layer3_isFilled = random() > 0.5;
+    this.initialAlphaProgress = 0;
+
+    this.rotationAngle = random(TWO_PI);
+
+    this.currentColor = { r: 120, g: 120, b: 180 };
+
+    // Almacena RGB como números primitivos
+    this.randomColor = { r: random(60, 255), g: random(60, 255), b: random(60, 255) };
+  }
+
+  reset() {
+    this.strokeW = random(1.5, 4);
+    this.numPetals = floor(random(8, 15));
+    this.noiseSeedShape = random(1000);
+    this.layer1_shape = floor(random(3));
+    this.layer2_shape = floor(random(3));
+    this.layer3_shape = floor(random(3));
+    this.layer2_isFilled = random() > 0.5;
+    this.layer3_isFilled = random() > 0.5;
+
+    let inner = this.startInnerRadius || (width / 10);
+    let spacing = portalSpacing || (random(0.25, 0.5) * (this.maxRadio - inner));
+
+    let minRadio = Infinity;
+    for (let q of portales) if (q !== this && typeof q.radio === 'number') minRadio = min(minRadio, q.radio);
+
+    if (!isFinite(minRadio)) this.radio = inner;
+    else this.radio = max(inner, minRadio - spacing);
+
+    this.radio = constrain(this.radio, inner, this.maxRadio * 0.9);
+    this.initialAlphaProgress = 0;
+
+    // Almacena RGB como números primitivos al resetear
+    this.randomColor = { r: random(60, 255), g: random(60, 255), b: random(60, 255) };
+  }
+
+  update(velocidad, energia) {
+    this.radio += this.velBase * velocidad;
+    this.currentEnergy = energia;
+
+    // Rotación: Usa el valor global
+    if (portalRotationDir !== 0) {
+      this.rotationAngle += portalRotationDir * portalRotationSpeed * velocidad;
+    }
+
+    // CALCULAR COLOR OBJETIVO
+    let target = this.computeTargetColor(energia);
+
+    // Aplicar fluctuación Perlin
+    let per = map(noise(this.noiseSeedShape + frameCount * 0.009), 0, 1, -8, 8);
+
+    // Suavizado interpolando currentColor hacia target+perlin
+    this.currentColor.r = lerp(this.currentColor.r, constrain(target.r + per, 0, 255), 0.06);
+    this.currentColor.g = lerp(this.currentColor.g, constrain(target.g + per, 0, 255), 0.06);
+    this.currentColor.b = lerp(this.currentColor.b, constrain(target.b + per, 0, 255), 0.06);
+
+    // ✨ AJUSTE CLAVE 1: Forzar Escala de Grises Estricta en el modo 'bw'
+    // Elimina cualquier tinte residual después del LERP promediando los canales.
+    if (paletteMode === 'bw') {
+        let avg = (this.currentColor.r + this.currentColor.g + this.currentColor.b) / 3;
+        this.currentColor.r = avg;
+        this.currentColor.g = avg;
+        this.currentColor.b = avg;
+    }
+
+    if (this.initialAlphaProgress < 100) {
+      this.initialAlphaProgress += 3 * velocidad;
+      this.initialAlphaProgress = constrain(this.initialAlphaProgress, 0, 100);
+    }
+
+    if (this.radio > this.maxRadio) {
+      this.reset();
+    }
+  }
+
+  // Devuelve un objeto {r,g,b} target según paletteMode y energía
+  computeTargetColor(energia) {
+    if (paletteMode === 'random') {
+      // Devuelve el objeto simple
+      return this.randomColor; 
+    }
+
+    if (paletteMode === 'bw') {
+      let v = map(energia, 40, 200, 40, 220, true);
+      return { r: v, g: v, b: v };
+    }
+
+    if (paletteMode === 'warm') {
+      let r = map(energia, 40, 200, 160, 255, true);
+      let g = map(energia, 40, 200, 60, 150, true);
+      let b = map(energia, 40, 200, 20, 80, true);
+      return { r: r, g: g, b: b };
+    }
+
+    // normal (original reactive mapping)
+    let r = map(energia, 40, 200, 0, 255, true);
+    let g = map(energia, 40, 200, 0, 165, true);
+    let b = map(energia, 40, 200, 255, 100, true);
+    return { r: r, g: g, b: b };
+  }
+
+  show(pg) {
+    pg.push();
+    pg.translate(this.vpX, this.vpY);
+    pg.rotate(this.rotationAngle);
+    pg.colorMode(RGB, 255, 255, 255, 100);
+
+    // Usamos los valores ajustados (r, g, b)
+    let r = this.currentColor.r;
+    let g = this.currentColor.g;
+    let b = this.currentColor.b;
+    let baseAlpha = map(this.radio, this.startRadio, this.maxRadio, 30, 100, true);
+
+    // Capa 1: Color base
+    let color1 = pg.color(r, g, b, baseAlpha * 0.9);
+    let color2, color3;
+    
+    // ✨ AJUSTE CLAVE 2: NEUTRALIZAR VARIACIONES DE COLOR EN MODO BW
+    if (paletteMode === 'bw') {
+        // En BW, las capas secundarias deben ser el mismo gris que color1
+        color2 = color1;
+        color3 = color1;
+    } else {
+        // Modo Normal/Warm/Random: Aplica variación para el efecto cromático
+        color2 = pg.color(constrain(r + 20, 0, 255), constrain(g + 10, 0, 255), constrain(b - 20, 0, 255), baseAlpha);
+        color3 = pg.color(constrain(r - 20, 0, 255), constrain(g - 10, 0, 255), constrain(b + 20, 0, 255), baseAlpha);
+    }
+
+    let angleStep = TWO_PI / this.numPetals;
+    let radioInterno = this.radio * 0.25;
+
+    // --- Lógica de Dibujo de las 3 Capas (usando color1, color2, color3) ---
+    pg.stroke(color1);
+    pg.strokeWeight(this.strokeW * 1.5);
+    pg.noFill();
+    if (this.layer1_shape == 0 || this.layer1_shape == 2) {
+      pg.ellipse(0, 0, this.radio * 2, this.radio * 2);
+    } else if (this.layer1_shape == 1) {
+      pg.fill(color1);
+      for (let i = 0; i < this.numPetals; i++) {
+        let x = this.radio * cos(angleStep * i);
+        let y = this.radio * sin(angleStep * i);
+        pg.ellipse(x, y, this.strokeW * 2, this.strokeW * 2);
+      }
+    }
+
+    pg.stroke(color2);
+    pg.strokeWeight(this.strokeW);
+    let r_mid_ext = this.radio * 0.7;
+    let r_mid_int = radioInterno * 1.5;
+    pg.rotate(angleStep / 2.0);
+    if (this.layer2_shape == 2) pg.noFill();
+    else if (this.layer2_isFilled) pg.fill(color2);
+    else pg.noFill();
+    if (this.layer2_shape == 0) {
+      for (let i = 0; i < this.numPetals; i++) {
+        pg.beginShape();
+        pg.curveVertex(r_mid_int, 0); pg.curveVertex(r_mid_int, 0);
+        pg.curveVertex(r_mid_ext * 0.8, -this.radio * 0.2);
+        pg.curveVertex(r_mid_ext, 0);
+        pg.curveVertex(r_mid_ext * 0.8, this.radio * 0.2);
+        pg.curveVertex(r_mid_int, 0); pg.curveVertex(r_mid_int, 0);
+        pg.endShape();
+        pg.rotate(angleStep);
+      }
+    } else if (this.layer2_shape == 1) {
+      for (let i = 0; i < this.numPetals; i++) {
+        pg.beginShape();
+        pg.curveVertex(r_mid_int, 0); pg.curveVertex(r_mid_int, 0);
+        pg.curveVertex(r_mid_ext, -this.radio * 0.3);
+        pg.curveVertex(r_mid_ext, this.radio * 0.3);
+        pg.curveVertex(r_mid_int, 0); pg.curveVertex(r_mid_int, 0);
+        pg.endShape();
+        pg.rotate(angleStep);
+      }
+    } else if (this.layer2_shape == 2) {
+      pg.ellipse(0, 0, r_mid_ext * 2, r_mid_ext * 2);
+    }
+    pg.rotate(-angleStep * this.numPetals);
+    pg.rotate(-angleStep / 2.0);
+
+    pg.stroke(color3);
+    pg.strokeWeight(this.strokeW);
+    if (this.layer3_shape == 1) pg.noFill();
+    else if (this.layer3_isFilled) pg.fill(color3);
+    else pg.noFill();
+    let r_inner_ext = this.radio * 0.4;
+    let r_inner_int = radioInterno;
+    if (this.layer3_shape == 0) {
+      for (let i = 0; i < this.numPetals; i++) {
+        pg.beginShape();
+        pg.curveVertex(r_inner_int, 0); pg.curveVertex(r_inner_int, 0);
+        pg.curveVertex(r_inner_ext * 0.8, -this.radio * 0.1);
+        pg.curveVertex(r_inner_ext, 0);
+        pg.curveVertex(r_inner_ext * 0.8, this.radio * 0.1);
+        pg.curveVertex(r_inner_int, 0); pg.curveVertex(r_inner_int, 0);
+        pg.endShape();
+        pg.rotate(angleStep);
+      }
+    } else if (this.layer3_shape == 1) {
+      for (let i = 0; i < this.numPetals; i++) {
+        pg.beginShape();
+        pg.curveVertex(r_inner_ext, 0); pg.curveVertex(r_inner_ext, 0);
+        pg.curveVertex(r_inner_int * 1.2, -this.radio * 0.1);
+        pg.curveVertex(r_inner_int, 0);
+        pg.curveVertex(r_inner_int * 1.2, this.radio * 0.1);
+        pg.curveVertex(r_inner_ext, 0); pg.curveVertex(r_inner_ext, 0);
+        pg.endShape();
+        pg.rotate(angleStep);
+      }
+    } else if (this.layer3_shape == 2) {
+      pg.fill(color3);
+      for (let i = 0; i < this.numPetals; i++) {
+        let x = r_inner_ext * cos(angleStep * i);
+        let y = r_inner_ext * sin(angleStep * i);
+        pg.ellipse(x, y, this.strokeW * 3, this.strokeW * 3);
+      }
+    }
+    pg.pop();
+  }
+}
+
+// ---------------- Clase Estrellita (Funciones de Dibujo + Brillo Temporal) ----------------
+class Estrellita {
+  constructor() {
+    this.baseX = width / 2;
+    this.baseY = height / 2;
+    this.currentX = this.baseX;
+    this.currentY = this.baseY;
+    this.bobTime = 0;
+
+    this.trailLength = 30;
+    this.trailStartWidth = 7;
+    this.trailEndWidth = 2;
+    this.trailStartAlpha = 50;
+    this.trailEndAlpha = 0;
+    this.tailWiggleTime = random(1000);
+
+    this.starColor = color(255, 255, 200);
+    this.starSize = 6;
+    this.glowSourceSize = this.starSize * 2.5;
+
+    this.starBrightnessMultiplier = 1.0; 
+
+    this.zigzagTime = random(2000);
+    this.offset = createVector(0, 0);
+    this.vel = createVector(0, 0);
+    this.mass = 1.0;
+    this.damping = 0.92;
+    this.springK = 0.06;
+    this.repulsionTimer = 0;
+    this.repulsionDuration = 18;
+    this.blackoutTimer = 0;
+    this.blackoutDuration = 12; // ✨ AJUSTE: 0.2 segundos
+
+    this.lateralNoiseSeed = random(1000);
+    this.lateralNoiseAmp = 6.0;
+    this.lateralNoiseSpeed = 0.018;
+
+    this.gestureActive = false;
+    this.gestureDir = 1;
+    this.gestureFrame = 0;
+    this.gestureFramesTotal = 60;
+    this.gestureScaleX = 80;
+    this.gestureScaleY = 60;
+  }
+
+  applyForce(force) {
+    let f = p5.Vector.div(force, this.mass);
+    this.vel.add(f);
+  }
+
+  startGesture(direction, frames) {
+    this.gestureActive = true;
+    this.gestureDir = (direction >= 0) ? 1 : -1;
+    this.gestureFrame = 0;
+    this.gestureFramesTotal = frames || this.gestureFramesTotal;
+    this.vel.x += this.gestureDir * 6;
+  }
+
+  teardropPoint(t, sx, sy) {
+    let theta = map(t, 0, 1, -PI / 2, 3 * PI / 2);
+    let r = 1 - sin(theta);
+    let x = r * cos(theta) * sx;
+    let y = r * sin(theta) * sy;
+    return createVector(x, y);
+  }
+
+  update(velocidadMundo) {
+    let velocidadBobBase = 0.05;
+    let velocidadBobExtra = map(velocidadMundo, 0.5, 8, 0, 0.15);
+    let velocidadBobTotal = velocidadBobBase + velocidadBobExtra;
+    let amplitudBob = map(velocidadMundo, 0.5, 8, 1, 6);
+    let bobY = sin(this.bobTime) * amplitudBob;
+    this.bobTime += velocidadBobTotal;
+
+    let amplitudZigzag = map(velocidadMundo, 0.5, 8, 1, 5);
+    let zigzagX = map(noise(this.zigzagTime), 0, 1, -amplitudZigzag, amplitudZigzag);
+    this.zigzagTime += 0.01;
+
+    let gestureOffset = createVector(0, 0);
+    if (this.gestureActive) {
+      let t = this.gestureFrame / max(1, this.gestureFramesTotal);
+      gestureOffset = this.teardropPoint(t, this.gestureScaleX, this.gestureScaleY);
+      gestureOffset.x *= this.gestureDir;
+      this.gestureFrame++;
+      if (this.gestureFrame >= this.gestureFramesTotal) this.gestureActive = false;
+    }
+
+    let perlinBase = map(noise(this.lateralNoiseSeed + frameCount * this.lateralNoiseSpeed), 0, 1, -1, 1);
+    let lateralPerlinX = perlinBase * this.lateralNoiseAmp;
+
+    let targetLateral;
+    if (this.gestureActive) {
+      targetLateral = gestureOffset.x + lateralPerlinX * 0.25;
+      this.offset.y = lerp(this.offset.y, gestureOffset.y * 0.35, 0.12);
+    } else {
+      targetLateral = lateralPerlinX + zigzagX * 0.6;
+      this.offset.y = lerp(this.offset.y, 0, 0.06);
+    }
+
+    this.offset.x = lerp(this.offset.x, targetLateral, 0.22);
+
+    this.offset.add(this.vel);
+    this.vel.mult(this.damping);
+
+    let spring = p5.Vector.mult(this.offset, -this.springK);
+    this.vel.add(spring);
+
+    if (this.repulsionTimer > 0) this.repulsionTimer--;
+    if (this.blackoutTimer > 0) this.blackoutTimer--;
+
+    this.currentX = this.baseX + zigzagX + this.offset.x;
+    this.currentY = this.baseY + bobY + this.offset.y;
+
+    this.currentX = constrain(this.currentX, this.baseX - wallHalf, this.baseX + wallHalf);
+  }
+
+  drawGlowSource(pg) {
+    if (blackoutGlobalTimer > 0 || this.blackoutTimer > 0) return;
+    pg.fill(this.starColor);
+    pg.ellipse(this.currentX, this.currentY, this.glowSourceSize * this.starBrightnessMultiplier, this.glowSourceSize * this.starBrightnessMultiplier);
+  }
+
+  show() {
+    noStroke();
+    if (blackoutGlobalTimer > 0 || this.blackoutTimer > 0) return;
+    fill(this.starColor);
+    ellipse(this.currentX, this.currentY, this.starSize * this.starBrightnessMultiplier, this.starSize * this.starBrightnessMultiplier);
+  }
+
+  drawTrail() {
+    if (blackoutGlobalTimer > 0 || this.blackoutTimer > 0) return;
+    noStroke();
+    let normX = 0, normY = 1;
+    let r = red(this.starColor), g = green(this.starColor), b = blue(this.starColor);
+    let perpX = normY, perpY = -normX;
+    for (let i = 0; i < this.trailLength; i++) {
+      let progress = i / this.trailLength;
+      let baseX = this.currentX + normX * i;
+      let baseY = this.currentY + normY * i;
+      let wiggleAmount = map(noise(this.tailWiggleTime + i * 0.1), 0, 1, -8, 8);
+      let finalWiggle = wiggleAmount * progress;
+      let x = baseX + perpX * finalWiggle;
+      let y = baseY + perpY * finalWiggle;
+      let currentWidth = lerp(this.trailStartWidth, this.trailEndWidth, progress) * this.starBrightnessMultiplier;
+      let currentAlpha = lerp(this.trailStartAlpha, this.trailEndAlpha, progress);
+      fill(r, g, b, currentAlpha);
+      ellipse(x, y, currentWidth, currentWidth);
+    }
+  }
+}
+
+// ---------------- Clase FormaPasillo ----------------
+class FormaPasillo {
+  constructor() {
+    this.tamCuadroOrigen = width / 10;
+    this.vpX = width / 2;
+    this.vpY = height / 2;
+    this.reset();
+  }
+  reset() {
+    let enLadoHorizontal = random() > 0.5;
+    let medioTamLados = this.tamCuadroOrigen / 2;
+    let tamArriba = this.tamCuadroOrigen * 0.98;
+    let tamAbajo = this.tamCuadroOrigen * 0.02;
+    let bordeSuperior = this.vpY - tamArriba;
+    let bordeInferior = this.vpY + tamAbajo;
+    let bordeIzquierdo = this.vpX - medioTamLados;
+    let bordeDerecho = this.vpX + medioTamLados;
+    if (enLadoHorizontal) {
+      this.x = random(bordeIzquierdo, bordeDerecho);
+      this.y = random() > 0.5 ? bordeSuperior : bordeInferior;
+    } else {
+      this.x = random() > 0.5 ? bordeIzquierdo : bordeDerecho;
+      this.y = random(bordeSuperior, bordeInferior);
+    }
+    let dirX = this.x - this.vpX;
+    let dirY = this.y - this.vpY;
+    let mag = sqrt(dirX * dirX + dirY * dirY);
+    if (mag === 0) mag = 0.01;
+    this.velX = dirX / mag;
+    this.velY = dirY / mag;
+    this.velBase = random(0.5, 1.5);
+  }
+  
+  update(velocidadAudio, estrella) {
+    // AJUSTE: Escalar la velocidad al inicio de la simulación (movimiento gradual)
+    let speedScale = 1.0;
+    if (initialDelayTimer > 0) {
+      speedScale = map(initialDelayTimer, INITIAL_DELAY_DURATION, 0, 0.1, 1.0, true);
+    }
+    
+    let velocidadTotal = this.velBase * velocidadAudio * speedScale;
+    this.x += this.velX * velocidadTotal;
+    this.y += this.velY * velocidadTotal;
+    let d = dist(this.x, this.y, estrella.currentX, estrella.currentY);
+    let radioRepulsion = 80;
+    if (d < radioRepulsion) {
+      let repelX = this.x - estrella.currentX;
+      let repelY = this.y - estrella.currentY;
+      if (d > 0) { repelX /= d; repelY /= d; }
+      let fuerza = map(d, 0, radioRepulsion, 5, 0);
+      this.x += repelX * fuerza;
+      this.y += repelY * fuerza;
+    }
+    if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+  }
+  
+  show(pg) {
+    pg.colorMode(RGB, 255, 255, 255, 100);
+    let distCentro = dist(this.x, this.y, this.vpX, this.vpY);
+    let maxDist = dist(0, 0, this.vpX, this.vpY);
+    let progreso = map(distCentro, 0, maxDist, 0, 1, true);
+    
+    // AJUSTE: Escalar el tamaño del punto al inicio de la simulación (crecimiento gradual)
+    let sizeScale = 1.0;
+    if (initialDelayTimer > 0) {
+      sizeScale = map(initialDelayTimer, INITIAL_DELAY_DURATION, 0, 0, 1.0, true);
+    }
+    
+    // AJUSTE DE TAMAÑO: Rango más sutil (0.5 a 2.5) y aplicación del factor de escala.
+    let tamPunto = map(progreso, 0, 1, 0.5, 2.5) * sizeScale;
+    
+    let alpha = map(distCentro, 0, maxDist, 30, 100);
+    let finalColor = color(currentR, currentG, currentB, alpha);
+    pg.fill(finalColor);
+    pg.noStroke();
+    pg.ellipse(this.x, this.y, tamPunto, tamPunto);
+    pg.stroke(finalColor);
+    pg.strokeWeight(tamPunto * 0.7);
+    let colitaX = this.x - this.velX * tamPunto * 2;
+    let colitaY = this.y - this.velY * tamPunto * 2;
+    pg.line(colitaX, colitaY, this.x, this.y);
+    pg.noStroke();
+  }
+}
+
+// ---------------- Interacción (teclado) ----------------
+function mousePressed() {
+  if (!song.isPlaying()) song.loop();
+}
+
+function keyPressed() {
+  // velocidad global override
+  if (keyCode === UP_ARROW) {
+    manualSpeed = constrain(manualSpeed + manualSpeedStep, 0.1, 12);
+    manualOverrideTimer = manualOverrideDuration;
+  } else if (keyCode === DOWN_ARROW) {
+    manualSpeed = constrain(manualSpeed - manualSpeedStep, 0.1, 12);
+    manualOverrideTimer = manualOverrideDuration;
+  }
+
+  // gesturas laterales
+  if (keyCode === LEFT_ARROW) estrellita.startGesture(-1, 60);
+  else if (keyCode === RIGHT_ARROW) estrellita.startGesture(1, 60);
+
+  // blackout (Solo afecta al blackout, no toca otros timers de efectos temporales)
+  if (key === 'l' || key === 'L') {
+    blackoutGlobalTimer = blackoutGlobalDuration; // 0.2s
+    estrellita.blackoutTimer = estrellita.blackoutDuration; // 0.2s
+  }
+
+  // AJUSTE DE PALETAS TEMPORALES
+  if (key === '1') {
+    paletteMode = 'warm';
+    temporaryEffectTimer = TEMPORARY_DURATION;
+  } else if (key === '2') {
+    paletteMode = 'bw';
+    temporaryEffectTimer = TEMPORARY_DURATION;
+  } else if (key === '3') {
+    paletteMode = 'random';
+    // Asigna un objeto simple {r, g, b} a cada portal
+    for (let p of portales) {
+      p.randomColor = { r: random(60, 255), g: random(60, 255), b: random(60, 255) };
+    }
+    temporaryEffectTimer = TEMPORARY_DURATION;
+  } else if (key === '0') {
+    paletteMode = 'normal';
+    temporaryEffectTimer = 0; // Desactiva directamente el timer
+  }
+
+  // AJUSTE DE ROTACIÓN TEMPORAL
+  if (key === 'q' || key === 'Q') {
+    portalRotationDir = 1; // Fuerza CW
+    temporaryEffectTimer = TEMPORARY_DURATION;
+  } else if (key === 'w' || key === 'W') {
+    portalRotationDir = -1; // Fuerza CCW
+    temporaryEffectTimer = TEMPORARY_DURATION;
+  }
+
+  // ✨ NUEVO: AJUSTE DE BRILLO TEMPORAL DE LA ESTRELLA
+  if (key === 'k' || key === 'K') {
+    estrellita.starBrightnessMultiplier = 2.0; // Doble de brillo/tamaño
+    temporaryEffectTimer = TEMPORARY_DURATION;
+  }
 
 
-
-
-
-
+  // evitar comportamiento por defecto (scroll con flechas)
+  return false;
+}
+````
+ 2. Un enlace a tu sketch en el editor de p5.js.
+    >
+    > [P5.JS WEB EDITOR | FINAL SIMULACIÓN](https://editor.p5js.org/LCami-Villanueva/sketches/60PL8-6Ta)
+    
+    
+ 4. Capturas de pantalla mostrando tu pieza en acción.
 
 
 
