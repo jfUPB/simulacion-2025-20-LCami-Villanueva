@@ -817,7 +817,17 @@ function keyPressed() {
     > <img width="1620" height="870" alt="image" src="https://github.com/user-attachments/assets/162ca7f7-e6db-4173-9df6-8b637c2ff42a" />
     >
     > <img width="612" height="653" alt="image" src="https://github.com/user-attachments/assets/feb032f0-ebdb-4d5c-b62d-d2cf16346b4d" />
-    > 
+    
+    ## Autoevalución:
+    ### Nota Propuesta **5.0**. 
+
+Esta nota se justifica porque en el proyecto final complete las **tres actividades requeridas de la rúbrica** y cumplí con el objetivo principal de la unidad: **Integrar los conceptos y técnicas para crear una pieza de arte generativo algorítmico, interactiva y en tiempo real**. La bitácora demuestra que el sistema pasó de vectores y partículas básicas a una performance controlada.
+
+#### 2. 
+* **Integración de Conceptos y Técnicas:** El código final combina con éxito la **Física de resorte** (para el movimiento elástico de la Estrella), las **Fuerzas** (para la repulsión del pasillo), los **Sistemas de Partículas**, y el **Ruido Perlin** (para la distorsión caótica).
+* **Diseño e Implementación de un Sistema Generativo:** Se diseñó un sistema de visualización que interpreta la disonancia de la canción. Las **Puertas** (arte generativo) reaccionan al audio, y la **Rotación** se usa como un acto expresivo en tiempo real.
+* **Interpretación Musical en Tiempo Real (Liveness):** Logré crear una narrativa controlable. Los comandos como el **Pulso de Brillo (K)**, el **Blackout Fugaz (L) de 0.2s**, y los **Efectos Temporales** me permiten interpretar la lucha por la supervivencia de la Estrellita justo en el momento que lo exige la música.
+
 
 
 
