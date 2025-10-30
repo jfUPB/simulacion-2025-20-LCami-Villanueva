@@ -31,58 +31,50 @@
 
 #### 3. Los inputs seleccionados y la justificación de por qué los elegiste.
 
-##### 3.1. Inputs Reactivos (Automáticos)
+>##### Inputs Reactivos (Automáticos)
 
-* **Ritmo de la Canción (Rasgueo Urgente):** La Energía HighMid de FFT controla la velocidad del pasillo. Vincula directamente la sensación de "huida" con la urgencia rítmica de la canción.
-* **Tensión Armónica (La Oscuridad):** La intensidad de la música manipula la paleta de colores general de las Puertas, reflejando el cambio emocional del "cuento de hadas" a la "pesadilla".
-* **Movimiento de la Estrellita:** El movimiento lateral caótico (bandazos erráticos) de la Estrella se intensifica con la música, simulando la desesperación.
+> * **Ritmo de la Canción (Rasgueo Urgente):** La Energía HighMid de FFT controla la velocidad del pasillo. Vincula directamente la sensación de "huida" con la urgencia rítmica de la canción.
+> * **Tensión Armónica (La Oscuridad):** La intensidad de la música manipula la paleta de colores general de las Puertas, reflejando el cambio emocional del "cuento de hadas" a la "pesadilla".
+> * **Movimiento de la Estrellita:** El movimiento lateral caótico (bandazos erráticos) de la Estrella se intensifica con la música, simulando la desesperación.
 
-##### 3.2. Inputs de Performance (Manuales)
+##### Inputs de Performance (Manuales)
 
-**Nota:** Todos los efectos manuales (excepto Acelerar/Frenar) tienen una duración de **1 segundo** o menos, enfatizando el control fugaz y dramático.
-
-* **Acelerador / Freno Manual (Flechas UP/DOWN):** Permite crear **"sprints"** o momentos de **"agotamiento"** (Override de Velocidad).
-* **Pulso de Brillo (Tecla K):** Es el **"Grito de Poder"** de la estrella. Aumenta temporalmente el tamaño y la luminiscencia para desafiar a la oscuridad.
-* **Blackout Fugaz (Tecla L):** Simula la vulnerabilidad extrema. Apaga y enciende la luz en solo **0.2 segundos** (12 frames), creando un parpadeo rápido.
-* **Rotación de la Realidad (Teclas Q/W):** Fuerza la rotación del entorno, interpretando el **retorcimiento del espacio** (inspiración en Alexander Calder) por 1 segundo.
-* **Paletas Temporales (Teclas 1, 2, 3):** Permite cambiar el entorno visual (Warm, BW estricto, Random) temporalmente.
-* **Control de Distorsión (Flechas LEFT/RIGHT):** Permite realizar **"Gestos"** o movimientos laterales elásticos que interpretan la evasión y la lucha por el equilibrio.
-* **Ancho del Pasillo (Repulsor):** Este control se implementó como una **fuerza repulsora fija** de la Estrellita, estableciendo su "presencia" inherente.
+> * **Acelerador / Freno Manual (Flechas UP/DOWN):** Permite crear **"sprints"** o momentos de **"agotamiento"** (Override de Velocidad).
+> * **Pulso de Brillo (Tecla K):** Es el **"Grito de Poder"** de la estrella. Aumenta temporalmente el tamaño y la luminiscencia para desafiar a la oscuridad.
+> * **Blackout Fugaz (Tecla L):** Simula la vulnerabilidad extrema. Apaga y enciende la luz en solo **0.2 segundos** (12 frames), creando un parpadeo rápido.
+> * **Rotación de la Realidad (Teclas Q/W):** Fuerza la rotación del entorno, interpretando el **retorcimiento del espacio**  por 1 segundo.
+> * **Paletas Temporales (Teclas 1, 2, 3):** Permite cambiar el entorno visual (Warm, BW estricto, Random) temporalmente.
+> * **Control de Distorsión (Flechas LEFT/RIGHT):** Permite realizar **"Gestos"** o movimientos laterales elásticos que interpretan la evasión y la lucha por el equilibrio.
+> * **Ancho del Pasillo (Repulsor):** Este control se implementó como una **fuerza repulsora fija** de la Estrellita, estableciendo su "presencia" inherente.
 
 ---
 
 #### 4. ¿Qué algoritmos o técnicas planeas usar y por qué?
 
-* **Sistemas de Partículas:** Técnica central para el "Pasillo Infinito" y la Estela de Luz.
-* **Física de Muelle/Amortiguación:** Utilizado en la Estrellita para dar un movimiento elástico y orgánico que simula la lucha por el equilibrio.
-* **Fuerzas:** La Estrellita aplica una **fuerza repulsora fija** al entorno, la mecánica clave de su interacción.
-* **Ruido Perlin (`noise()`):** Usado para la **"Distorsión"** (movimiento lateral errático) de la Estrellita, añadiendo pánico y vida al protagonista.
-* **Control de Frame-Rate y Temporización:** Uso de contadores de *frame* para gestionar los efectos manuales con **precisión temporal** y el inicio suave de la simulación.
+> * **Sistemas de Partículas:** Técnica central para el "Pasillo Infinito" y la Estela de Luz.
+> * **Física de Muelle/Amortiguación:** Utilizado en la Estrellita para dar un movimiento elástico y orgánico que simula la lucha por el equilibrio.
+> * **Fuerzas:** La Estrellita aplica una **fuerza repulsora fija** al entorno, la mecánica clave de su interacción.
+> * **Ruido Perlin (`noise()`):** Usado para la **"Distorsión"** (movimiento lateral errático) de la Estrellita, añadiendo pánico y vida al protagonista.
+> * **Control de Frame-Rate y Temporización:** Uso de contadores de *frame* para gestionar los efectos manuales con **precisión temporal** y el inicio suave de la simulación.
 5. Tus bocetos y una explicación de cómo los inputs influirán en los visuales.
-   > ### Bocetos:
-   >
-   > > Mi concepto visual final sigue siendo una metáfora de la disonancia de la canción, manteniendo el contraste entre el dulce *cuento de hadas* y el *terror de la cacería*. La protagonista (la Estrellita) es la única luz, constantemente huyendo a través de un pasillo infinito de formas que representan la oscuridad.
+> #### 1.  Inputs Reactivos (La Música como Antagonista)
 
-### La Lucha por la Luz: Conexión de Inputs y Visuales
+> * **Ritmo (Rasgueo Urgente):** El pulso rítmico controla la velocidad del pasillo y de las puertas cósmicas. A mayor urgencia en la canción, más rápido fluye el túnel hacia la Estrellita, aumentando la sensación de pánico y huida.
+> * **Tensión Armónica (Tonalidad):** La intensidad de la música mapea la paleta de colores del pasillo. Esto refleja el cambio de estado emocional, pasando de tonos suaves de "cuento de hadas" a tonos inquietantes de "pesadilla".
+> * **Movimiento de la Estrellita:** La Estrellita tiene un movimiento lateral caótico que se intensifica con la velocidad de la música, simulando los "bandazos erráticos" de desesperación.
 
-#### 1.  Inputs Reactivos (La Música como Antagonista)
-
-* **Ritmo (Rasgueo Urgente):** El pulso rítmico controla la velocidad del pasillo y de las puertas cósmicas. A mayor urgencia en la canción, más rápido fluye el túnel hacia la Estrellita, aumentando la sensación de pánico y huida.
-* **Tensión Armónica (Tonalidad):** La intensidad de la música mapea la paleta de colores del pasillo. Esto refleja el cambio de estado emocional, pasando de tonos suaves de "cuento de hadas" a tonos inquietantes de "pesadilla".
-* **Movimiento de la Estrellita:** La Estrellita tiene un movimiento lateral caótico que se intensifica con la velocidad de la música, simulando los "bandazos erráticos" de desesperación.
-
-#### 2.Inputs de Performance 
+> #### 2.Inputs de Performance 
 
 Estos comandos manuales crean picos de intensidad expresiva de **1 segundo** de duración.
 
-* **Acelerador/Freno (Flechas UP/DOWN):** Permite hacer un *override* momentáneo de la velocidad. Se usa para crear un "sprint" dramático o momentos de "agotamiento".
-* **Pulso de Brillo (Tecla K):** Es mi "Grito de Poder". La Estrellita y su estela duplican su tamaño y luminiscencia , desafiando a la oscuridad con un pulso de luz intensa.
-* **Blackout Fugaz (Tecla L):** Simula la vulnerabilidad extrema. La luz desaparece y reaparece en solo **0.2 segundos**, creando un parpadeo rápido como si la luz estuviera al borde de la extinción.
-* **Rotación de la Realidad (Teclas Q/W):** Fuerza a las Puertas Cósmicas a rotar. Esto interpreta el retorcimiento del espacio  ante la presión, llevando el túnel a una pesadilla espiralada por 1 segundo.
-* **Paletas Temporales (Teclas 1, 2, 3):** Permite cambiar el entorno visual (Warm, BW estricto, Random) para acentuar un sentimiento, volviendo a la paleta reactiva al finalizar el segundo.
-* **Control de Distorsión (Flechas LEFT/RIGHT):** Permite realizar "Gestos" o movimientos laterales elásticos, interpretando la evasión y la lucha por el equilibrio.
+> * **Acelerador/Freno (Flechas UP/DOWN):** Permite hacer un *override* momentáneo de la velocidad. Se usa para crear un "sprint" dramático o momentos de "agotamiento".
+> * **Pulso de Brillo (Tecla K):** Es mi "Grito de Poder". La Estrellita y su estela duplican su tamaño y luminiscencia , desafiando a la oscuridad con un pulso de luz intensa.
+> * **Blackout Fugaz (Tecla L):** Simula la vulnerabilidad extrema. La luz desaparece y reaparece en solo **0.2 segundos**, creando un parpadeo rápido como si la luz estuviera al borde de la extinción.
+> * **Rotación de la Realidad (Teclas Q/W):** Fuerza a las Puertas Cósmicas a rotar. Esto interpreta el retorcimiento del espacio  ante la presión, llevando el túnel a una pesadilla espiralada por 1 segundo.
+> * **Paletas Temporales (Teclas 1, 2, 3):** Permite cambiar el entorno visual (Warm, BW estricto, Random) para acentuar un sentimiento, volviendo a la paleta reactiva al finalizar el segundo.
+> * **Control de Distorsión (Flechas LEFT/RIGHT):** Permite realizar "Gestos" o movimientos laterales elásticos, interpretando la evasión y la lucha por el equilibrio.
 
-  ### Proceso
+  ### Bocetos / Proceso 
    >###1
    > El primer paso fue establecer el escenario y la protagonista. Necesitaba una "única luz" simple y un entorno que generara la ilusión de huida. Utilicé partículas muy básicas para construir el pasillo infinito, configurándolas para que fluyeran desde el centro hacia afuera, lo que establece la perspectiva y el movimiento inicial. La Estrellita aquí es solo un punto simple en un espacio oscuro y estático, listo para recibir vida.
    > 
@@ -821,12 +813,12 @@ function keyPressed() {
     ## Autoevalución:
     ### Nota Propuesta **5.0**. 
 
-Esta nota se justifica porque en el proyecto final complete las **tres actividades requeridas de la rúbrica** y cumplí con el objetivo principal de la unidad: **Integrar los conceptos y técnicas para crear una pieza de arte generativo algorítmico, interactiva y en tiempo real**. La bitácora demuestra que el sistema pasó de vectores y partículas básicas a una performance controlada.
+    > Esta nota se justifica porque en el proyecto final complete las **tres actividades requeridas de la rúbrica** y cumplí con el objetivo principal de la unidad: **Integrar los conceptos y técnicas para crear una pieza de arte generativo algorítmico, interactiva y en tiempo real**. La bitácora demuestra que el sistema pasó de vectores y partículas básicas a una performance controlada.
 
-#### 2. 
-* **Integración de Conceptos y Técnicas:** El código final combina con éxito la **Física de resorte** (para el movimiento elástico de la Estrella), las **Fuerzas** (para la repulsión del pasillo), los **Sistemas de Partículas**, y el **Ruido Perlin** (para la distorsión caótica).
-* **Diseño e Implementación de un Sistema Generativo:** Se diseñó un sistema de visualización que interpreta la disonancia de la canción. Las **Puertas** (arte generativo) reaccionan al audio, y la **Rotación** se usa como un acto expresivo en tiempo real.
-* **Interpretación Musical en Tiempo Real (Liveness):** Logré crear una narrativa controlable. Los comandos como el **Pulso de Brillo (K)**, el **Blackout Fugaz (L) de 0.2s**, y los **Efectos Temporales** me permiten interpretar la lucha por la supervivencia de la Estrellita justo en el momento que lo exige la música.
+     > * **Integración de Conceptos y Técnicas:** El código final combina con éxito la **Física de resorte** (para el movimiento elástico de la Estrella), las **Fuerzas** (para la repulsión del pasillo), los **Sistemas de Partículas**, y el **Ruido Perlin** (para la distorsión caótica).
+     > * **Diseño e Implementación de un Sistema Generativo:** Se diseñó un sistema de visualización que interpreta la disonancia de la canción. Las **Puertas** (arte generativo) reaccionan al audio, y la **Rotación** se usa como un acto expresivo en tiempo real.
+     > * **Interpretación Musical en Tiempo Real (Liveness):** Logré crear una narrativa controlable. Los comandos como el **Pulso de Brillo    (K)**, el **Blackout Fugaz (L) de 0.2s**, y los **Efectos Temporales** me permiten interpretar la lucha por la supervivencia de la Estrellita justo en el momento que lo exige la música.
+
 
 
 
